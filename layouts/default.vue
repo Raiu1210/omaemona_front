@@ -27,35 +27,38 @@
     <v-app-bar
       :clipped-left="clipped"
       fixed
+      color="primary"
       app
     >
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-btn
+      <v-app-bar-nav-icon color="white" @click.stop="drawer = !drawer" />
+      <!-- <v-btn
         icon
         @click.stop="miniVariant = !miniVariant"
       >
         <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
-      </v-btn>
-      <v-btn
+      </v-btn> -->
+      <!-- <v-btn
         icon
         @click.stop="clipped = !clipped"
       >
         <v-icon>mdi-application</v-icon>
-      </v-btn>
-      <v-btn
+      </v-btn> -->
+      <!-- <v-btn
         icon
         @click.stop="fixed = !fixed"
       >
         <v-icon>mdi-minus</v-icon>
-      </v-btn>
-      <v-toolbar-title v-text="title" />
+      </v-btn> -->
+      <v-toolbar-title class="white--text" v-text="title" />
       <v-spacer />
-      <v-btn
+
+      <!-- @todo : 公開鍵からユーザを特定して表示したい -->
+      <!-- <v-btn
         icon
         @click.stop="rightDrawer = !rightDrawer"
       >
         <v-icon>mdi-menu</v-icon>
-      </v-btn>
+      </v-btn> -->
     </v-app-bar>
     <v-main>
       <v-container>
@@ -92,19 +95,19 @@
 export default {
   data () {
     return {
-      clipped: false,
+      clipped: true,
       drawer: false,
       fixed: false,
       items: [
         {
           icon: 'mdi-apps',
-          title: 'Welcome',
+          title: 'ホーム',
           to: '/'
         },
         {
           icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire'
+          title: '記事を書く',
+          to: '/write'
         }
       ],
       miniVariant: false,
