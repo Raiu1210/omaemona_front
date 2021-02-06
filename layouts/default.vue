@@ -9,6 +9,7 @@
     >
       <v-list>
         <v-list-item
+          @click.stop="drawer = !drawer"
           v-for="(item, i) in items"
           :key="i"
           :to="item.to"
@@ -61,7 +62,7 @@
       </v-btn> -->
     </v-app-bar>
     <v-main>
-      <v-container>
+      <v-container fluid>
         <nuxt />
       </v-container>
     </v-main>
@@ -113,7 +114,7 @@ export default {
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'Vuetify.js'
+      title: '（　´∀｀）＜　オマエモナー'
     }
   }
 }
