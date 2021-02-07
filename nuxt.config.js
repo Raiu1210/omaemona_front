@@ -1,6 +1,19 @@
 import colors from 'vuetify/es5/util/colors'
 
+// for localhost to https
+import path from 'path'
+import fs from 'fs'
+
 export default {
+  // https configuration
+  server: {
+    https: {
+      key: fs.readFileSync('../../../ssl/localhost.key'),
+      cert: fs.readFileSync('../../../ssl/localhost.crt')
+    }
+  },
+
+
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     titleTemplate: '%s - omaemona_front',
