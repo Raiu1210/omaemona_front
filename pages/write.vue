@@ -100,7 +100,6 @@ export default {
       // @todo: need validation
       const postObj = {
         "title": this.title,
-        "address": this.address,
         "content": this.content
       }
 
