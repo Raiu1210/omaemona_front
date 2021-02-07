@@ -62,6 +62,7 @@ export default {
   data() {
     return {
       title: '',
+      address: '',
       markdownOption: {
         bold: true,
         italic: true,
@@ -86,6 +87,9 @@ export default {
       content: "# Markdownで記事を書く！"
     };
   },
+  async beforeMount() {
+    this.address = await window.mpurse.getAddress()
+  },
   methods: {
     async postContent() {
       if (!confirm("この内容で投稿しますか？")) {
@@ -96,6 +100,7 @@ export default {
       // @todo: need validation
       const postObj = {
         "title": this.title,
+        "address": this.address,
         "content": this.content
       }
 
@@ -111,9 +116,4 @@ export default {
   width: 100%;
   height: 100%;
 }
-</style>
-
-
-<style scoped>
-
 </style>

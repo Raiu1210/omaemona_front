@@ -1,7 +1,6 @@
 import colors from 'vuetify/es5/util/colors'
 
 // for localhost to https
-import path from 'path'
 import fs from 'fs'
 
 export default {
