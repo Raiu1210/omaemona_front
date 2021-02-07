@@ -41,7 +41,14 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    '@nuxtjs/markdownit'
   ],
+
+  // markdown-it
+  markdownit: {
+    injected: true,   // $mdを使ってどこからでも使えるようになる
+    breaks: true      // 改行を<br>に変換してくれる
+  },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {

@@ -1,22 +1,32 @@
 <template>
   <div class="editorView">
-    <v-alert
-      outlined
-      type="warning"
-      prominent
-      border="left"
-    >
-      画像の投稿のところで「画像をアップロード」の機能はまだ未実装です。「画像のリンク」は動くのでお手数ですがしばらくの間はどこか別のところ（Imgurとか：https://imgur.com/）に画像をアップロードしたのちにリンクをこちらに貼って下さい m(-_-)m ｽﾏﾇ
-    </v-alert>
+    <v-row>
+      <v-col cols="12">
+        <v-alert
+          outlined
+          type="warning"
+          prominent
+          border="left"
+        >
+          画像の投稿のところで「画像をアップロード」の機能はまだ未実装です。「画像のリンク」は動くのでお手数ですがしばらくの間はどこか別のところ（Imgurとか：https://imgur.com/）に画像をアップロードしたのちにリンクをこちらに貼って下さい m(-_-)m ｽﾏﾇ
+        </v-alert>
+      </v-col>
+    </v-row>
+
+
     <!-- editor : no-ssr -->
-    <no-ssr>
-      <mavon-editor
-        fontSize="18px"
-        :toolbars="markdownOption"
-        :language="'ja'"
-        v-model="handbook"
-      />
-    </no-ssr>
+    <v-row>
+      <v-col>
+        <no-ssr>
+          <mavon-editor
+            fontSize="18px"
+            :toolbars="markdownOption"
+            :language="'ja'"
+            v-model="handbook"
+          />
+        </no-ssr>
+      </v-col>
+    </v-row>
 
     <!-- post button -->
     <!-- @todo v-dialogとか使えばもっとおしゃれになりそう -->
@@ -32,6 +42,8 @@
 
 
 <script>
+import {axiosInstance as Api} from '~/myModules/api'
+
 export default {
   data() {
     return {
@@ -60,7 +72,10 @@ export default {
     };
   },
   methods: {
-    postContent() {
+    async postContent() {
+      const test = await Api.get('/')
+      console.log(test)
+
       if (!confirm("この内容で投稿しますか？")) {
         console.log("not yet")
         return 0
