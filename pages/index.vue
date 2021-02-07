@@ -10,9 +10,13 @@
 import Logo from '~/components/Logo.vue'
 import VuetifyLogo from '~/components/VuetifyLogo.vue'
 
+import checkMyAddress from '~/myModules/checkMyAddress'
 import sample from './README.md'
 
 export default {
+  beforeMount() {
+    checkMyAddress()
+  },
   computed: {
     sample() {
       return sample
