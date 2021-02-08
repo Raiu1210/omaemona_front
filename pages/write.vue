@@ -63,6 +63,7 @@ export default {
     return {
       title: '',
       address: '',
+      articles: [],
       markdownOption: {
         bold: true,
         italic: true,
