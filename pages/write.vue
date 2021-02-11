@@ -57,6 +57,7 @@
 
 <script>
 import {axiosInstance as Api} from '~/myModules/api'
+import checkMyAddressRegistered from '~/myModules/checkMyAddress'
 
 export default {
   data() {
@@ -88,10 +89,19 @@ export default {
     };
   },
   async beforeMount() {
-    this.address = await window.mpurse.getAddress()
+    window.mpurse.updateEmitter.removeAllListeners()
+      .on('stateChanged', isUnlocked => console.log(isUnlocked))
+      .on('addressChanged', address => console.log(address));
+
+    if (!await checkMyAddressRegistered()) {
+      alert("you are not registered yet")
+    }
   },
   methods: {
     async postContent() {
+      // アドレスの確認
+
+      // 投稿への確認
       if (!confirm("この内容で投稿しますか？")) {
         console.log("not yet")
         return 0
@@ -100,7 +110,7 @@ export default {
       // @todo: need validation
       const postObj = {
         "title": this.title,
-        "content": this.content
+        "content": this.content,
       }
 
       const result = await Api.post('/write', postObj)

@@ -107,7 +107,7 @@ export default {
           to: '/'
         },
         {
-          icon: 'mdi-chart-bubble',
+          icon: 'mdi-pencil-plus',
           title: '記事を書く',
           to: '/write'
         }
