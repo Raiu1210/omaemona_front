@@ -94,7 +94,8 @@ export default {
       .on('addressChanged', address => console.log(address));
 
     if (!await checkMyAddressRegistered()) {
-      alert("you are not registered yet")
+      alert("記事を投稿するにはモナコインアドレスを登録する必要があります")
+      this.$router.push('/signup')
     }
   },
   methods: {
