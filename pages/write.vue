@@ -63,7 +63,6 @@ export default {
     return {
       title: '',
       address: '',
-      articles: [],
       markdownOption: {
         bold: true,
         italic: true,
@@ -115,5 +114,10 @@ export default {
 .editorView {
   width: 100%;
   height: 100%;
+}
+
+.title_field {
+  background-color: white;
+  height: 50px;
 }
 </style>

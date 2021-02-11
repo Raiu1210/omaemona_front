@@ -7,5 +7,4 @@ export default async function checkMyAddressRegistered () {
   }
 
   const result = await Api.post('/checkAddressRegistered', postItem)
-  console.log(result)
 }

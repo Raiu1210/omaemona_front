@@ -7,6 +7,7 @@
       fixed
       app
     >
+
       <v-list>
         <v-list-item
           @click.stop="drawer = !drawer"
