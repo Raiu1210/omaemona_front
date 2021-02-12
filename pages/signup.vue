@@ -32,6 +32,7 @@
       <v-text-field
         background-color="white"
         height="50"
+        ref="name_form"
         v-model="name"
         :rules="nameRules"
         :counter="20"
@@ -67,6 +68,7 @@ export default {
   data() {
     return {
       name: '',
+      isValid : true ,
       nameRules: [
         v => !!v || 'Name is required',
         v => v.length <= 20 || 'Name must be less than 10 characters',
@@ -75,6 +77,10 @@ export default {
   },
   methods: {
     async signup() {
+      if(!this.$refs["name_form"].validate()) {
+        alert("名前は20文字以内で入力してください")
+      }
+
       const date = new Date()
       const now = date.getTime();
 
