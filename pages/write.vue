@@ -17,15 +17,15 @@
     <!-- title field -->
     <v-row>
       <v-col cols="12">
-          <v-text-field
-            class="title_field"
-            v-model="title"
-            label="タイトル"
-            height="50"
-            outlined
-            dense
-          ></v-text-field>
-        </v-col>
+        <v-text-field
+          class="title_field"
+          v-model="title"
+          label="タイトル"
+          height="50"
+          outlined
+          dense
+        ></v-text-field>
+      </v-col>
     </v-row>
 
     <!-- editor : no-ssr -->

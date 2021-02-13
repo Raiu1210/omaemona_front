@@ -77,8 +77,14 @@ export default {
   },
   methods: {
     async signup() {
+      const successfullyRegistered = 0
+      const sigNotVerified = 1
+      const nameAlreadyRegistered = 2
+      const addressAlreadyRegistered = 3
+
       if(!this.$refs["name_form"].validate()) {
         alert("名前は20文字以内で入力してください")
+        return
       }
 
       const date = new Date()
@@ -96,7 +102,16 @@ export default {
       }
 
       const response = await Api.post('/signup', postItem)
-      console.log(response)
+      if (response["data"]["status"] == successfullyRegistered) {
+        alert("名前とアドレスを登録しました")
+        this.$router.push('/')
+      } else if(response["data"]["status"] == sigNotVerified) {
+        alert("署名が検証できませんでした")
+      } else if(response["data"]["status"] == nameAlreadyRegistered) {
+        alert("この名前は既に使われています")
+      } else if(response["data"]["status"] == addressAlreadyRegistered) {
+        alert("このアドレスは既に使われています")
+      }
     }
   }
 }

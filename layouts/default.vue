@@ -110,6 +110,11 @@ export default {
           icon: 'mdi-pencil-plus',
           title: '記事を書く',
           to: '/write'
+        },
+        {
+          icon: 'mdi-account-plus',
+          title: 'サインアップ',
+          to: '/signup'
         }
       ],
       miniVariant: false,

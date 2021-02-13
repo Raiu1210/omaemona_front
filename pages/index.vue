@@ -98,6 +98,7 @@ export default {
   async created() {
     const response = await Api.get('/')
     this.articles = response['data']
+    console.log(response['data'])
   },
   beforeMount() {
     checkMyAddress()
