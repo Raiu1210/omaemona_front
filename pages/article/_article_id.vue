@@ -6,6 +6,7 @@
     >
       <v-sheet
         class="left_bar"
+        color="#f5f5f5"
         rounded="lg"
         min-height="268"
       >
@@ -24,6 +25,8 @@
       >
         <!-- コンテンツ表示 -->
         <!-- {{article}} -->
+        <span class="author_name">{{authorName}} &ensp;&ensp;&ensp;</span>
+        <span class="updated_time">{{updated}}に更新</span><br /><br />
         <h1>{{title}}</h1><br /><br />
         <div v-html="$md.render(content)"></div>
         <p>authorAddress</p>
@@ -100,6 +103,8 @@
       sm="2"
     >
       <v-sheet
+        class="right_bar"
+        color="#f5f5f5"
         rounded="lg"
         min-height="268"
       >
@@ -120,7 +125,8 @@ export default {
       article: null,
       title: '',
       content: '',
-      created: '',
+      updated: '',
+      authorName: '',
       authorAddress: '',
       dialog: false,
       tooltip: false,
@@ -137,14 +143,28 @@ export default {
     this.article = res['data']
     this.title = res['data']['title']
     this.content = res['data']['content']
-    this.created = res['data']['createdAt']
+    this.authorName = res['data']['user']['name']
     this.authorAddress = res['data']['user']['address']
+
+    const updatedObj = new Date(res['data']['updatedAt'])
+    this.updated = updatedObj.getFullYear() + '年' + updatedObj.getMonth() + '月' + updatedObj.getDate() + '日'
   },
   methods: {
-    sendMona() {
+    async sendMona() {
       this.dialog = false
-      console.log(this.sendAmount)
-    }
+
+      const txHash = await window.mpurse.sendAsset(
+        this.authorAddress,
+        'MONA',
+        this.sendAmount,
+        'plain',
+        'LGTM'
+      )
+      console.log(txHash)
+    },
+  },
+  computed: {
+
   }
 }
 </script>
@@ -153,5 +173,22 @@ export default {
 <style scoped>
 .mona_input {
   width: 200px;
+}
+
+.author_name {
+  font-size: 16pt;
+}
+
+.updated_time {
+  font-size: 10pt;
+  color: #808080;
+}
+
+.left_bar {
+  background-color: '#f5f5f5';
+}
+
+.right_bar {
+  background-color: '#f5f5f5';
 }
 </style>

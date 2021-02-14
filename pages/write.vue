@@ -115,6 +115,10 @@ export default {
       }
 
       const result = await Api.post('/write', postObj)
+      if (result["status"] == 201) {
+        alert("記事の投稿に成功しました！")
+        this.$router.push('/')
+      }
     }
   }
 };

@@ -34,9 +34,13 @@
               <span class="title font-weight-light"></span>
             </v-card-title>
 
-            <v-card-text class="headline font-weight-bold">
+            <v-card-text class="headline font-weight-bold mb-0 pb-0">
               {{article.title}}
             </v-card-text>
+
+            <v-card-subtitle class="pt-0">
+              {{covertUpdateTime(article.updatedAt)}}
+            </v-card-subtitle>
 
             <v-card-actions>
               <v-list-item class="grow">
@@ -59,7 +63,7 @@
                   <v-icon class="mr-1">
                     mdi-alpha-m-circle-outline
                   </v-icon>
-                  <span class="subheading mr-2">256 MONA</span>
+                  <span class="subheading mr-2">{{article.sent_mona}} MONA</span>
                 </v-row>
               </v-list-item>
             </v-card-actions>
@@ -93,22 +97,22 @@ export default {
   data() {
     return {
       articles: [],
+      updated: ''
     }
   },
   async created() {
-    const response = await Api.get('/')
-    this.articles = response['data']
-    console.log(response['data'])
+    const res = await Api.get('/')
+    this.articles = res["data"]
   },
   beforeMount() {
     checkMyAddress()
   },
-  computed: {
-
+  methods: {
+    covertUpdateTime(timeData) {
+      const timeObj = new Date(timeData)
+      return timeObj.getFullYear() + '年' + timeObj.getMonth() + '月' + timeObj.getDate() + '日'
+    }
   },
-  components: {
-
-  }
 }
 </script>
 
