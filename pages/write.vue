@@ -14,6 +14,19 @@
       </v-col>
     </v-row>
 
+    <v-row>
+      <v-col cols="12">
+        <v-alert
+          outlined
+          type="warning"
+          prominent
+          border="left"
+        >
+          日本語だとだいたい2万文字くらいまでしか1記事に入らないと思うので、超大作を作る方は2万文字を目安に分けてね！
+        </v-alert>
+      </v-col>
+    </v-row>
+
     <!-- title field -->
     <v-row>
       <v-col cols="12">

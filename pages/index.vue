@@ -17,8 +17,8 @@
       <v-sheet
         class="sheet"
         rounded="lg"
-        min-height="140vh"
-        max-height="140vh"
+        min-height="200vh"
+        max-height="200vh"
       >
         <v-row
           v-for="article in articles"
@@ -71,6 +71,16 @@
           </v-col>
         </v-row>
 
+        <v-row>
+          <v-col style="justify-content: center;">
+          <v-pagination
+            v-model="page"
+            :length="pageLength"
+            :total-visible="7"
+          ></v-pagination>
+          </v-col>
+        </v-row>
+
       </v-sheet>
     </v-col>
 
@@ -97,12 +107,20 @@ export default {
   data() {
     return {
       articles: [],
-      updated: ''
+      updated: '',
+      page: 1,
+      pageLength: 0
     }
   },
   async created() {
-    const res = await Api.get('/')
-    this.articles = res["data"]
+    const res = await Api.get('/', {
+      params: {
+        page: this.page
+      }
+    })
+    this.articles = res["data"]["articles"]
+    const articlesCount = res["data"]["articlesCount"]
+    this.pageLength = Math.ceil(articlesCount / 10)
   },
   beforeMount() {
     checkMyAddress()
@@ -111,8 +129,25 @@ export default {
     covertUpdateTime(timeData) {
       const timeObj = new Date(timeData)
       return timeObj.getFullYear() + '年' + timeObj.getMonth() + '月' + timeObj.getDate() + '日'
+    },
+    scrollTop(){
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
     }
   },
+  watch: {
+    page: async function(newValue, OldValue) {
+      const res = await Api.get('/', {
+        params: {
+          page: newValue
+        }
+      })
+      this.articles = res["data"]["articles"]
+      this.scrollTop()
+    }
+  }
 }
 </script>
 

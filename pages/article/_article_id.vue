@@ -26,10 +26,15 @@
         <!-- コンテンツ表示 -->
         <!-- {{article}} -->
         <span class="author_name">{{authorName}} &ensp;&ensp;&ensp;</span>
-        <span class="updated_time">{{updated}}に更新</span><br /><br />
+        <span class="updated_time">{{updated}}に更新</span>&ensp;&ensp;&ensp;&ensp;
+        <v-icon class="mr-1">
+          mdi-alpha-m-circle-outline
+        </v-icon>
+        <span class="subheading mr-2">received {{sentMona}} MONA</span><br /><br />
+
+
         <h1>{{title}}</h1><br /><br />
         <div v-html="$md.render(content)"></div>
-        <p>authorAddress</p>
       </v-sheet>
 
       <!-- send MONA -->
@@ -127,6 +132,7 @@ export default {
       content: '',
       updated: '',
       authorName: '',
+      sentMona: 0,
       authorAddress: '',
       dialog: false,
       tooltip: false,
@@ -143,6 +149,7 @@ export default {
     this.article = res['data']
     this.title = res['data']['title']
     this.content = res['data']['content']
+    this.sentMona = res['data']['sent_mona']
     this.authorName = res['data']['user']['name']
     this.authorAddress = res['data']['user']['address']
 
@@ -152,7 +159,6 @@ export default {
   methods: {
     async sendMona() {
       this.dialog = false
-
       const txHash = await window.mpurse.sendAsset(
         this.authorAddress,
         'MONA',
@@ -160,7 +166,13 @@ export default {
         'plain',
         'LGTM'
       )
-      console.log(txHash)
+      const postObj = {
+        article_id: this.$route.params.article_id,
+        amount: this.sendAmount
+      }
+
+      const sendResult = await Api.post('/log_tip', postObj)
+      console.log(sendResult)
     },
   },
   computed: {
