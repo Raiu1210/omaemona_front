@@ -6,9 +6,16 @@ import fs from 'fs'
 export default {
   // https configuration
   server: {
+    host: '0',
+    port: 80,
     https: {
+      // ===== dev =====
       key: fs.readFileSync('../../../ssl/localhost.key'),
       cert: fs.readFileSync('../../../ssl/localhost.crt')
+
+      // // ===== prod =====
+      // key: fs.readFileSync('/etc/letsencrypt/live/omaemona.info/privkey.pem'),
+      // cert: fs.readFileSync('/etc/letsencrypt/live/omaemona.info/fullchain.pem')
     }
   },
 
