@@ -6,8 +6,6 @@ import fs from 'fs'
 export default {
   // https configuration
   server: {
-    host: '0',
-    port: 80,
     https: {
       // ===== dev =====
       key: fs.readFileSync('../../../ssl/localhost.key'),
