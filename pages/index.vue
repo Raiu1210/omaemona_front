@@ -7,7 +7,7 @@
       <v-sheet
         color="#f5f5f5"
         rounded="lg"
-        min-height="140vh"
+        min-height="2vh"
       >
         <!--  -->
       </v-sheet>
@@ -100,7 +100,6 @@
 </template>
 
 <script>
-import checkMyAddress from '~/myModules/checkMyAddress'
 import {axiosInstance as Api} from '~/myModules/api'
 
 export default {
@@ -121,9 +120,6 @@ export default {
     this.articles = res["data"]["articles"]
     const articlesCount = res["data"]["articlesCount"]
     this.pageLength = Math.ceil(articlesCount / 10)
-  },
-  beforeMount() {
-    checkMyAddress()
   },
   methods: {
     covertUpdateTime(timeData) {

@@ -7,24 +7,34 @@
       fixed
       app
     >
-
-      <v-list>
-        <v-list-item
-          @click.stop="drawer = !drawer"
-          v-for="(item, i) in items"
-          :key="i"
-          :to="item.to"
-          router
-          exact
-        >
-          <v-list-item-action>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-action>
+      <v-container>
+        <v-list-item>
           <v-list-item-content>
-            <v-list-item-title v-text="item.title" />
+            <v-list-item-title class="title grey--text text--darken-2">
+              機能一覧
+            </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-      </v-list>
+        <v-divider></v-divider>
+
+        <v-list>
+          <v-list-item
+            @click.stop="drawer = !drawer"
+            v-for="(item, i) in items"
+            :key="i"
+            :to="item.to"
+            router
+            exact
+          >
+            <v-list-item-action>
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title v-text="item.title" />
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+      </v-container>
     </v-navigation-drawer>
     <v-app-bar
       :clipped-left="clipped"
@@ -55,12 +65,14 @@
       <v-spacer />
 
       <!-- @todo : 公開鍵からユーザを特定して表示したい -->
-      <!-- <v-btn
-        icon
-        @click.stop="rightDrawer = !rightDrawer"
-      >
-        <v-icon>mdi-menu</v-icon>
-      </v-btn> -->
+      <NuxtLink to="/mypage">
+        <v-avatar color="">
+          <v-icon dark>
+            mdi-account-circle
+          </v-icon>
+        </v-avatar>
+      </NuxtLink>
+
     </v-app-bar>
     <v-main>
       <v-container fluid>
@@ -94,6 +106,8 @@
 </template>
 
 <script>
+import checkMyAddress from '~/myModules/checkMyAddress'
+
 export default {
   data () {
     return {
@@ -122,7 +136,16 @@ export default {
       rightDrawer: false,
       title: '（　´∀｀）＜　オマエモナー'
     }
-  }
+  },
+  async beforeMount() {
+    const checkResult = await checkMyAddress()
+    if(checkResult['status']) {
+      this.$store.commit('setVerified', checkResult['userInfo']['address'])
+      console.log(this.$store.state.publicAddress)
+    } else {
+      console.log(this.$store.state.publicAddress)
+    }
+  },
 }
 </script>
 
