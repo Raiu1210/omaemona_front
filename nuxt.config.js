@@ -10,10 +10,6 @@ export default {
       // ===== dev =====
       key: fs.readFileSync('../../../ssl/localhost.key'),
       cert: fs.readFileSync('../../../ssl/localhost.crt')
-
-      // // ===== prod =====
-      // key: fs.readFileSync('/etc/letsencrypt/live/omaemona.info/privkey.pem'),
-      // cert: fs.readFileSync('/etc/letsencrypt/live/omaemona.info/fullchain.pem')
     }
   },
 
