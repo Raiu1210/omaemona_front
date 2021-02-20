@@ -8,7 +8,7 @@
         class="left_bar"
         color="#f5f5f5"
         rounded="lg"
-        min-height="268"
+        min-height="10"
       >
 
       </v-sheet>

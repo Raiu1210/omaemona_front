@@ -8,9 +8,14 @@ export default async function checkMyAddressRegistered () {
 
   const result = await Api.post('/checkAddressRegistered', postItem)
 
+  let returnObj = {}
   if (result['data']['result'] == 'existed') {
-    return true
+    returnObj['status'] = true
+    returnObj['userInfo'] = result['data']['userInfo']
   } else {
-    return false
+    returnObj['status'] = false
   }
+
+  console.log(returnObj)
+  return returnObj
 }
