@@ -30,7 +30,7 @@ export default {
       { hid: 'og:url', property: 'og:url', content: 'https://omaemona.info' },
       { hid: 'og:title', property: 'og:title', content: 'オマエモナー' },
       { hid: 'og:description', property: 'og:description', content: '記事を書いてMONAがもらえる！気に入った記事にMONAが送れる！' },
-      { hid: 'og:image', property: 'og:image', content: 'https://omaemona.info/ogp/default.png' },
+      { hid: 'og:image', property: 'og:image', content: 'https://omaemona.info:8443/ogp/default.png' },
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
