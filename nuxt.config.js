@@ -65,15 +65,19 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     // https://go.nuxtjs.dev/vuetify
-    '@nuxtjs/vuetify',
-    ['@nuxtjs/google-analytics', {
-      id: 'G-B3D41C59FK'
-    }]
+    '@nuxtjs/vuetify'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    '@nuxtjs/markdownit'
+    '@nuxtjs/markdownit',
+    [
+      '@nuxtjs/google-gtag',
+      {
+        id: 'G-B3D41C59FK',
+        debug: true
+      }
+    ]
   ],
 
   // markdown-it
