@@ -66,6 +66,9 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
+    ['@nuxtjs/google-analytics', {
+      id: 'G-B3D41C59FK'
+    }]
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
