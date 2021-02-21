@@ -28,7 +28,7 @@ export default {
       // meta info
       // { hid: 'description', name: 'description', content: '記事を書いてMONAがもらえる！気に入った記事にMONAが送れる！' },
       { property: 'og:title', content: 'オマエモナー' },
-      { property: 'og:image', content: 'https://omaemona.info:8443/ogp/default.png' },
+      { property: 'og:image', content: 'https://omaemona.info/default.png' },
       { property: 'og:description', content: '記事を書いてMONAがもらえる！気に入った記事にMONAが送れる！' },
       { property: 'og:url', content: 'https://omaemona.info/article/3' },
       { property: 'og:type', content: 'article' },
@@ -39,7 +39,7 @@ export default {
       { name: 'twitter:site', content: '@Mr_1484' },
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:title', content: 'オマエモナー' },
-      { name: 'twitter:image', content: 'https://omaemona.info:8443/ogp/default.png'},
+      { name: 'twitter:image', content: 'https://omaemona.info/default.png'},
       { name: 'twitter:description', content: '記事を書いてMONAがもらえる！気に入った記事にMONAが送れる！'},
     ],
     link: [
