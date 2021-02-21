@@ -114,43 +114,50 @@ export default {
     return {
       meta: [
         {
-          name: 'og:url',
-          content: 'https://omaemona.info' + this.$route.path
-        },
-        {
-          name: 'og:title',
+          hid: 'twitter:title',
+          name: 'twitter:title',
           content: 'オマエモナー'
         },
         {
-          name: 'og:description',
+          hid: 'twitter:description',
+          name: 'twitter:description',
           content: '記事を書いてMONAがもらえる！気に入った記事にMONAが送れる！'
         },
         {
-          name: 'og:image',
-          content: 'https://omaemona.info:8443/ogp/default.png'
+          hid: 'twitter:image',
+          name: 'twitter:image',
+          content: 'https://nuxtjs.org/nuxt-card.png'
         },
         {
-          name: 'og:type',
-          content: 'article'
-        },
-        // Twitter
-        {
-          name: 'twitter:card',
-          content: 'summary'
+          hid: 'twitter:image:alt',
+          name: 'twitter:image:alt',
+          content: 'オマエモナー'
         },
         {
-          name: 'twitter:site',
-          content: '@アカウント名'
-        },
-        // Facebook
-        {
-          name: 'fb:app_id',
-          content: 'AppID(15文字半角英数)'
+          hid: 'og:title',
+          property: 'og:title',
+          content: 'オマエモナー'
         },
         {
-          name: 'fb:admins',
-          content: 'AdminId(15文字半角英数)'
+          hid: 'og:description',
+          property: 'og:description',
+          content: '記事を書いてMONAがもらえる！気に入った記事にMONAが送れる！'
         },
+        {
+          hid: 'og:image',
+          property: 'og:image',
+          content: 'https://nuxtjs.org/nuxt-card.png'
+        },
+        {
+          hid: 'og:image:secure_url',
+          property: 'og:image:secure_url',
+          content: 'https://nuxtjs.org/nuxt-card.png'
+        },
+        {
+          hid: 'og:image:alt',
+          property: 'og:image:alt',
+          content: 'オマエモナー'
+        }
       ]
     }
   },
