@@ -115,16 +115,21 @@ export default {
     async postContent() {
       // アドレスの確認
 
+      const date = new Date()
+      const now = date.getTime()
+
       // 投稿への確認
-      if (!confirm("この内容で投稿しますか？")) {
-        console.log("not yet")
-        return 0
-      }
+      const address = await window.mpurse.getAddress()
+      const message = "I will post this article : " + now
+      const signature = await window.mpurse.signMessage(message)
 
       // @todo: need validation
       const postObj = {
         "title": this.title,
         "content": this.content,
+        "address": address,
+        "message": message,
+        "signature": signature
       }
 
       const result = await Api.post('/write', postObj)
