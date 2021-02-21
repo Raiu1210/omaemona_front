@@ -31,6 +31,7 @@
           mdi-alpha-m-circle-outline
         </v-icon>
         <span class="subheading mr-2">received {{sentMona}} MONA</span><br /><br />
+        <span class="subheading mr-2">この記事の投稿者のアドレス : {{authorAddress}}</span><br /><br />
 
 
         <h1>{{title}}</h1><br /><br />
