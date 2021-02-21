@@ -9,7 +9,6 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
-    "@nuxtjs/google-analytics": "^2.4.0",
     "@nuxtjs/markdownit": "^2.0.0",
     "axios": "^0.21.1",
     "core-js": "^3.8.3",
@@ -18,6 +17,7 @@
     "vuex": "^3.6.2"
   },
   "devDependencies": {
-    "@nuxtjs/vuetify": "^1.11.3"
+    "@nuxtjs/vuetify": "^1.11.3",
+    "@nuxtjs/google-analytics": "^2.4.0"
   }
 }
