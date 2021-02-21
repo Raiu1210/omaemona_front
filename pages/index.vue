@@ -80,7 +80,6 @@
           ></v-pagination>
           </v-col>
         </v-row>
-
       </v-sheet>
     </v-col>
 
@@ -103,12 +102,56 @@
 import {axiosInstance as Api} from '~/myModules/api'
 
 export default {
-  data() {
+   data() {
     return {
       articles: [],
       updated: '',
       page: 1,
       pageLength: 0
+    }
+  },
+  head() {
+    return {
+      meta: [
+        {
+          name: 'og:url',
+          content: 'https://omaemona.info' + this.$route.path
+        },
+        {
+          name: 'og:title',
+          content: 'オマエモナー'
+        },
+        {
+          name: 'og:description',
+          content: '記事を書いてMONAがもらえる！気に入った記事にMONAが送れる！'
+        },
+        {
+          name: 'og:image',
+          content: 'https://omaemona.info:8443/ogp/default.png'
+        },
+        {
+          name: 'og:type',
+          content: 'article'
+        },
+        // Twitter
+        {
+          name: 'twitter:card',
+          content: 'summary'
+        },
+        {
+          name: 'twitter:site',
+          content: '@アカウント名'
+        },
+        // Facebook
+        {
+          name: 'fb:app_id',
+          content: 'AppID(15文字半角英数)'
+        },
+        {
+          name: 'fb:admins',
+          content: 'AdminId(15文字半角英数)'
+        },
+      ]
     }
   },
   async created() {
