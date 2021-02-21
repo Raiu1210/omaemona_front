@@ -188,7 +188,7 @@ export default {
   methods: {
     covertUpdateTime(timeData) {
       const timeObj = new Date(timeData)
-      return timeObj.getFullYear() + '年' + timeObj.getMonth() + '月' + timeObj.getDate() + '日'
+      return timeObj.getFullYear() + '年' + (Number(timeObj.getMonth()) + 1) + '月' + timeObj.getDate() + '日'
     },
     scrollTop(){
       window.scrollTo({
