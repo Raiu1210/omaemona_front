@@ -125,57 +125,6 @@ export default {
       pageLength: 0
     }
   },
-  head() {
-    return {
-      meta: [
-        {
-          hid: 'twitter:title',
-          name: 'twitter:title',
-          content: 'オマエモナー'
-        },
-        {
-          hid: 'twitter:description',
-          name: 'twitter:description',
-          content: '記事を書いてMONAがもらえる！気に入った記事にMONAが送れる！'
-        },
-        {
-          hid: 'twitter:image',
-          name: 'twitter:image',
-          content: 'https://omaemona.info/default.png'
-        },
-        {
-          hid: 'twitter:image:alt',
-          name: 'twitter:image:alt',
-          content: 'オマエモナー'
-        },
-        {
-          hid: 'og:title',
-          property: 'og:title',
-          content: 'オマエモナー'
-        },
-        {
-          hid: 'og:description',
-          property: 'og:description',
-          content: '記事を書いてMONAがもらえる！気に入った記事にMONAが送れる！'
-        },
-        {
-          hid: 'og:image',
-          property: 'og:image',
-          content: 'https://omaemona.info/default.png'
-        },
-        {
-          hid: 'og:image:secure_url',
-          property: 'og:image:secure_url',
-          content: 'https://omaemona.info/default.png'
-        },
-        {
-          hid: 'og:image:alt',
-          property: 'og:image:alt',
-          content: 'オマエモナー'
-        }
-      ]
-    }
-  },
   async created() {
     const res = await Api.get('/', {
       params: {
