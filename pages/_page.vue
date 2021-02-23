@@ -91,6 +91,7 @@
             v-model="page"
             :length="pageLength"
             :total-visible="7"
+            @input = "gotoPageN"
           ></v-pagination>
           </v-col>
         </v-row>
@@ -178,7 +179,7 @@ export default {
   async created() {
     const res = await Api.get('/', {
       params: {
-        page: this.page
+        page: this.$route.params.page == undefined ? 1 : this.$route.params.page
       }
     })
     this.articles = res["data"]["articles"]
@@ -190,24 +191,10 @@ export default {
       const timeObj = new Date(timeData)
       return timeObj.getFullYear() + '年' + (Number(timeObj.getMonth()) + 1) + '月' + timeObj.getDate() + '日'
     },
-    scrollTop(){
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
+    gotoPageN(page) {
+      this.$router.push(`/${page}`)
     }
   },
-  watch: {
-    page: async function(newValue, OldValue) {
-      const res = await Api.get('/', {
-        params: {
-          page: newValue
-        }
-      })
-      this.articles = res["data"]["articles"]
-      this.scrollTop()
-    }
-  }
 }
 </script>
 
