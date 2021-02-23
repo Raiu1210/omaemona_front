@@ -155,7 +155,7 @@ export default {
       const timeObj = new Date(timeData)
       return timeObj.getFullYear() + '年' + (Number(timeObj.getMonth()) + 1) + '月' + timeObj.getDate() + '日'
     },
-    gotoPageN(page) {
+    gotoEdit(page) {
       this.$router.push(`/${page}`)
     },
     async refreshPage() {
