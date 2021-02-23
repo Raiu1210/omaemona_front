@@ -125,7 +125,6 @@ export default {
     }
     const response = await Api.post('myInfo', postObj)
     this.userInfo = response['data']
-    console.log(response['data'])
   },
   methods: {
     async deleteArticle(articleId) {
@@ -134,11 +133,23 @@ export default {
         return 0
       }
       // 削除のリクエスト
+      const date = new Date()
+      const now = date.getTime()
+      const address = await window.mpurse.getAddress()
+      const message = `I will delete article id ${articleId}:${now}`
+      const signature = await window.mpurse.signMessage(message)
+
       const postObj = {
-        articleId: articleId
+        articleId: articleId,
+        address: address,
+        message: message,
+        signature: signature
       }
-      const response = await Api.delete('article', postObj)
-      console.log(response)
+      const response = await Api.post('deleteArticle', postObj)
+      if(response['data']['status'] == 0) {
+        alert("記事を削除しました")
+        this.refreshPage()
+      }
     },
     covertUpdateTime(timeData) {
       const timeObj = new Date(timeData)
@@ -146,6 +157,14 @@ export default {
     },
     gotoPageN(page) {
       this.$router.push(`/${page}`)
+    },
+    async refreshPage() {
+      const address = await window.mpurse.getAddress()
+      const postObj = {
+        address: address
+      }
+      const response = await Api.post('myInfo', postObj)
+      this.userInfo = response['data']
     }
   },
 }
