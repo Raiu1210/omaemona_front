@@ -144,10 +144,6 @@ export default {
     const checkResult = await checkMyAddress()
     if(checkResult['status']) {
       this.$store.commit('setVerified', checkResult['userInfo']['address'])
-      console.log("eee")
-      console.log(this.$store.state.verified)
-    } else {
-      console.log(this.$store.state.publicAddress)
     }
   },
 }
