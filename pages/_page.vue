@@ -91,6 +91,7 @@
             v-model="page"
             :length="pageLength"
             :total-visible="7"
+            @input = "gotoPageN"
           ></v-pagination>
           </v-col>
         </v-row>
@@ -124,61 +125,10 @@ export default {
       pageLength: 0
     }
   },
-  head() {
-    return {
-      meta: [
-        {
-          hid: 'twitter:title',
-          name: 'twitter:title',
-          content: 'オマエモナー'
-        },
-        {
-          hid: 'twitter:description',
-          name: 'twitter:description',
-          content: '記事を書いてMONAがもらえる！気に入った記事にMONAが送れる！'
-        },
-        {
-          hid: 'twitter:image',
-          name: 'twitter:image',
-          content: 'https://omaemona.info/default.png'
-        },
-        {
-          hid: 'twitter:image:alt',
-          name: 'twitter:image:alt',
-          content: 'オマエモナー'
-        },
-        {
-          hid: 'og:title',
-          property: 'og:title',
-          content: 'オマエモナー'
-        },
-        {
-          hid: 'og:description',
-          property: 'og:description',
-          content: '記事を書いてMONAがもらえる！気に入った記事にMONAが送れる！'
-        },
-        {
-          hid: 'og:image',
-          property: 'og:image',
-          content: 'https://omaemona.info/default.png'
-        },
-        {
-          hid: 'og:image:secure_url',
-          property: 'og:image:secure_url',
-          content: 'https://omaemona.info/default.png'
-        },
-        {
-          hid: 'og:image:alt',
-          property: 'og:image:alt',
-          content: 'オマエモナー'
-        }
-      ]
-    }
-  },
   async created() {
     const res = await Api.get('/', {
       params: {
-        page: this.page
+        page: this.$route.params.page == undefined ? 1 : this.$route.params.page
       }
     })
     this.articles = res["data"]["articles"]
@@ -190,24 +140,10 @@ export default {
       const timeObj = new Date(timeData)
       return timeObj.getFullYear() + '年' + (Number(timeObj.getMonth()) + 1) + '月' + timeObj.getDate() + '日'
     },
-    scrollTop(){
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
+    gotoPageN(page) {
+      this.$router.push(`/${page}`)
     }
   },
-  watch: {
-    page: async function(newValue, OldValue) {
-      const res = await Api.get('/', {
-        params: {
-          page: newValue
-        }
-      })
-      this.articles = res["data"]["articles"]
-      this.scrollTop()
-    }
-  }
 }
 </script>
 

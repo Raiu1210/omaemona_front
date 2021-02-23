@@ -61,11 +61,14 @@
       >
         <v-icon>mdi-minus</v-icon>
       </v-btn> -->
-      <v-toolbar-title class="white--text" v-text="title" />
+      <nuxt-link to="/">
+        <v-toolbar-title class="white--text" v-text="title" />
+      </nuxt-link>
+
       <v-spacer />
 
       <!-- @todo : 公開鍵からユーザを特定して表示したい -->
-      <NuxtLink to="/mypage">
+      <NuxtLink to="/mypage" v-if="this.$store.state.verified">
         <v-avatar color="">
           <v-icon dark>
             mdi-account-circle
@@ -141,9 +144,6 @@ export default {
     const checkResult = await checkMyAddress()
     if(checkResult['status']) {
       this.$store.commit('setVerified', checkResult['userInfo']['address'])
-      console.log(this.$store.state.publicAddress)
-    } else {
-      console.log(this.$store.state.publicAddress)
     }
   },
 }
