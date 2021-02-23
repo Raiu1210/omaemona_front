@@ -71,21 +71,35 @@ import mdEditor from '~/components/mdEditor'
 export default {
   data() {
     return {
+      article: null,
       title: '',
-      address: '',
-      content: "# Markdownで記事を書く！"
+      content: '',
+      updated: '',
+      authorName: '',
+      sentMona: 0,
+      authorAddress: '',
+      dialog: false,
+      tooltip: false,
+      sendAmount: 0,
     };
   },
-  async beforeMount() {
-    window.mpurse.updateEmitter.removeAllListeners()
-      .on('stateChanged', isUnlocked => console.log(isUnlocked))
-      .on('addressChanged', address => console.log(address));
+  async created() {
+    const res = await Api.get('article', {
+      params: {
+        id: this.$route.params.article_id
+      }
+    })
 
-    let isMyAddressRegistered = await checkMyAddressRegistered()
-    if (!isMyAddressRegistered['status']) {
-      alert("記事を投稿するにはモナコインアドレスを登録する必要があります")
-      this.$router.push('/signup')
-    }
+    console.log(res)
+    this.article = res['data']
+    this.title = res['data']['title']
+    this.content = res['data']['content']
+    this.sentMona = res['data']['sent_mona']
+    this.authorName = res['data']['user']['name']
+    this.authorAddress = res['data']['user']['address']
+
+    const updatedObj = new Date(res['data']['updatedAt'])
+    this.updated = updatedObj.getFullYear() + '年' + updatedObj.getMonth() + '月' + updatedObj.getDate() + '日'
   },
   methods: {
     async postContent() {
