@@ -106,7 +106,8 @@ export default {
       .on('stateChanged', isUnlocked => console.log(isUnlocked))
       .on('addressChanged', address => console.log(address));
 
-    if (!await checkMyAddressRegistered()) {
+    let isMyAddressRegistered = await checkMyAddressRegistered()
+    if (!isMyAddressRegistered['status']) {
       alert("記事を投稿するにはモナコインアドレスを登録する必要があります")
       this.$router.push('/signup')
     }
