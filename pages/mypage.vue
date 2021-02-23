@@ -78,7 +78,7 @@
             <v-btn
               class="ma-2"
               color="success"
-              @click="loader = 'loading4'"
+              @click="gotoEditPage"
             >
               編集
               <template v-slot:loader>
@@ -155,8 +155,8 @@ export default {
       const timeObj = new Date(timeData)
       return timeObj.getFullYear() + '年' + (Number(timeObj.getMonth()) + 1) + '月' + timeObj.getDate() + '日'
     },
-    gotoEdit(page) {
-      this.$router.push(`/${page}`)
+    gotoEditPage(page) {
+      this.$router.push(`/edit`)
     },
     async refreshPage() {
       const address = await window.mpurse.getAddress()
