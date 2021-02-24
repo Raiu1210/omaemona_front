@@ -115,6 +115,7 @@ export default {
 
       // @todo: need validation
       const postObj = {
+        "articleId": this.$route.params.article_id,
         "title": this.title,
         "content": this.content,
         "address": address,
@@ -122,10 +123,10 @@ export default {
         "signature": signature
       }
 
-      const result = await Api.post('/write', postObj)
+      const result = await Api.post('/updateArticle', postObj)
       if (result["status"] == 201) {
-        alert("記事の投稿に成功しました！")
-        this.$router.push('/')
+        alert("記事の更新に成功しました！")
+        this.$router.push('/mypage')
       }
     }
   },
