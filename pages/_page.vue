@@ -126,6 +126,7 @@ export default {
     }
   },
   async created() {
+    this.page = this.$route.params.page == undefined ? 1 : Number(this.$route.params.page)
     const res = await Api.get('/', {
       params: {
         page: this.$route.params.page == undefined ? 1 : this.$route.params.page

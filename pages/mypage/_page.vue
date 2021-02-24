@@ -22,10 +22,11 @@
       </v-col>
     </v-row>
 
+
     <!-- 書いた記事一覧 -->
     <h2 class="my-8">全ての投稿</h2>
     <v-row
-        v-for="article in userInfo['articles']"
+        v-for="article in myArticles"
         :key="article.id"
       >
       <v-col>
@@ -39,7 +40,7 @@
             </v-card-text>
 
             <v-card-subtitle class="pt-0">
-              {{covertUpdateTime(article.updated_at)}}
+              {{covertUpdateTime(article.updatedAt)}}
             </v-card-subtitle>
 
             <v-card-actions>
@@ -78,7 +79,7 @@
             <v-btn
               class="ma-2"
               color="success"
-              @click="gotoEditPage"
+              @click="gotoEditPage(article.id)"
             >
               編集
               <template v-slot:loader>
@@ -105,6 +106,17 @@
         </v-card>
       </v-col>
     </v-row>
+
+    <v-row>
+      <v-col style="justify-content: center;">
+      <v-pagination
+        v-model="page"
+        :length="pageLength"
+        :total-visible="7"
+        @input = "gotoPageN"
+      ></v-pagination>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
@@ -115,7 +127,10 @@ import {axiosInstance as Api} from '~/myModules/api'
 export default {
   data() {
     return {
-      userInfo: {}
+      userInfo: {},
+      myArticles: [],
+      page: 0,
+      pageLength: 0
     }
   },
   async beforeMount() {
@@ -123,8 +138,18 @@ export default {
     const postObj = {
       address: address
     }
-    const response = await Api.post('myInfo', postObj)
-    this.userInfo = response['data']
+    const myInfo = await Api.post('myInfo', postObj)
+    this.userInfo = myInfo['data']
+
+    const postObj2 = {
+      page: this.$route.params.page == undefined ? 1 : Number(this.$route.params.page),
+      author_id: this.userInfo['id']
+    }
+    const myArticles = await Api.post('myArticles', postObj2)
+    this.myArticles = myArticles['data']['articles']
+    const articlesCount = myArticles["data"]["articlesCount"]
+    this.page = this.$route.params.page == undefined ? 1 : Number(this.$route.params.page)
+    this.pageLength = Math.ceil(articlesCount / 10)
   },
   methods: {
     async deleteArticle(articleId) {
@@ -155,8 +180,8 @@ export default {
       const timeObj = new Date(timeData)
       return timeObj.getFullYear() + '年' + (Number(timeObj.getMonth()) + 1) + '月' + timeObj.getDate() + '日'
     },
-    gotoEditPage(page) {
-      this.$router.push(`/edit`)
+    gotoEditPage(articleId) {
+      this.$router.push(`/edit/${articleId}`)
     },
     async refreshPage() {
       const address = await window.mpurse.getAddress()
@@ -165,6 +190,9 @@ export default {
       }
       const response = await Api.post('myInfo', postObj)
       this.userInfo = response['data']
+    },
+    gotoPageN(page) {
+      this.$router.push(`/mypage/${page}`)
     }
   },
 }

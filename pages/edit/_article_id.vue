@@ -71,21 +71,35 @@ import mdEditor from '~/components/mdEditor'
 export default {
   data() {
     return {
+      article: null,
       title: '',
-      address: '',
-      content: "# Markdownで記事を書く！"
+      content: '',
+      updated: '',
+      authorName: '',
+      sentMona: 0,
+      authorAddress: '',
+      dialog: false,
+      tooltip: false,
+      sendAmount: 0,
     };
   },
-  async beforeMount() {
-    window.mpurse.updateEmitter.removeAllListeners()
-      .on('stateChanged', isUnlocked => console.log(isUnlocked))
-      .on('addressChanged', address => console.log(address));
+  async created() {
+    const res = await Api.get('article', {
+      params: {
+        id: this.$route.params.article_id
+      }
+    })
 
-    let isMyAddressRegistered = await checkMyAddressRegistered()
-    if (!isMyAddressRegistered['status']) {
-      alert("記事を投稿するにはモナコインアドレスを登録する必要があります")
-      this.$router.push('/signup')
-    }
+    console.log(res)
+    this.article = res['data']
+    this.title = res['data']['title']
+    this.content = res['data']['content']
+    this.sentMona = res['data']['sent_mona']
+    this.authorName = res['data']['user']['name']
+    this.authorAddress = res['data']['user']['address']
+
+    const updatedObj = new Date(res['data']['updatedAt'])
+    this.updated = updatedObj.getFullYear() + '年' + updatedObj.getMonth() + '月' + updatedObj.getDate() + '日'
   },
   methods: {
     async postContent() {
@@ -101,6 +115,7 @@ export default {
 
       // @todo: need validation
       const postObj = {
+        "articleId": this.$route.params.article_id,
         "title": this.title,
         "content": this.content,
         "address": address,
@@ -108,10 +123,10 @@ export default {
         "signature": signature
       }
 
-      const result = await Api.post('/write', postObj)
+      const result = await Api.post('/updateArticle', postObj)
       if (result["status"] == 201) {
-        alert("記事の投稿に成功しました！")
-        this.$router.push('/')
+        alert("記事の更新に成功しました！")
+        this.$router.push('/mypage')
       }
     }
   },
