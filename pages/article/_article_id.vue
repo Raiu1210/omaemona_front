@@ -199,6 +199,7 @@ export default {
 
 <style scoped lang="scss">
 .contents ::v-deep img {
+  max-width: 500px;
   width: 100%;
   height: auto;
 }
