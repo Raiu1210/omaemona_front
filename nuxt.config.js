@@ -53,10 +53,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    {
-      src: '@/plugins/vue-mavon-editor',
-      srr: false
-    }
+    { src: '@/plugins/vue-mavon-editor', srr: false }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
