@@ -27,20 +27,20 @@ export default {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       // meta info
       // { hid: 'description', name: 'description', content: '記事を書いてMONAがもらえる！気に入った記事にMONAが送れる！' },
-      { property: 'og:title', content: 'オマエモナー' },
-      { property: 'og:image', content: 'https://omaemona.info/default.png' },
-      { property: 'og:description', content: '記事を書いてMONAがもらえる！気に入った記事にMONAが送れる！' },
-      { property: 'og:url', content: 'https://omaemona.info/article/3' },
-      { property: 'og:type', content: 'article' },
-      { property: 'og:site_name', content: 'オマエモナー' },
+      { hid: 'og:title', property: 'og:title', content: 'オマエモナー' },
+      { hid: 'og:image', property: 'og:image', content: 'https://omaemona.info/default.png' },
+      { hid: 'og:description', property: 'og:description', content: '記事を書いてMONAがもらえる！気に入った記事にMONAが送れる！' },
+      { hid: 'og:url', property: 'og:url', content: 'https://omaemona.info' },
+      { hid: 'og:type', property: 'og:type', content: 'article' },
+      { hid: 'og:site_name', property: 'og:site_name', content: 'オマエモナー' },
 
       // for twitter
-      // { hid: 'twitter:creator', name: 'twitter:creator', content: '@Mr_1484'},
-      { name: 'twitter:site', content: '@Mr_1484' },
-      { name: 'twitter:card', content: 'summary_large_image' },
-      { name: 'twitter:title', content: 'オマエモナー' },
-      { name: 'twitter:image', content: 'https://omaemona.info/default.png'},
-      { name: 'twitter:description', content: '記事を書いてMONAがもらえる！気に入った記事にMONAが送れる！'},
+      { hid: 'twitter:creator', name: 'twitter:creator', content: '@Mr_1484'},
+      { hid: 'twitter:site', name: 'twitter:site', content: '@Mr_1484' },
+      { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' },
+      { hid: 'twitter:title', name: 'twitter:title', content: 'オマエモナー' },
+      { hid: 'twitter:image', name: 'twitter:image', content: 'https://omaemona.info/default.png'},
+      { hid: 'twitter:description', name: 'twitter:description', content: '記事を書いてMONAがもらえる！気に入った記事にMONAが送れる！'},
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }

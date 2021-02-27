@@ -140,7 +140,7 @@ export default {
       sendAmount: 0,
     }
   },
-  async created() {
+  async fetch() {
     const res = await Api.get('article', {
       params: {
         id: this.$route.params.article_id
@@ -155,7 +155,21 @@ export default {
     this.authorAddress = res['data']['user']['address']
 
     const updatedObj = new Date(res['data']['updatedAt'])
-    this.updated = updatedObj.getFullYear() + '年' + updatedObj.getMonth() + '月' + updatedObj.getDate() + '日'
+    this.updated = updatedObj.getFullYear() + '年' + (Number(updatedObj.getMonth()) + 1) + '月' + updatedObj.getDate() + '日'
+  },
+  head(){
+    return {
+      title: this.title,
+      meta: [
+        { charset: 'utf-8' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        { hid: 'og:title', property: 'og:title', content: this.title },
+        { hid: 'og:description', property: 'og:description', content: this.content },
+        { hid: 'twitter:title', name: 'twitter:title', content: this.title },
+        { hid: 'twitter:description', name: 'twitter:description', content: this.content },
+      ],
+      link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    }
   },
   methods: {
     async sendMona() {
