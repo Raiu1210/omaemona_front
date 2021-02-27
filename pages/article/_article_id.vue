@@ -35,7 +35,7 @@
 
 
         <h1>{{title}}</h1><br /><br />
-        <div v-html="$md.render(content)"></div>
+        <div class="contents" v-html="$md.render(content)"></div>
       </v-sheet>
 
       <!-- send MONA -->
@@ -197,7 +197,17 @@ export default {
 </script>
 
 
-<style scoped>
+<style scoped lang="scss">
+.contents ::v-deep img {
+  width: 100%;
+  height: auto;
+}
+
+.contents > img {
+  width: 100px;
+  height: auto;
+}
+
 .mona_input {
   width: 200px;
 }
