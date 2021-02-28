@@ -150,6 +150,6 @@ export default {
 
 <style scoped>
 .sheet {
-  background:rgba(161, 137, 137, 0);
+  background:rgba(245,245,245,0);
 }
 </style>

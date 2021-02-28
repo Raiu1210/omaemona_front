@@ -35,8 +35,6 @@
 
 
         <h1>{{title}}</h1><br /><br />
-        <nuxt-content :document="content" />
-        {{aaa}}
         <div class="prism line-numbers contents" v-html="$md.render(content)"></div>
       </v-sheet>
 
@@ -170,7 +168,6 @@ export default {
   },
   async mounted() {
     Prism.highlightAll()
-    console.log("mounted")
   },
   methods: {
     async sendMona() {
@@ -188,12 +185,8 @@ export default {
       }
 
       const sendResult = await Api.post('/log_tip', postObj)
-      console.log(sendResult)
     },
   },
-  computed: {
-
-  }
 }
 </script>
 
@@ -229,45 +222,5 @@ export default {
 
 .right_bar {
   background-color: '#f5f5f5';
-}
-
-pre[class*="language-"].line-numbers {
-  position: relative;
-  padding-left: 3.8em;
-  counter-reset: linenumber;
-}
-
-pre[class*="language-"].line-numbers > code {
-  position: relative;
-  white-space: inherit;
-}
-
-.line-numbers .line-numbers-rows {
-  position: absolute;
-  pointer-events: none;
-  top: 0;
-  font-size: 100%;
-  left: -3.8em;
-  width: 3em; /* works for line-numbers below 1000 lines */
-  letter-spacing: -1px;
-  border-right: 1px solid #999;
-
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-.line-numbers-rows > span {
-  display: block;
-  counter-increment: linenumber;
-}
-
-.line-numbers-rows > span:before {
-  content: counter(linenumber);
-  color: #999;
-  display: block;
-  padding-right: 0.8em;
-  text-align: right;
 }
 </style>
