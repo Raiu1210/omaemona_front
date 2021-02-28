@@ -35,7 +35,9 @@
 
 
         <h1>{{title}}</h1><br /><br />
-        <div class="line-numbers contents" v-html="$md.render(content)"></div>
+        <nuxt-content :document="content" />
+        {{aaa}}
+        <div class="prism line-numbers contents" v-html="$md.render(content)"></div>
       </v-sheet>
 
       <!-- send MONA -->
@@ -123,39 +125,34 @@
 
 
 <script>
+import Prism from '~/plugins/prism'
 import {axiosInstance as Api} from '~/myModules/api'
 
 export default {
   data(){
     return {
-      article: null,
-      title: '',
-      content: '',
-      updated: '',
-      authorName: '',
-      sentMona: 0,
-      authorAddress: '',
       dialog: false,
       tooltip: false,
       sendAmount: 0,
     }
   },
-  async fetch() {
+  async asyncData({ params, $http }) {
     const res = await Api.get('article', {
       params: {
-        id: this.$route.params.article_id
+        id: params['article_id']
       }
     })
-
-    this.article = res['data']
-    this.title = res['data']['title']
-    this.content = res['data']['content']
-    this.sentMona = res['data']['sent_mona']
-    this.authorName = res['data']['user']['name']
-    this.authorAddress = res['data']['user']['address']
-
     const updatedObj = new Date(res['data']['updatedAt'])
-    this.updated = updatedObj.getFullYear() + '年' + (Number(updatedObj.getMonth()) + 1) + '月' + updatedObj.getDate() + '日'
+
+    return {
+      article: res['data'],
+      title: res['data']['title'],
+      content: res['data']['content'],
+      sentMona: res['data']['sent_mona'],
+      authorName: res['data']['user']['name'],
+      authorAddress: res['data']['user']['address'],
+      updated: updatedObj.getFullYear() + '年' + (Number(updatedObj.getMonth()) + 1) + '月' + updatedObj.getDate() + '日'
+    }
   },
   head(){
     return {
@@ -170,6 +167,10 @@ export default {
       ],
       link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
     }
+  },
+  async mounted() {
+    Prism.highlightAll()
+    console.log("mounted")
   },
   methods: {
     async sendMona() {
@@ -228,5 +229,45 @@ export default {
 
 .right_bar {
   background-color: '#f5f5f5';
+}
+
+pre[class*="language-"].line-numbers {
+  position: relative;
+  padding-left: 3.8em;
+  counter-reset: linenumber;
+}
+
+pre[class*="language-"].line-numbers > code {
+  position: relative;
+  white-space: inherit;
+}
+
+.line-numbers .line-numbers-rows {
+  position: absolute;
+  pointer-events: none;
+  top: 0;
+  font-size: 100%;
+  left: -3.8em;
+  width: 3em; /* works for line-numbers below 1000 lines */
+  letter-spacing: -1px;
+  border-right: 1px solid #999;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.line-numbers-rows > span {
+  display: block;
+  counter-increment: linenumber;
+}
+
+.line-numbers-rows > span:before {
+  content: counter(linenumber);
+  color: #999;
+  display: block;
+  padding-right: 0.8em;
+  text-align: right;
 }
 </style>

@@ -31,8 +31,7 @@
       <v-sheet
         class="sheet"
         rounded="lg"
-        min-height="200vh"
-        max-height="200vh"
+
       >
         <v-row
           v-for="article in articles"
@@ -151,6 +150,6 @@ export default {
 
 <style scoped>
 .sheet {
-  background:rgba(245,245,245,0);
+  background:rgba(161, 137, 137, 0);
 }
 </style>
