@@ -35,7 +35,7 @@
 
 
         <h1>{{title}}</h1><br /><br />
-        <div class="contents" v-html="$md.render(content)"></div>
+        <div class="line-numbers contents" v-html="$md.render(content)"></div>
       </v-sheet>
 
       <!-- send MONA -->

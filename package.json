@@ -17,6 +17,7 @@
     "core-js": "^3.8.3",
     "mavon-editor": "^2.9.1",
     "nuxt": "^2.14.12",
+    "prismjs": "^1.23.0",
     "redirect-ssl": "^2.0.0",
     "vuex": "^3.6.2"
   },
