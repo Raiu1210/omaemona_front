@@ -35,7 +35,7 @@
 
 
         <h1>{{title}}</h1><br /><br />
-        <div class="contents" v-html="$md.render(content)"></div>
+        <div class="prism line-numbers contents" v-html="$md.render(content)"></div>
       </v-sheet>
 
       <!-- send MONA -->
@@ -123,39 +123,34 @@
 
 
 <script>
+import Prism from '~/plugins/prism'
 import {axiosInstance as Api} from '~/myModules/api'
 
 export default {
   data(){
     return {
-      article: null,
-      title: '',
-      content: '',
-      updated: '',
-      authorName: '',
-      sentMona: 0,
-      authorAddress: '',
       dialog: false,
       tooltip: false,
       sendAmount: 0,
     }
   },
-  async fetch() {
+  async asyncData({ params, $http }) {
     const res = await Api.get('article', {
       params: {
-        id: this.$route.params.article_id
+        id: params['article_id']
       }
     })
-
-    this.article = res['data']
-    this.title = res['data']['title']
-    this.content = res['data']['content']
-    this.sentMona = res['data']['sent_mona']
-    this.authorName = res['data']['user']['name']
-    this.authorAddress = res['data']['user']['address']
-
     const updatedObj = new Date(res['data']['updatedAt'])
-    this.updated = updatedObj.getFullYear() + '年' + (Number(updatedObj.getMonth()) + 1) + '月' + updatedObj.getDate() + '日'
+
+    return {
+      article: res['data'],
+      title: res['data']['title'],
+      content: res['data']['content'],
+      sentMona: res['data']['sent_mona'],
+      authorName: res['data']['user']['name'],
+      authorAddress: res['data']['user']['address'],
+      updated: updatedObj.getFullYear() + '年' + (Number(updatedObj.getMonth()) + 1) + '月' + updatedObj.getDate() + '日'
+    }
   },
   head(){
     return {
@@ -170,6 +165,9 @@ export default {
       ],
       link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
     }
+  },
+  async mounted() {
+    Prism.highlightAll()
   },
   methods: {
     async sendMona() {
@@ -187,12 +185,8 @@ export default {
       }
 
       const sendResult = await Api.post('/log_tip', postObj)
-      console.log(sendResult)
     },
   },
-  computed: {
-
-  }
 }
 </script>
 

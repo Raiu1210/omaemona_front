@@ -31,8 +31,7 @@
       <v-sheet
         class="sheet"
         rounded="lg"
-        min-height="200vh"
-        max-height="200vh"
+
       >
         <v-row
           v-for="article in articles"
