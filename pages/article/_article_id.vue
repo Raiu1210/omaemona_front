@@ -223,4 +223,8 @@ export default {
 .right_bar {
   background-color: '#f5f5f5';
 }
+
+.token.operator, .token.entity, .token.url, .language-css .token.string, .style .token.string {
+  background: none;
+}
 </style>

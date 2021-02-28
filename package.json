@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@nuxt/content": "^1.13.1",
+    "@nuxtjs/google-adsense": "^1.3.0",
     "@nuxtjs/google-analytics": "^2.4.0",
     "@nuxtjs/google-gtag": "^1.0.4",
     "@nuxtjs/markdownit": "^2.0.0",
