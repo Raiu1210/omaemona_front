@@ -76,6 +76,12 @@ export default {
         id: 'G-B3D41C59FK',
         debug: true
       }
+    ],
+    [
+      '@nuxtjs/google-adsense', {
+        id: "ca-pub-9410270200655875",
+        pageLevelAds: true
+      }
     ]
   ],
 
