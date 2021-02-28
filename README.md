@@ -18,3 +18,12 @@ $ yarn generate
 ```
 
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+
+
+## css fix
+
+`node_modules/prismjs/themes/prism.css`
+
+```
+/* background: hsla(0, 0%, 100%, .5); */
+```
