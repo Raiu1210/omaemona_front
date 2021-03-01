@@ -1,123 +1,182 @@
 <template>
-  <v-row>
-    <v-col
-      cols="12"
-      sm="1"
-    >
-      <v-sheet
-        class="left_bar"
-        color="#f5f5f5"
-        rounded="lg"
-        min-height="10"
+  <v-container fluid>
+    <v-row>
+      <v-col
+        cols="12"
+        sm="1"
       >
+        <v-sheet
+          class="left_bar"
+          color="#f5f5f5"
+          rounded="lg"
+          min-height="10"
+        >
 
-      </v-sheet>
-    </v-col>
+        </v-sheet>
+      </v-col>
 
-    <v-col
-      cols="12"
-      sm="9"
-    >
-      <v-sheet
-        class="pa-10"
-        min-height="70vh"
-        rounded="lg"
+      <v-col
+        cols="12"
+        sm="9"
       >
-        <!-- コンテンツ表示 -->
-        <!-- {{article}} -->
-        <span class="author_name">{{authorName}} &ensp;&ensp;&ensp;</span>
-        <span class="updated_time">{{updated}}に更新</span>&ensp;&ensp;&ensp;&ensp;
-        <v-icon class="mr-1">
-          mdi-alpha-m-circle-outline
-        </v-icon>
-        <span class="subheading mr-2">received {{sentMona}} MONA</span><br /><br />
-        <span class="subheading mr-2">この記事の投稿者のアドレス : {{authorAddress}}</span><br /><br />
+        <v-sheet
+          class="pa-10"
+          min-height="70vh"
+          rounded="lg"
+        >
+          <!-- コンテンツ表示 -->
+          <!-- {{article}} -->
+          <span class="author_name">{{authorName}} &ensp;&ensp;&ensp;</span>
+          <span class="updated_time">{{updated}}に更新</span>&ensp;&ensp;&ensp;&ensp;
+          <v-icon class="mr-1">
+            mdi-alpha-m-circle-outline
+          </v-icon>
+          <span class="subheading mr-2">received {{sentMona}} MONA</span><br /><br />
+          <span class="subheading mr-2">この記事の投稿者のアドレス : {{authorAddress}}</span><br /><br />
 
 
-        <h1>{{title}}</h1><br /><br />
-        <div class="prism line-numbers contents" v-html="$md.render(content)"></div>
-      </v-sheet>
+          <h1>{{title}}</h1><br /><br />
+          <div class="prism line-numbers contents" v-html="$md.render(content)"></div>
+        </v-sheet>
 
-      <!-- send MONA -->
-      <v-dialog
-        v-model="dialog"
-        persistent
-        max-width="290"
-      >
-        <template #activator="{on: dialog}">
-          <v-tooltip bottom>
-            <template #activator="{ on: tooltip }">
+        <!-- send MONA -->
+        <v-dialog
+          v-model="dialog"
+          persistent
+          max-width="290"
+        >
+          <template #activator="{on: dialog}">
+            <v-tooltip bottom>
+              <template #activator="{ on: tooltip }">
+                <v-btn
+                  class="ma-3 pa-6"
+                  fab
+                  dark
+                  large
+                  color="pink"
+                  v-on="{ ...tooltip, ...dialog }"
+                >
+                  <v-img
+                    src="/monacoin.png"
+                    max-height="60"
+                    max-width="60"
+                  />
+                  </v-btn>
+              </template>
+              <span>記事の作者にMONAを送る</span>
+            </v-tooltip>
+          </template>
+
+          <v-card>
+            <v-card-title class="headline grey lighten-2">
+              MONAを著者に送る
+            </v-card-title><br />
+
+            <center>
+              <v-text-field
+                class="mona_input"
+                label="MONA"
+                placeholder="1.14114"
+                v-model="sendAmount"
+                outlined
+              ></v-text-field>
+            </center>
+
+            <v-divider></v-divider>
+
+            <v-card-actions>
+              <v-spacer></v-spacer>
               <v-btn
-                class="ma-3 pa-6"
-                fab
-                dark
-                large
-                color="pink"
-                v-on="{ ...tooltip, ...dialog }"
+                color="green darken-1"
+                text
+                @click="dialog = false"
               >
-                <v-img
-                  src="/monacoin.png"
-                  max-height="60"
-                  max-width="60"
-                />
-                </v-btn>
-            </template>
-            <span>記事の作者にMONAを送る</span>
-          </v-tooltip>
-        </template>
+                Cancel
+              </v-btn>
+              <v-btn
+                color="green darken-1"
+                text
+                v-on:click="sendMona"
+              >
+                Send
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </v-col>
 
-        <v-card>
-          <v-card-title class="headline grey lighten-2">
-            MONAを著者に送る
-          </v-card-title><br />
-
-          <center>
-            <v-text-field
-              class="mona_input"
-              label="MONA"
-              placeholder="1.14114"
-              v-model="sendAmount"
-              outlined
-            ></v-text-field>
-          </center>
-
-          <v-divider></v-divider>
-
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn
-              color="green darken-1"
-              text
-              @click="dialog = false"
-            >
-              Cancel
-            </v-btn>
-            <v-btn
-              color="green darken-1"
-              text
-              v-on:click="sendMona"
-            >
-              Send
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-    </v-col>
-
-    <v-col
-      cols="12"
-      sm="2"
-    >
-      <v-sheet
-        class="right_bar"
-        color="#f5f5f5"
-        rounded="lg"
-        min-height="268"
+      <v-col
+        cols="12"
+        sm="2"
       >
+        <v-sheet
+          class="right_bar"
+          color="#f5f5f5"
+          rounded="lg"
+          min-height="268"
+        >
 
-      </v-sheet>
-    </v-col>
-  </v-row>
+        </v-sheet>
+      </v-col>
+    </v-row>
+
+    <!-- add comment -->
+    <v-row v-if="this.$store.state.verified">
+      <!-- null space -->
+      <v-col cols="1"></v-col>
+
+      <!-- content -->
+      <v-col cols="9">
+        <v-textarea
+          class="px-5 mb-0"
+          solo
+          name="input-7-1"
+          label="コメントを追加"
+          v-model="inputComment"
+          auto-grow
+        ></v-textarea>
+
+        <v-btn
+          class="mx-5"
+          color="success"
+          @click="gotoEditPage(article.id)"
+        >
+          投稿
+          <template v-slot:loader>
+            <span class="custom-loader">
+              <v-icon light>mdi-cached</v-icon>
+            </span>
+          </template>
+        </v-btn>
+      </v-col>
+    </v-row>
+
+    <v-row>
+      <!-- null space -->
+      <v-col cols="1"></v-col>
+
+      <!-- display comment -->
+      <v-col cols="10">
+        <v-timeline dense>
+          <v-timeline-item
+            v-for="n in 4"
+            :key="n"
+            large
+          >
+            <template v-slot:icon>
+              <v-avatar>
+                <img src="http://i.pravatar.cc/64">
+              </v-avatar>
+            </template>
+            <v-card class="elevation-2">
+              <v-card-text class="comment subtitle-1">This is a good article</v-card-text>
+              <v-card-text class="name_tag">Ryu</v-card-text>
+            </v-card>
+          </v-timeline-item>
+        </v-timeline>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 
@@ -132,6 +191,7 @@ export default {
       dialog: false,
       tooltip: false,
       sendAmount: 0,
+      inputComment: ''
     }
   },
   async asyncData({ params, $http }) {
@@ -140,6 +200,8 @@ export default {
         id: params['article_id']
       }
     })
+    console.log(res["data"])
+
     const updatedObj = new Date(res['data']['updatedAt'])
 
     return {
@@ -224,7 +286,7 @@ export default {
   background-color: '#f5f5f5';
 }
 
-.token.operator, .token.entity, .token.url, .language-css .token.string, .style .token.string {
-  background: none;
+.name_tag {
+  text-align: right;
 }
 </style>
