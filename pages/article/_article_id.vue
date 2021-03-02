@@ -139,7 +139,7 @@
         <v-btn
           class="mx-5"
           color="success"
-          @click="gotoEditPage(article.id)"
+          @click="postComment(article.id)"
         >
           投稿
           <template v-slot:loader>
@@ -157,20 +157,16 @@
 
       <!-- display comment -->
       <v-col cols="10">
-        <v-timeline dense>
-          <v-timeline-item
-            v-for="n in 4"
-            :key="n"
-            large
-          >
+        <v-timeline dense v-if="comments.length > 0">
+          <v-timeline-item v-for="comment in comments" :key="comment.id" large>
             <template v-slot:icon>
               <v-avatar>
-                <img src="http://i.pravatar.cc/64">
+                <img src="/monacoin.png">
               </v-avatar>
             </template>
             <v-card class="elevation-2">
-              <v-card-text class="comment subtitle-1">This is a good article</v-card-text>
-              <v-card-text class="name_tag">Ryu</v-card-text>
+              <v-card-text class="comment subtitle-1">{{comment['comment']}}</v-card-text>
+              <v-card-text class="name_tag">{{comment['user']['name']}}</v-card-text>
             </v-card>
           </v-timeline-item>
         </v-timeline>
@@ -200,8 +196,6 @@ export default {
         id: params['article_id']
       }
     })
-    console.log(res["data"])
-
     const updatedObj = new Date(res['data']['updatedAt'])
 
     return {
@@ -211,6 +205,7 @@ export default {
       sentMona: res['data']['sent_mona'],
       authorName: res['data']['user']['name'],
       authorAddress: res['data']['user']['address'],
+      comments: res['data']['comments'],
       updated: updatedObj.getFullYear() + '年' + (Number(updatedObj.getMonth()) + 1) + '月' + updatedObj.getDate() + '日'
     }
   },
@@ -248,6 +243,30 @@ export default {
 
       const sendResult = await Api.post('/log_tip', postObj)
     },
+    async postComment(article_id) {
+      const date = new Date()
+      const now = date.getTime()
+
+      // 投稿への確認
+      const address = await window.mpurse.getAddress()
+      const message = "I will comment this article : " + now
+      const signature = await window.mpurse.signMessage(message)
+
+      // @todo: need validation
+      const postObj = {
+        "address": address,
+        "message": message,
+        "signature": signature,
+        "article_id": article_id,
+        "comment": this.inputComment
+      }
+
+      const result = await Api.post('/addComment', postObj)
+      if (result["status"] == 201) {
+        alert("記事の投稿に成功しました！")
+        location.reload()
+      }
+    }
   },
 }
 </script>
