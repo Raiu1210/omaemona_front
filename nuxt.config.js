@@ -43,7 +43,7 @@ export default {
       { hid: 'twitter:description', name: 'twitter:description', content: '記事を書いてMONAがもらえる！気に入った記事にMONAが送れる！'},
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/monacoin.ico' }
     ]
   },
 
