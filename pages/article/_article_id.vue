@@ -168,19 +168,6 @@
             こちら
           </nuxt-link>
         </v-alert>
-
-        <!-- <v-btn
-          class="mx-5"
-          color="success"
-          @click="postComment(article.id)"
-        >
-          投稿
-          <template v-slot:loader>
-            <span class="custom-loader">
-              <v-icon light>mdi-cached</v-icon>
-            </span>
-          </template>
-        </v-btn> -->
       </v-col>
     </v-row>
 
