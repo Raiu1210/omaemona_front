@@ -27,14 +27,14 @@
         <v-row>
           <v-col cols="12">
             <v-card elevation="2" class="about_card pa-10">
-              <v-card-title class="display-1">オマエモナーに関して</v-card-title>
+              <v-card-title class="display-1">モナレッジに関して</v-card-title>
 
               <v-card-text>
                 <p class="text--primary subtitle-1 mt-5">
-                  オマエモナーはqiitaやzennのような、Markdownで記事を書いて投稿できるサービスです。
+                  モナレッジはqiitaやzennのような、Markdownで記事を書いて投稿できるサービスです。
                 </p>
                 <p class="text--primary subtitle-1">
-                  オマエモナーはqiitaやzennのような、Markdownで記事を書いて投稿できるサービスです。
+                  モナレッジはqiitaやzennのような、Markdownで記事を書いて投稿できるサービスです。
                 </p>
 
               </v-card-text>
