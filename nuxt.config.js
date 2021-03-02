@@ -17,7 +17,7 @@ export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     titleTemplate: '%s - omaemona_front',
-    title: 'オマエモナー',
+    title: 'モナレッジ',
     htmlAttrs: {
       lang: 'ja'
     },
@@ -27,18 +27,18 @@ export default {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       // meta info
       // { hid: 'description', name: 'description', content: '記事を書いてMONAがもらえる！気に入った記事にMONAが送れる！' },
-      { hid: 'og:title', property: 'og:title', content: 'オマエモナー' },
+      { hid: 'og:title', property: 'og:title', content: 'モナレッジ' },
       { hid: 'og:image', property: 'og:image', content: 'https://omaemona.info/default.png' },
       { hid: 'og:description', property: 'og:description', content: '記事を書いてMONAがもらえる！気に入った記事にMONAが送れる！' },
       { hid: 'og:url', property: 'og:url', content: 'https://omaemona.info' },
       { hid: 'og:type', property: 'og:type', content: 'article' },
-      { hid: 'og:site_name', property: 'og:site_name', content: 'オマエモナー' },
+      { hid: 'og:site_name', property: 'og:site_name', content: 'モナレッジ' },
 
       // for twitter
       { hid: 'twitter:creator', name: 'twitter:creator', content: '@Mr_1484'},
       { hid: 'twitter:site', name: 'twitter:site', content: '@Mr_1484' },
       { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' },
-      { hid: 'twitter:title', name: 'twitter:title', content: 'オマエモナー' },
+      { hid: 'twitter:title', name: 'twitter:title', content: 'モナレッジ' },
       { hid: 'twitter:image', name: 'twitter:image', content: 'https://omaemona.info/default.png'},
       { hid: 'twitter:description', name: 'twitter:description', content: '記事を書いてMONAがもらえる！気に入った記事にMONAが送れる！'},
     ],

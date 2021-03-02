@@ -137,7 +137,7 @@ export default {
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: '（　´∀｀）＜　オマエモナー'
+      title: 'モナレッジ'
     }
   },
   async beforeMount() {
