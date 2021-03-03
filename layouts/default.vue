@@ -67,6 +67,10 @@
 
       <v-spacer />
 
+      <v-btn icon color="white">
+        <v-icon @click="reload">mdi-cached</v-icon>
+      </v-btn>
+
       <!-- @todo : 公開鍵からユーザを特定して表示したい -->
       <NuxtLink to="/mypage" v-if="this.$store.state.verified">
         <v-avatar color="">
@@ -108,6 +112,7 @@
   </v-app>
 </template>
 
+
 <script>
 import checkMyAddress from '~/myModules/checkMyAddress'
 
@@ -146,6 +151,11 @@ export default {
       this.$store.commit('setVerified', checkResult['userInfo']['address'])
     }
   },
+  methods: {
+    reload() {
+      location.reload()
+    }
+  }
 }
 </script>
 
