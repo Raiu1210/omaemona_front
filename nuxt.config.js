@@ -16,7 +16,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - omaemona_front',
+    titleTemplate: '%s - モナレッジ',
     title: 'モナレッジ',
     htmlAttrs: {
       lang: 'ja'
@@ -28,9 +28,9 @@ export default {
       // meta info
       // { hid: 'description', name: 'description', content: '記事を書いてMONAがもらえる！気に入った記事にMONAが送れる！' },
       { hid: 'og:title', property: 'og:title', content: 'モナレッジ' },
-      { hid: 'og:image', property: 'og:image', content: 'https://omaemona.info/default.png' },
+      { hid: 'og:image', property: 'og:image', content: 'https://monaledge.com/default.png' },
       { hid: 'og:description', property: 'og:description', content: '記事を書いてMONAがもらえる！気に入った記事にMONAが送れる！' },
-      { hid: 'og:url', property: 'og:url', content: 'https://omaemona.info' },
+      { hid: 'og:url', property: 'og:url', content: 'https://monaledge.com' },
       { hid: 'og:type', property: 'og:type', content: 'article' },
       { hid: 'og:site_name', property: 'og:site_name', content: 'モナレッジ' },
 
@@ -39,7 +39,7 @@ export default {
       { hid: 'twitter:site', name: 'twitter:site', content: '@Mr_1484' },
       { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' },
       { hid: 'twitter:title', name: 'twitter:title', content: 'モナレッジ' },
-      { hid: 'twitter:image', name: 'twitter:image', content: 'https://omaemona.info/default.png'},
+      { hid: 'twitter:image', name: 'twitter:image', content: 'https://monaledge.com/default.png'},
       { hid: 'twitter:description', name: 'twitter:description', content: '記事を書いてMONAがもらえる！気に入った記事にMONAが送れる！'},
     ],
     link: [

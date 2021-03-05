@@ -50,7 +50,7 @@ export default {
   methods: {
     $imgAdd(pos, $file){
       const env = process.env.NODE_ENV || 'development'
-      let url = 'https://omaemona.info:8443'
+      let url = 'https://monaledge.com:8443'
       if(env == 'development') {
         url = 'http://localhost:3333'
       }
