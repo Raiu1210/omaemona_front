@@ -16,6 +16,5 @@ export default async function checkMyAddressRegistered () {
     returnObj['status'] = false
   }
 
-  console.log(returnObj)
   return returnObj
 }

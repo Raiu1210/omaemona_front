@@ -123,6 +123,7 @@
 
 <script>
 import {axiosInstance as Api} from '~/myModules/api'
+import checkMyAddress from '~/myModules/checkMyAddress'
 
 export default {
   data() {
@@ -134,6 +135,13 @@ export default {
     }
   },
   async beforeMount() {
+    // check address registered
+    const checkResult = await checkMyAddress()
+    if (!checkResult['status']) {
+      alert("マイページを利用するにはサインアップが必要です。このアドレスは登録されていないか、あなたが登録したアドレスとは別のアドレスの可能性があります")
+      this.$router.push(`/`)
+    }
+
     const address = await window.mpurse.getAddress()
     const postObj = {
       address: address

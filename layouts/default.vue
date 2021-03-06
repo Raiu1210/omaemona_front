@@ -43,33 +43,12 @@
       app
     >
       <v-app-bar-nav-icon color="white" @click.stop="drawer = !drawer" />
-      <!-- <v-btn
-        icon
-        @click.stop="miniVariant = !miniVariant"
-      >
-        <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
-      </v-btn> -->
-      <!-- <v-btn
-        icon
-        @click.stop="clipped = !clipped"
-      >
-        <v-icon>mdi-application</v-icon>
-      </v-btn> -->
-      <!-- <v-btn
-        icon
-        @click.stop="fixed = !fixed"
-      >
-        <v-icon>mdi-minus</v-icon>
-      </v-btn> -->
+
       <nuxt-link to="/">
         <v-toolbar-title class="white--text" v-text="title" />
       </nuxt-link>
 
       <v-spacer />
-
-      <v-btn icon color="white">
-        <v-icon @click="reload">mdi-cached</v-icon>
-      </v-btn>
 
       <!-- @todo : 公開鍵からユーザを特定して表示したい -->
       <NuxtLink to="/mypage" v-if="this.$store.state.verified">
@@ -151,11 +130,6 @@ export default {
       this.$store.commit('setVerified', checkResult['userInfo']['address'])
     }
   },
-  methods: {
-    reload() {
-      location.reload()
-    }
-  }
 }
 </script>
 
