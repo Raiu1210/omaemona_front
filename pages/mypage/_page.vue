@@ -117,6 +117,8 @@
       ></v-pagination>
       </v-col>
     </v-row>
+
+    <NotRegisteredAlert v-if="dialog" />
   </v-container>
 </template>
 
@@ -124,6 +126,7 @@
 <script>
 import {axiosInstance as Api} from '~/myModules/api'
 import checkMyAddress from '~/myModules/checkMyAddress'
+import NotRegisteredAlert from '~/components/NotRegisteredAlert'
 
 export default {
   data() {
@@ -131,15 +134,15 @@ export default {
       userInfo: {},
       myArticles: [],
       page: 0,
-      pageLength: 0
+      pageLength: 0,
+      dialog: false,
     }
   },
   async beforeMount() {
     // check address registered
     const checkResult = await checkMyAddress()
     if (!checkResult['status']) {
-      alert("マイページを利用するにはサインアップが必要です。このアドレスは登録されていないか、あなたが登録したアドレスとは別のアドレスの可能性があります")
-      this.$router.push(`/`)
+      this.dialog = true
     }
 
     const address = await window.mpurse.getAddress()
@@ -203,5 +206,8 @@ export default {
       this.$router.push(`/mypage/${page}`)
     }
   },
+  components: {
+    NotRegisteredAlert
+  }
 }
 </script>

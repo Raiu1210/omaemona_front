@@ -196,7 +196,6 @@
 </template>
 
 
-
 <script>
 import Prism from '~/plugins/prism'
 import {axiosInstance as Api} from '~/myModules/api'

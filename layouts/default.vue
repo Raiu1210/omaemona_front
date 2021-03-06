@@ -51,7 +51,7 @@
       <v-spacer />
 
       <!-- @todo : 公開鍵からユーザを特定して表示したい -->
-      <NuxtLink to="/mypage" v-if="this.$store.state.verified">
+      <NuxtLink to="/mypage">
         <v-avatar color="">
           <v-icon dark>
             mdi-account-circle
