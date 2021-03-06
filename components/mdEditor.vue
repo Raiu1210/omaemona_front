@@ -3,7 +3,7 @@
     class="editor"
     fontSize="18px"
     :toolbars="markdownOption"
-    :language="'ja'"
+    language="ja"
     v-model="content"
     @imgAdd="$imgAdd"
     ref=md
