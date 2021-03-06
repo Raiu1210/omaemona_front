@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const env = process.env.NODE_ENV || 'development';
-let baseURL = 'https://omaemona.info:8443'
+let baseURL = 'https://monaledge.com:8443'
 
 if(env == 'development') {
   baseURL = 'http://localhost:3333'
