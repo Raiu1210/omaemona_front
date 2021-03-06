@@ -120,8 +120,30 @@
       </v-col>
     </v-row>
 
-    <!-- add comment -->
-    <v-row v-if="this.$store.state.verified">
+
+    <v-row v-if="addressRegistered">
+      <!-- null space -->
+      <v-col cols="1"></v-col>
+
+      <!-- content -->
+      <v-col cols="9">
+        <v-alert text
+          border="top"
+          colored-border
+          type="info"
+          elevation="2"
+        >
+          コメントをするためにはmpurseをインストールしてサインアップする必要があります。<br />サインアップは
+          <nuxt-link to="/signup">
+            こちら
+          </nuxt-link>
+        </v-alert>
+      </v-col>
+    </v-row>
+
+
+    <!-- add comment. if address is not registered, show sign up is needed -->
+    <v-row v-else>
       <!-- null space -->
       <v-col cols="1"></v-col>
 
@@ -148,26 +170,6 @@
             </span>
           </template>
         </v-btn>
-      </v-col>
-    </v-row>
-
-    <v-row v-else>
-      <!-- null space -->
-      <v-col cols="1"></v-col>
-
-      <!-- content -->
-      <v-col cols="9">
-        <v-alert text
-          border="top"
-          colored-border
-          type="info"
-          elevation="2"
-        >
-          コメントをするためにはmpurseをインストールしてサインアップする必要があります。<br />サインアップは
-          <nuxt-link to="/signup">
-            こちら
-          </nuxt-link>
-        </v-alert>
       </v-col>
     </v-row>
 
@@ -199,6 +201,7 @@
 <script>
 import Prism from '~/plugins/prism'
 import {axiosInstance as Api} from '~/myModules/api'
+import checkMyAddressRegistered from '~/myModules/checkMyAddress'
 
 export default {
   data(){
@@ -206,7 +209,8 @@ export default {
       dialog: false,
       tooltip: false,
       sendAmount: 0,
-      inputComment: ''
+      inputComment: '',
+      addressRegistered: false
     }
   },
   async asyncData({ params, $http }) {
@@ -240,6 +244,12 @@ export default {
         { hid: 'twitter:description', name: 'twitter:description', content: this.content },
       ],
       link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    }
+  },
+  async beforeMount() {
+    let isMyAddressRegistered = await checkMyAddressRegistered()
+    if (!isMyAddressRegistered['status']) {
+      this.addressRegistered = true
     }
   },
   async mounted() {
