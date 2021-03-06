@@ -125,7 +125,7 @@
 
 <script>
 import {axiosInstance as Api} from '~/myModules/api'
-import checkMyAddress from '~/myModules/checkMyAddress'
+import checkMyAddressRegistered from '~/myModules/checkMyAddress'
 import NotRegisteredAlert from '~/components/NotRegisteredAlert'
 
 export default {
@@ -140,8 +140,8 @@ export default {
   },
   async beforeMount() {
     // check address registered
-    const checkResult = await checkMyAddress()
-    if (!checkResult['status']) {
+    const isMyAddressRegistered = await checkMyAddressRegistered()
+    if (!isMyAddressRegistered['status']) {
       this.dialog = true
     }
 
