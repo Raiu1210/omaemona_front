@@ -4,12 +4,17 @@
     <v-row justify="center" align-content="center">
       <v-col cols="10">
         <v-card class="mx-auto pa-5">
-          <v-row>
-            <v-col cols="12">
-              <v-card-title class="display-1 text--primary">
-                {{userInfo['name']}}
-              </v-card-title>
-            </v-col>
+          <v-row class="pa-5">
+            <v-list-item-avatar color="grey darken-3">
+              <v-img
+                class="elevation-6 pa-5"
+                alt=""
+                :src="iconImagePath"
+              ></v-img>
+            </v-list-item-avatar>
+            <v-card-title class="display-1 text--primary">
+              {{userInfo['name']}}
+            </v-card-title>
           </v-row>
           <v-row>
             <v-col cols="12">
@@ -17,6 +22,26 @@
                 Monacoinアドレス : {{userInfo['address']}}
               </v-card-text>
             </v-col>
+          </v-row>
+
+          <!-- 編集&削除ボタン -->
+          <v-row
+            align="center"
+            justify="end"
+          >
+            <!-- 編集ボタン -->
+            <v-btn
+              class="ma-2"
+              color="success"
+              @click="showEditView()"
+            >
+              編集
+              <template v-slot:loader>
+                <span class="custom-loader">
+                  <v-icon light>mdi-cached</v-icon>
+                </span>
+              </template>
+            </v-btn>
           </v-row>
         </v-card>
       </v-col>
@@ -49,7 +74,7 @@
                   <v-img
                     class="elevation-6"
                     alt=""
-                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Monacoin.png/120px-Monacoin.png"
+                    :src="iconImagePath"
                   ></v-img>
                 </v-list-item-avatar>
 
@@ -64,7 +89,7 @@
                   <v-icon class="mr-1">
                     mdi-alpha-m-circle-outline
                   </v-icon>
-                  <span class="subheading mr-2">{{article.sent_mona}} MONA</span>
+                  <span class="subheading mr-2">{{article.sent_mona.toFixed(8)}} MONA</span>
                 </v-row>
               </v-list-item>
             </v-card-actions>
@@ -117,12 +142,22 @@
       ></v-pagination>
       </v-col>
     </v-row>
+
+    <NotRegisteredAlert v-if="dialog" />
+    <ProfileEdit
+      :name="userInfo['name']"
+      :icon_image_path="iconImagePath"
+      @closeEditView="closeEditView"
+      v-if="editMode" />
   </v-container>
 </template>
 
 
 <script>
 import {axiosInstance as Api} from '~/myModules/api'
+import checkMyAddressRegistered from '~/myModules/checkMyAddress'
+import NotRegisteredAlert from '~/components/NotRegisteredAlert'
+import ProfileEdit from '~/components/ProfileEdit'
 
 export default {
   data() {
@@ -130,10 +165,18 @@ export default {
       userInfo: {},
       myArticles: [],
       page: 0,
-      pageLength: 0
+      pageLength: 0,
+      dialog: false,
+      editMode: false
     }
   },
   async beforeMount() {
+    // check address registered
+    const isMyAddressRegistered = await checkMyAddressRegistered()
+    if (!isMyAddressRegistered['status']) {
+      this.dialog = true
+    }
+
     const address = await window.mpurse.getAddress()
     const postObj = {
       address: address
@@ -150,6 +193,8 @@ export default {
     const articlesCount = myArticles["data"]["articlesCount"]
     this.page = this.$route.params.page == undefined ? 1 : Number(this.$route.params.page)
     this.pageLength = Math.ceil(articlesCount / 10)
+
+    console.log(myArticles)
   },
   methods: {
     async deleteArticle(articleId) {
@@ -183,6 +228,13 @@ export default {
     gotoEditPage(articleId) {
       this.$router.push(`/edit/${articleId}`)
     },
+    showEditView() {
+      this.editMode = true
+    },
+    closeEditView() {
+      this.editMode = false
+
+    },
     async refreshPage() {
       const address = await window.mpurse.getAddress()
       const postObj = {
@@ -195,5 +247,24 @@ export default {
       this.$router.push(`/mypage/${page}`)
     }
   },
+  computed: {
+    iconImagePath() {
+      const env = process.env.NODE_ENV || 'development'
+      let url = 'https://monaledge.com:8443'
+      if(env == 'development') {
+        url = 'http://localhost:3333'
+      }
+
+      if(this.userInfo['icon_image_path'] == null) {
+        return url + '/profileImages/Monacoin.png'
+      } else {
+        return this.userInfo['icon_image_path']
+      }
+    }
+  },
+  components: {
+    NotRegisteredAlert,
+    ProfileEdit
+  }
 }
 </script>

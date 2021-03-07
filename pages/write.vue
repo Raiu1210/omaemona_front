@@ -65,10 +65,6 @@ export default {
     };
   },
   async beforeMount() {
-    window.mpurse.updateEmitter.removeAllListeners()
-      .on('stateChanged', isUnlocked => console.log(isUnlocked))
-      .on('addressChanged', address => console.log(address));
-
     let isMyAddressRegistered = await checkMyAddressRegistered()
     if (!isMyAddressRegistered['status']) {
       alert("記事を投稿するにはモナコインアドレスを登録する必要があります")

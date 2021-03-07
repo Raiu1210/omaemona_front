@@ -8737,6 +8737,11 @@ vue-hot-reload-api@^2.3.0:
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.3.4.tgz#532955cc1eb208a3d990b3a9f9a70574657e08f2"
   integrity sha512-BXq3jwIagosjgNVae6tkHzzIk6a8MHFtzAdwhnV5VlvPTFxDCvIttgSiHWjdGoTJvXtmRu5HacExfdarRcFhog==
 
+vue-img-inputer@^2.1.6:
+  version "2.1.6"
+  resolved "https://registry.yarnpkg.com/vue-img-inputer/-/vue-img-inputer-2.1.6.tgz#4d018a61e40e0d19e4446a46536f3da7b71bf729"
+  integrity sha512-U4L5cEw8AKwhYB6/SIEj8zC5yMKE9hc/l7bMAfZ7yPwKBgsubO5xTiWjaBggFUzaj25jNPlAzbsVZX839jF2KQ==
+
 vue-loader@^15.9.5:
   version "15.9.6"
   resolved "https://registry.yarnpkg.com/vue-loader/-/vue-loader-15.9.6.tgz#f4bb9ae20c3a8370af3ecf09b8126d38ffdb6b8b"

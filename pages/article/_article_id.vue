@@ -26,6 +26,13 @@
         >
           <!-- コンテンツ表示 -->
           <!-- {{article}} -->
+          <v-list-item-avatar color="grey darken-3">
+            <v-img
+              class="elevation-6"
+              alt=""
+              :src="iconImagePath"
+            ></v-img>
+          </v-list-item-avatar>
           <span class="author_name">{{authorName}} &ensp;&ensp;&ensp;</span>
           <span class="updated_time">{{updated}}に更新</span>&ensp;&ensp;&ensp;&ensp;
           <v-icon class="mr-1">
@@ -120,8 +127,30 @@
       </v-col>
     </v-row>
 
-    <!-- add comment -->
-    <v-row v-if="this.$store.state.verified">
+
+    <v-row v-if="addressRegistered">
+      <!-- null space -->
+      <v-col cols="1"></v-col>
+
+      <!-- content -->
+      <v-col cols="9">
+        <v-alert text
+          border="top"
+          colored-border
+          type="info"
+          elevation="2"
+        >
+          コメントをするためにはmpurseをインストールしてサインアップする必要があります。<br />サインアップは
+          <nuxt-link to="/signup">
+            こちら
+          </nuxt-link>
+        </v-alert>
+      </v-col>
+    </v-row>
+
+
+    <!-- add comment. if address is not registered, show sign up is needed -->
+    <v-row v-else>
       <!-- null space -->
       <v-col cols="1"></v-col>
 
@@ -151,26 +180,6 @@
       </v-col>
     </v-row>
 
-    <v-row v-else>
-      <!-- null space -->
-      <v-col cols="1"></v-col>
-
-      <!-- content -->
-      <v-col cols="9">
-        <v-alert text
-          border="top"
-          colored-border
-          type="info"
-          elevation="2"
-        >
-          コメントをするためにはmpurseをインストールしてサインアップする必要があります。<br />サインアップは
-          <nuxt-link to="/signup">
-            こちら
-          </nuxt-link>
-        </v-alert>
-      </v-col>
-    </v-row>
-
     <v-row>
       <!-- null space -->
       <v-col cols="1"></v-col>
@@ -196,10 +205,10 @@
 </template>
 
 
-
 <script>
 import Prism from '~/plugins/prism'
 import {axiosInstance as Api} from '~/myModules/api'
+import checkMyAddressRegistered from '~/myModules/checkMyAddress'
 
 export default {
   data(){
@@ -207,7 +216,8 @@ export default {
       dialog: false,
       tooltip: false,
       sendAmount: 0,
-      inputComment: ''
+      inputComment: '',
+      addressRegistered: false
     }
   },
   async asyncData({ params, $http }) {
@@ -217,6 +227,7 @@ export default {
       }
     })
     const updatedObj = new Date(res['data']['updatedAt'])
+
 
     return {
       article: res['data'],
@@ -241,6 +252,12 @@ export default {
         { hid: 'twitter:description', name: 'twitter:description', content: this.content },
       ],
       link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    }
+  },
+  async beforeMount() {
+    let isMyAddressRegistered = await checkMyAddressRegistered()
+    if (!isMyAddressRegistered['status']) {
+      this.addressRegistered = true
     }
   },
   async mounted() {
@@ -288,6 +305,21 @@ export default {
       }
     }
   },
+  computed: {
+    iconImagePath() {
+      const env = process.env.NODE_ENV || 'development'
+      let url = 'https://monaledge.com:8443'
+      if(env == 'development') {
+        url = 'http://localhost:3333'
+      }
+
+      if(this.article.user.icon_image_path == null) {
+        return url + '/profileImages/Monacoin.png'
+      } else {
+        return this.article.user.icon_image_path
+      }
+    }
+  }
 }
 </script>
 
