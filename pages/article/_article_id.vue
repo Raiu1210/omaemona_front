@@ -26,6 +26,13 @@
         >
           <!-- コンテンツ表示 -->
           <!-- {{article}} -->
+          <v-list-item-avatar color="grey darken-3">
+            <v-img
+              class="elevation-6"
+              alt=""
+              :src="iconImagePath"
+            ></v-img>
+          </v-list-item-avatar>
           <span class="author_name">{{authorName}} &ensp;&ensp;&ensp;</span>
           <span class="updated_time">{{updated}}に更新</span>&ensp;&ensp;&ensp;&ensp;
           <v-icon class="mr-1">
@@ -221,6 +228,7 @@ export default {
     })
     const updatedObj = new Date(res['data']['updatedAt'])
 
+
     return {
       article: res['data'],
       title: res['data']['title'],
@@ -297,6 +305,21 @@ export default {
       }
     }
   },
+  computed: {
+    iconImagePath() {
+      const env = process.env.NODE_ENV || 'development'
+      let url = 'https://monaledge.com:8443'
+      if(env == 'development') {
+        url = 'http://localhost:3333'
+      }
+
+      if(this.article.user.icon_image_path == null) {
+        return url + '/profileImages/Monacoin.png'
+      } else {
+        return this.article.user.icon_image_path
+      }
+    }
+  }
 }
 </script>
 
