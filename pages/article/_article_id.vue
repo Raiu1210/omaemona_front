@@ -30,7 +30,7 @@
             <v-img
               class="elevation-6"
               alt=""
-              :src="iconImagePath"
+              :src="iconImagePath(authorIconImagePath)"
             ></v-img>
           </v-list-item-avatar>
           <span class="author_name">{{authorName}} &ensp;&ensp;&ensp;</span>
@@ -190,7 +190,7 @@
           <v-timeline-item v-for="comment in comments" :key="comment.id" large>
             <template v-slot:icon>
               <v-avatar>
-                <img src="/monacoin.png">
+                <img :src="iconImagePath(comment['user']['icon_image_path'])">
               </v-avatar>
             </template>
             <v-card class="elevation-2">
@@ -236,6 +236,7 @@ export default {
       sentMona: res['data']['sent_mona'],
       authorName: res['data']['user']['name'],
       authorAddress: res['data']['user']['address'],
+      authorIconImagePath: res['data']['user']['icon_image_path'],
       comments: res['data']['comments'],
       updated: updatedObj.getFullYear() + '年' + (Number(updatedObj.getMonth()) + 1) + '月' + updatedObj.getDate() + '日'
     }
@@ -281,6 +282,10 @@ export default {
       const sendResult = await Api.post('/log_tip', postObj)
     },
     async postComment(article_id) {
+      if(this.inputComment == '') {
+        alert("空のコメントはうけつけられないよ！")
+        return
+      }
       const date = new Date()
       const now = date.getTime()
 
@@ -303,20 +308,18 @@ export default {
         alert("記事の投稿に成功しました！")
         location.reload()
       }
-    }
-  },
-  computed: {
-    iconImagePath() {
+    },
+    iconImagePath(iconImagePath) {
       const env = process.env.NODE_ENV || 'development'
       let url = 'https://monaledge.com:8443'
       if(env == 'development') {
         url = 'http://localhost:3333'
       }
 
-      if(this.article.user.icon_image_path == null) {
+      if(iconImagePath == null) {
         return url + '/profileImages/Monacoin.png'
       } else {
-        return this.article.user.icon_image_path
+        return iconImagePath
       }
     }
   }
