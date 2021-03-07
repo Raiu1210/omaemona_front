@@ -30,7 +30,7 @@
             <v-img
               class="elevation-6"
               alt=""
-              :src="iconImagePath"
+              :src="iconImagePath(authorIconImagePath)"
             ></v-img>
           </v-list-item-avatar>
           <span class="author_name">{{authorName}} &ensp;&ensp;&ensp;</span>
@@ -110,6 +110,25 @@
             </v-card-actions>
           </v-card>
         </v-dialog>
+
+        <!-- twitter share -->
+        <v-tooltip bottom>
+          <template #activator="{ on: tooltip2 }">
+            <v-btn
+              class="mx-2"
+              fab
+              dark
+              color="blue"
+              @click="share($route.params.article_id, 'twitter')"
+              v-on="{ ...tooltip2 }"
+            >
+              <v-icon dark>
+                mdi-twitter
+              </v-icon>
+            </v-btn>
+          </template>
+          <span>この記事をシェアする</span>
+        </v-tooltip>
       </v-col>
 
       <v-col
@@ -190,7 +209,7 @@
           <v-timeline-item v-for="comment in comments" :key="comment.id" large>
             <template v-slot:icon>
               <v-avatar>
-                <img src="/monacoin.png">
+                <img :src="iconImagePath(comment['user']['icon_image_path'])">
               </v-avatar>
             </template>
             <v-card class="elevation-2">
@@ -214,6 +233,7 @@ export default {
   data(){
     return {
       dialog: false,
+      dialog2: false,
       tooltip: false,
       sendAmount: 0,
       inputComment: '',
@@ -236,6 +256,7 @@ export default {
       sentMona: res['data']['sent_mona'],
       authorName: res['data']['user']['name'],
       authorAddress: res['data']['user']['address'],
+      authorIconImagePath: res['data']['user']['icon_image_path'],
       comments: res['data']['comments'],
       updated: updatedObj.getFullYear() + '年' + (Number(updatedObj.getMonth()) + 1) + '月' + updatedObj.getDate() + '日'
     }
@@ -281,6 +302,10 @@ export default {
       const sendResult = await Api.post('/log_tip', postObj)
     },
     async postComment(article_id) {
+      if(this.inputComment == '') {
+        alert("空のコメントはうけつけられないよ！")
+        return
+      }
       const date = new Date()
       const now = date.getTime()
 
@@ -303,22 +328,37 @@ export default {
         alert("記事の投稿に成功しました！")
         location.reload()
       }
-    }
-  },
-  computed: {
-    iconImagePath() {
+    },
+    iconImagePath(iconImagePath) {
       const env = process.env.NODE_ENV || 'development'
       let url = 'https://monaledge.com:8443'
       if(env == 'development') {
         url = 'http://localhost:3333'
       }
 
-      if(this.article.user.icon_image_path == null) {
+      if(iconImagePath == null) {
         return url + '/profileImages/Monacoin.png'
       } else {
-        return this.article.user.icon_image_path
+        return iconImagePath
       }
-    }
+    },
+    share(articleId, sns) {
+        const shareUrl = `https://monaledge.com/article/${articleId}`
+        const hashTag = "%20%23モナレッジ %20%23モナコイン %20%23MONACOIN"
+        let href = ""
+        switch( sns ) {
+          case 'twitter':
+              href = `https://twitter.com/intent/tweet?url=${shareUrl}&text=${hashTag}`
+              break
+          case 'facebook':
+              href = `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`
+              break
+          case 'line':
+              href = `https://social-plugins.line.me/lineit/share?url=${shareUrl}`
+              break
+        }
+        window.open(href, '_blank') // 新規タブでSNSのシェアページを開く
+      }
   }
 }
 </script>
