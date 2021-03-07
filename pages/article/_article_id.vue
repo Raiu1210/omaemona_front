@@ -110,6 +110,25 @@
             </v-card-actions>
           </v-card>
         </v-dialog>
+
+        <!-- twitter share -->
+        <v-tooltip bottom>
+          <template #activator="{ on: tooltip2 }">
+            <v-btn
+              class="mx-2"
+              fab
+              dark
+              color="blue"
+              @click="share($route.params.article_id, 'twitter')"
+              v-on="{ ...tooltip2 }"
+            >
+              <v-icon dark>
+                mdi-twitter
+              </v-icon>
+            </v-btn>
+          </template>
+          <span>この記事をシェアする</span>
+        </v-tooltip>
       </v-col>
 
       <v-col
@@ -214,6 +233,7 @@ export default {
   data(){
     return {
       dialog: false,
+      dialog2: false,
       tooltip: false,
       sendAmount: 0,
       inputComment: '',
@@ -321,7 +341,24 @@ export default {
       } else {
         return iconImagePath
       }
-    }
+    },
+    share(articleId, sns) {
+        const shareUrl = `https://monaledge.com/article/${articleId}`
+        const hashTag = "%20%23モナレッジ %20%23モナコイン %20%23MONACOIN"
+        let href = ""
+        switch( sns ) {
+          case 'twitter':
+              href = `https://twitter.com/intent/tweet?url=${shareUrl}&text=${hashTag}`
+              break
+          case 'facebook':
+              href = `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`
+              break
+          case 'line':
+              href = `https://social-plugins.line.me/lineit/share?url=${shareUrl}`
+              break
+        }
+        window.open(href, '_blank') // 新規タブでSNSのシェアページを開く
+      }
   }
 }
 </script>
