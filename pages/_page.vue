@@ -58,7 +58,7 @@
                   <v-img
                     class="elevation-6"
                     alt=""
-                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Monacoin.png/120px-Monacoin.png"
+                    :src="iconImagePath(article.user.icon_image_path)"
                   ></v-img>
                 </v-list-item-avatar>
 
@@ -139,6 +139,19 @@ export default {
     },
     gotoPageN(page) {
       this.$router.push(`/${page}`)
+    },
+    iconImagePath(iconImagePath) {
+      const env = process.env.NODE_ENV || 'development'
+      let url = 'https://monaledge.com:8443'
+      if(env == 'development') {
+        url = 'http://localhost:3333'
+      }
+
+      if(iconImagePath == null) {
+        return url + '/profileImages/Monacoin.png'
+      } else {
+        return iconImagePath
+      }
     }
   },
 }
