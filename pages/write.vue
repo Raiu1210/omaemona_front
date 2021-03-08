@@ -106,6 +106,7 @@ export default {
       }
 
       const result = await Api.post('/write', postObj)
+      console.log(result)
       if (result["status"] == 201) {
         this.articleId = result["data"]["result"]["id"]
         this.$store.commit('setMyArticleId', result["data"]["result"]["id"])
