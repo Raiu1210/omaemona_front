@@ -47,6 +47,50 @@
     >
       投稿する
     </v-btn>
+
+    <v-row justify="space-around">
+      <v-col cols="auto">
+        <v-dialog
+          transition="dialog-bottom-transition"
+          max-width="600"
+          v-model="dialog"
+        >
+          <template>
+            <v-card>
+              <v-toolbar
+                class="headline"
+                color="primary"
+                dark
+              >記事の投稿に成功しました！</v-toolbar>
+              <v-card-text>
+                <div class="title pa-5">書いた記事をSNSでシェアしよう！</div>
+              </v-card-text>
+              <v-btn
+                  class="mx-2 ml-10"
+                  fab
+                  dark
+                  color="blue"
+                  @click="share(articleId, 'twitter')"
+                >
+                  <v-icon dark>
+                    mdi-twitter
+                  </v-icon>
+                </v-btn>
+              <v-card-actions class="justify-end">
+                <v-spacer></v-spacer>
+                <v-btn
+                  color="green darken-1"
+                  text
+                  @click="gotoHome"
+                >
+                  ホームへ戻る
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </template>
+        </v-dialog>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
@@ -61,7 +105,9 @@ export default {
     return {
       title: '',
       address: '',
-      content: "# Markdownで記事を書く！"
+      articleId: '',
+      content: "# Markdownで記事を書く！",
+      dialog: false
     };
   },
   async beforeMount() {
@@ -73,6 +119,14 @@ export default {
   },
   methods: {
     async postContent() {
+      if (this.title == '') {
+        alert("タイトルが入力されていないよ！")
+        return
+      }
+      if (this.content == '') {
+        alert("記事が入力されていないよ！")
+        return
+      }
       // アドレスの確認
 
       const date = new Date()
@@ -94,9 +148,32 @@ export default {
 
       const result = await Api.post('/write', postObj)
       if (result["status"] == 201) {
-        alert("記事の投稿に成功しました！")
-        this.$router.push('/')
+        this.articleId = result["data"]["result"]["id"]
+        this.dialog = true
+
+        // this.$router.push('/')
       }
+    },
+    share(articleId, sns) {
+      const shareUrl = `https://monaledge.com/article/${articleId}`
+      const hashTag = "%20%23モナレッジ %20%23モナコイン %20%23MONACOIN"
+      let href = ""
+      switch( sns ) {
+        case 'twitter':
+            href = `https://twitter.com/intent/tweet?url=${shareUrl}&text=${hashTag}`
+            break
+        case 'facebook':
+            href = `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`
+            break
+        case 'line':
+            href = `https://social-plugins.line.me/lineit/share?url=${shareUrl}`
+            break
+      }
+      window.open(href, '_blank') // 新規タブでSNSのシェアページを開く
+    },
+    gotoHome() {
+      this.dialog = false
+      this.$router.push('/')
     }
   },
   components: {
