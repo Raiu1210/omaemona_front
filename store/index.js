@@ -1,4 +1,5 @@
 export const state = () => ({
+  postedArticleId: '',
   publicAddress: 'aaa',
   verified: false
 })
@@ -9,4 +10,8 @@ export const mutations = {
     state.publicAddress = val,
     state.verified = true
   },
+
+  setMyArticleId(state, val) {
+    state.postedArticleId = val
+  }
  }

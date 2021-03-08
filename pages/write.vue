@@ -47,6 +47,8 @@
     >
       投稿する
     </v-btn>
+
+    <ShareDialog v-if="dialog" />
   </div>
 </template>
 
@@ -55,13 +57,16 @@
 import {axiosInstance as Api} from '~/myModules/api'
 import checkMyAddressRegistered from '~/myModules/checkMyAddress'
 import mdEditor from '~/components/mdEditor'
+import ShareDialog from '~/components/ShareDialog'
 
 export default {
   data() {
     return {
       title: '',
       address: '',
-      content: "# Markdownで記事を書く！"
+      articleId: '',
+      content: "# Markdownで記事を書く！",
+      dialog: false
     };
   },
   async beforeMount() {
@@ -73,6 +78,14 @@ export default {
   },
   methods: {
     async postContent() {
+      if (this.title == '') {
+        alert("タイトルが入力されていないよ！")
+        return
+      }
+      if (this.content == '') {
+        alert("記事が入力されていないよ！")
+        return
+      }
       // アドレスの確認
 
       const date = new Date()
@@ -94,13 +107,15 @@ export default {
 
       const result = await Api.post('/write', postObj)
       if (result["status"] == 201) {
-        alert("記事の投稿に成功しました！")
-        this.$router.push('/')
+        this.articleId = result["data"]["result"]["id"]
+        this.$store.commit('setMyArticleId', result["data"]["result"]["id"])
+        this.dialog = true
       }
     }
   },
   components: {
-    mdEditor
+    mdEditor,
+    ShareDialog,
   }
 };
 </script>
