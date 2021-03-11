@@ -26,7 +26,7 @@
           <v-card
             class="mx-auto"
             color="#ffffff"
-            :to="{path : 'article/' + article.id}"
+            :to="{path : '/article/' + article.id}"
           >
             <v-card-title>
               <span class="title font-weight-light"></span>
@@ -140,14 +140,11 @@ export default {
       return timeObj.getFullYear() + '年' + (Number(timeObj.getMonth()) + 1) + '月' + timeObj.getDate() + '日'
     },
     gotoPageN(page) {
-      console.log(`${this.destination}/${page}`)
-      console.log(this.destination.charAt(0))
       if (this.destination == '/') {
         this.$router.push({ path: `${this.destination.slice(1)}/${page}` })
       } else {
         this.$router.push({ path: `${this.destination}/${page}` })
       }
-
     },
     iconImagePath(iconImagePath) {
       const env = process.env.NODE_ENV || 'development'
