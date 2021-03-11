@@ -61,7 +61,7 @@
 
     </v-app-bar>
     <v-main>
-      <v-container fluid>
+      <v-container fluid class="pa-0 ma-0">
         <nuxt />
       </v-container>
     </v-main>
