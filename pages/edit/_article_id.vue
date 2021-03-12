@@ -1,32 +1,5 @@
 <template>
-  <div class="editorView">
-    <!-- alert -->
-    <v-row>
-      <v-col cols="12">
-        <v-alert
-          outlined
-          type="warning"
-          prominent
-          border="left"
-        >
-          画像の投稿のところで「画像をアップロード」の機能はまだ未実装です。「画像のリンク」は動くのでお手数ですがしばらくの間はどこか別のところ（Imgurとか：https://imgur.com/）に画像をアップロードしたのちにリンクをこちらに貼って下さい m(-_-)m ｽﾏﾇ
-        </v-alert>
-      </v-col>
-    </v-row>
-
-    <v-row>
-      <v-col cols="12">
-        <v-alert
-          outlined
-          type="warning"
-          prominent
-          border="left"
-        >
-          日本語だとだいたい2万文字くらいまでしか1記事に入らないと思うので、超大作を作る方は2万文字を目安に分けてね！
-        </v-alert>
-      </v-col>
-    </v-row>
-
+  <v-container class="editorView">
     <!-- title field -->
     <v-row>
       <v-col cols="12">
@@ -59,7 +32,7 @@
     >
       投稿する
     </v-btn>
-  </div>
+  </v-container>
 </template>
 
 
