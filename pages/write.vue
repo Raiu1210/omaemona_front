@@ -1,5 +1,5 @@
 <template>
-  <div class="editorView">
+  <v-container class="editorView">
     <!-- alert -->
     <v-row>
       <v-col cols="12">
@@ -49,7 +49,7 @@
     </v-btn>
 
     <ShareDialog v-if="dialog" />
-  </div>
+  </v-container>
 </template>
 
 
