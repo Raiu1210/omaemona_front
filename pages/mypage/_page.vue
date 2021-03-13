@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <!-- ユーザのカード -->
-    <UserCard :userInfo="userInfo" />
+    <UserCard :userInfo="userInfo" :editable="true" />
 
 
     <!-- 書いた記事一覧 -->
@@ -30,7 +30,7 @@
                   <v-img
                     class="elevation-6"
                     alt=""
-                    :src="iconImagePath"
+                    :src="iconImagePath(userInfo['icon_image_path'])"
                   ></v-img>
                 </v-list-item-avatar>
 
@@ -108,6 +108,7 @@
 import {axiosInstance as Api} from '~/myModules/api'
 import checkMyAddressRegistered from '~/myModules/checkMyAddress'
 import NotRegisteredAlert from '~/components/NotRegisteredAlert'
+import generateIconImagePath from '~/myModules/generateIconImagePath'
 import UserCard from '~/components/UserCard'
 
 export default {
@@ -174,6 +175,9 @@ export default {
     covertUpdateTime(timeData) {
       const timeObj = new Date(timeData)
       return timeObj.getFullYear() + '年' + (Number(timeObj.getMonth()) + 1) + '月' + timeObj.getDate() + '日'
+    },
+    iconImagePath(path) {
+      return generateIconImagePath(path)
     },
     gotoEditPage(articleId) {
       this.$router.push(`/edit/${articleId}`)

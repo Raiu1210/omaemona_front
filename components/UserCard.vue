@@ -32,6 +32,7 @@
             class="ma-2"
             color="success"
             @click="showEditView()"
+            v-if="editable"
           >
             編集
             <template v-slot:loader>
@@ -59,7 +60,8 @@ import generateIconImagePath from '~/myModules/generateIconImagePath'
 
 export default {
   props:{
-    'userInfo': Object, require: true
+    'userInfo': Object, require: true,
+    'editable': Boolean, require: true
   },
   data() {
     return {
