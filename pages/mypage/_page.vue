@@ -6,87 +6,7 @@
 
     <!-- 書いた記事一覧 -->
     <h2 class="my-8">全ての投稿</h2>
-    <v-row
-        v-for="article in myArticles"
-        :key="article.id"
-      >
-      <v-col>
-        <v-card
-          class="mx-auto"
-          color="#ffffff"
-        >
-          <nuxt-link style="text-decoration: none; color: inherit;" :to="`/article/${article.id}`">
-            <v-card-text class="headline font-weight-bold mb-0 pb-0">
-              {{article.title}}
-            </v-card-text>
-
-            <v-card-subtitle class="pt-0">
-              {{covertUpdateTime(article.updatedAt)}}
-            </v-card-subtitle>
-
-            <v-card-actions>
-              <v-list-item class="grow">
-                <v-list-item-avatar color="grey darken-3">
-                  <v-img
-                    class="elevation-6"
-                    alt=""
-                    :src="iconImagePath(userInfo['icon_image_path'])"
-                  ></v-img>
-                </v-list-item-avatar>
-
-                <v-list-item-content>
-                  <v-list-item-title>{{userInfo['name']}}</v-list-item-title>
-                </v-list-item-content>
-
-                <v-row
-                  align="center"
-                  justify="end"
-                >
-                  <v-icon class="mr-1">
-                    mdi-alpha-m-circle-outline
-                  </v-icon>
-                  <span class="subheading mr-2">{{article.sent_mona.toFixed(8)}} MONA</span>
-                </v-row>
-              </v-list-item>
-            </v-card-actions>
-          </nuxt-link>
-
-          <!-- 編集&削除ボタン -->
-          <v-row
-            align="center"
-            justify="end"
-          >
-            <!-- 編集ボタン -->
-            <v-btn
-              class="ma-2"
-              color="success"
-              @click="gotoEditPage(article.id)"
-            >
-              編集
-              <template v-slot:loader>
-                <span class="custom-loader">
-                  <v-icon light>mdi-cached</v-icon>
-                </span>
-              </template>
-            </v-btn>
-
-            <!-- 削除ボタン -->
-            <v-btn
-              class="ma-2 mr-8"
-              color="error"
-              @click="deleteArticle(article.id)"
-            >
-              削除
-              <template v-slot:loader>
-                <span class="custom-loader">
-                  <v-icon light>mdi-cached</v-icon>
-                </span>
-              </template>
-            </v-btn>
-          </v-row>
-        </v-card>
-      </v-col>
-    </v-row>
+    <UserArticlesTimeline :userInfo="userInfo" :articles="myArticles" :editable="true" />
 
     <v-row>
       <v-col style="justify-content: center;">
@@ -107,9 +27,11 @@
 <script>
 import {axiosInstance as Api} from '~/myModules/api'
 import checkMyAddressRegistered from '~/myModules/checkMyAddress'
-import NotRegisteredAlert from '~/components/NotRegisteredAlert'
 import generateIconImagePath from '~/myModules/generateIconImagePath'
+
+import NotRegisteredAlert from '~/components/NotRegisteredAlert'
 import UserCard from '~/components/UserCard'
+import UserArticlesTimeline from '~/components/UserArticlesTimeline'
 
 export default {
   data() {
@@ -172,15 +94,8 @@ export default {
         this.refreshPage()
       }
     },
-    covertUpdateTime(timeData) {
-      const timeObj = new Date(timeData)
-      return timeObj.getFullYear() + '年' + (Number(timeObj.getMonth()) + 1) + '月' + timeObj.getDate() + '日'
-    },
     iconImagePath(path) {
       return generateIconImagePath(path)
-    },
-    gotoEditPage(articleId) {
-      this.$router.push(`/edit/${articleId}`)
     },
     async refreshPage() {
       const address = await window.mpurse.getAddress()
@@ -193,9 +108,6 @@ export default {
     gotoPageN(page) {
       this.$router.push(`/mypage/${page}`)
     }
-  },
-  computed: {
-
   },
   components: {
     NotRegisteredAlert,

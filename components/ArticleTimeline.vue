@@ -29,17 +29,17 @@
               color="#ffffff"
               :to="{path : '/article/' + article.id}"
             >
-              <v-card-title>
+              <v-card-subtitle class="pb-0 mb-0">
+                {{covertUpdateTime(article.updatedAt)}}
+              </v-card-subtitle>
+
+              <v-card-title class="pa-0 mt-2">
                 <span class="title font-weight-light"></span>
               </v-card-title>
 
               <v-card-text class="headline font-weight-bold mb-0 pb-0">
                 {{article.title}}
               </v-card-text>
-
-              <v-card-subtitle class="pt-0">
-                {{covertUpdateTime(article.updatedAt)}}
-              </v-card-subtitle>
 
               <v-card-actions>
                 <v-list-item class="grow">
