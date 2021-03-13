@@ -66,44 +66,10 @@ export default {
     const articlesCount = myArticles["data"]["articlesCount"]
     this.page = this.$route.params.page == undefined ? 1 : Number(this.$route.params.page)
     this.pageLength = Math.ceil(articlesCount / 10)
-
-    console.log(myArticles)
   },
   methods: {
-    async deleteArticle(articleId) {
-      // 削除確認
-      if(!confirm("この記事を削除しますか")) {
-        return 0
-      }
-      // 削除のリクエスト
-      const date = new Date()
-      const now = date.getTime()
-      const address = await window.mpurse.getAddress()
-      const message = `I will delete article id ${articleId}:${now}`
-      const signature = await window.mpurse.signMessage(message)
-
-      const postObj = {
-        articleId: articleId,
-        address: address,
-        message: message,
-        signature: signature
-      }
-      const response = await Api.post('deleteArticle', postObj)
-      if(response['data']['status'] == 0) {
-        alert("記事を削除しました")
-        this.refreshPage()
-      }
-    },
     iconImagePath(path) {
       return generateIconImagePath(path)
-    },
-    async refreshPage() {
-      const address = await window.mpurse.getAddress()
-      const postObj = {
-        address: address
-      }
-      const response = await Api.post('myInfo', postObj)
-      this.userInfo = response['data']
     },
     gotoPageN(page) {
       this.$router.push(`/mypage/${page}`)

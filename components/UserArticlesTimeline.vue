@@ -88,6 +88,7 @@
 
 
 <script>
+import {axiosInstance as Api} from '~/myModules/api'
 import generateIconImagePath from '~/myModules/generateIconImagePath'
 
 export default {
@@ -106,6 +107,30 @@ export default {
     },
     gotoEditPage(articleId) {
       this.$router.push(`/edit/${articleId}`)
+    },
+    async deleteArticle(articleId) {
+      // 削除確認
+      if(!confirm("この記事を削除しますか")) {
+        return 0
+      }
+      // 削除のリクエスト
+      const date = new Date()
+      const now = date.getTime()
+      const address = await window.mpurse.getAddress()
+      const message = `I will delete article id ${articleId}:${now}`
+      const signature = await window.mpurse.signMessage(message)
+
+      const postObj = {
+        articleId: articleId,
+        address: address,
+        message: message,
+        signature: signature
+      }
+      const response = await Api.post('deleteArticle', postObj)
+      if(response['data']['status'] == 0) {
+        alert("記事を削除しました")
+        location.reload()
+      }
     },
   }
 }
