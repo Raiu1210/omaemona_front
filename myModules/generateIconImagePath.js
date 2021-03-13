@@ -1,4 +1,4 @@
-export default function iconImagePath(icon_image_path) {
+export function iconImagePath(icon_image_path) {
   const env = process.env.NODE_ENV || 'development'
   let url = 'https://monaledge.com:8443'
   if(env == 'development') {
