@@ -1,51 +1,7 @@
 <template>
   <v-container>
     <!-- ユーザのカード -->
-    <v-row justify="center" align-content="center">
-      <v-col cols="10">
-        <v-card class="mx-auto pa-5">
-          <v-row class="pa-5">
-            <v-list-item-avatar color="grey darken-3">
-              <v-img
-                class="elevation-6 pa-5"
-                alt=""
-                :src="iconImagePath"
-              ></v-img>
-            </v-list-item-avatar>
-            <v-card-title class="display-1 text--primary">
-              {{userInfo['name']}}
-            </v-card-title>
-          </v-row>
-          <v-row>
-            <v-col cols="12">
-              <v-card-text>
-                Monacoinアドレス : {{userInfo['address']}}
-              </v-card-text>
-            </v-col>
-          </v-row>
-
-          <!-- 編集&削除ボタン -->
-          <v-row
-            align="center"
-            justify="end"
-          >
-            <!-- 編集ボタン -->
-            <v-btn
-              class="ma-2"
-              color="success"
-              @click="showEditView()"
-            >
-              編集
-              <template v-slot:loader>
-                <span class="custom-loader">
-                  <v-icon light>mdi-cached</v-icon>
-                </span>
-              </template>
-            </v-btn>
-          </v-row>
-        </v-card>
-      </v-col>
-    </v-row>
+    <UserCard :userInfo="userInfo" />
 
 
     <!-- 書いた記事一覧 -->
@@ -144,11 +100,6 @@
     </v-row>
 
     <NotRegisteredAlert v-if="dialog" />
-    <ProfileEdit
-      :name="userInfo['name']"
-      :icon_image_path="iconImagePath"
-      @closeEditView="closeEditView"
-      v-if="editMode" />
   </v-container>
 </template>
 
@@ -157,7 +108,7 @@
 import {axiosInstance as Api} from '~/myModules/api'
 import checkMyAddressRegistered from '~/myModules/checkMyAddress'
 import NotRegisteredAlert from '~/components/NotRegisteredAlert'
-import ProfileEdit from '~/components/ProfileEdit'
+import UserCard from '~/components/UserCard'
 
 export default {
   data() {
@@ -167,7 +118,6 @@ export default {
       page: 0,
       pageLength: 0,
       dialog: false,
-      editMode: false
     }
   },
   async beforeMount() {
@@ -228,13 +178,6 @@ export default {
     gotoEditPage(articleId) {
       this.$router.push(`/edit/${articleId}`)
     },
-    showEditView() {
-      this.editMode = true
-    },
-    closeEditView() {
-      this.editMode = false
-
-    },
     async refreshPage() {
       const address = await window.mpurse.getAddress()
       const postObj = {
@@ -248,23 +191,11 @@ export default {
     }
   },
   computed: {
-    iconImagePath() {
-      const env = process.env.NODE_ENV || 'development'
-      let url = 'https://monaledge.com:8443'
-      if(env == 'development') {
-        url = 'http://localhost:3333'
-      }
 
-      if(this.userInfo['icon_image_path'] == null) {
-        return url + '/profileImages/Monacoin.png'
-      } else {
-        return this.userInfo['icon_image_path']
-      }
-    }
   },
   components: {
     NotRegisteredAlert,
-    ProfileEdit
+    UserCard
   }
 }
 </script>
