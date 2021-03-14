@@ -22,12 +22,10 @@
           </v-col>
         </v-row>
 
-        <!-- 編集&削除ボタン -->
         <v-row
           align="center"
           justify="end"
         >
-          <!-- 編集ボタン -->
           <v-btn
             class="ma-2"
             color="success"
@@ -67,9 +65,6 @@ export default {
     return {
       editMode: false,
     }
-  },
-  created() {
-    console.log()
   },
   methods: {
     showEditView() {
