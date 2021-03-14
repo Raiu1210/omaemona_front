@@ -27,3 +27,13 @@ For detailed explanation on how things work, check out [Nuxt.js docs](https://nu
 ```
 /* background: hsla(0, 0%, 100%, .5); */
 ```
+
+
+`node_modules/vuetify/dist/vuetify.css`
+
+change like this
+```
+.v-application code {
+  padding: 0.2em 0.0em 0.0em 0.0em;
+}
+```
