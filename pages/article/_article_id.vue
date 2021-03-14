@@ -23,6 +23,7 @@
           class="pa-10"
           min-height="70vh"
           rounded="lg"
+          max-width="800px"
         >
           <!-- コンテンツ表示 -->
           <!-- {{article}} -->
@@ -43,7 +44,7 @@
 
 
           <h1>{{title}}</h1><br /><br />
-          <div class="prism line-numbers contents" v-html="$md.render(content)"></div>
+          <div class="post-content line-numbers contents" v-html="$md.render(content)"></div>
         </v-sheet>
 
         <!-- send MONA -->
