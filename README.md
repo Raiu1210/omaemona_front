@@ -29,11 +29,9 @@ For detailed explanation on how things work, check out [Nuxt.js docs](https://nu
 ```
 
 
-`node_modules/vuetify/dist/vuetify.css`
+`node_modules/vuetify/src/styles/settings/_variables.scss`
 
-change like this
+change like this : line 3670
 ```
-.v-application code {
-  padding: 0.2em 0.0em 0.0em 0.0em;
-}
+$code-padding: 0.2em 0.0em 0.0em 0.0em !default;
 ```
