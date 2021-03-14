@@ -89,46 +89,42 @@
       app
     >
       <v-row>
-        <v-col cols="3">
+        <v-col cols="6">
           <div class="pa-10">
             <h1>モナレッジ</h1>
             <p class="mt-3">開発・運営 : 変態物理(らいう)</p>
             <v-row>
-              <v-col cols="3">
-                <v-btn
-                  class="mx-2"
-                  fab
-                  dark
-                  small
-                  color="blue"
-                  href="https://twitter.com/Mr_1484"
-                >
-                  <v-icon dark>
-                    mdi-twitter
-                  </v-icon>
-                </v-btn>
-              </v-col>
-              <v-col cols="3">
-                <v-btn
-                  class="mx-2"
-                  fab
-                  dark
-                  small
-                  color="black"
-                  href="https://twitter.com/Mr_1484"
-                >
-                  <v-icon dark>
-                    mdi-github
-                  </v-icon>
-                </v-btn>
-              </v-col>
+              <v-btn
+                class="mx-2"
+                fab
+                dark
+                small
+                color="blue"
+                href="https://twitter.com/Mr_1484"
+              >
+                <v-icon dark>
+                  mdi-twitter
+                </v-icon>
+              </v-btn>
+              <v-btn
+                class="mx-2"
+                fab
+                dark
+                small
+                color="black"
+                href="https://twitter.com/Mr_1484"
+              >
+                <v-icon dark>
+                  mdi-github
+                </v-icon>
+              </v-btn>
             </v-row>
           </div>
         </v-col>
 
         <v-spacer></v-spacer>
         <!-- links -->
-        <v-col>
+        <v-col cols="6">
           <div class="pa-10">
             <NuxtLink class="links" to="/terms"><p class="mt-3 ml-8">利用規約</p></NuxtLink>
           </div>
