@@ -299,7 +299,7 @@ export default {
         amount: this.sendAmount
       }
 
-      const sendResult = await Api.post('/log_tip', postObj)
+      const sendResult = await Api.post('/sendMonaToArticle', postObj)
     },
     async postComment(article_id) {
       if(this.inputComment == '') {
