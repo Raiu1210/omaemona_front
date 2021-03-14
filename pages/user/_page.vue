@@ -1,11 +1,12 @@
 <template>
   <v-container>
     <!-- ユーザのカード -->
-    <UserCard :userInfo="userInfo" :editable="true" />
+    <UserCard :userInfo="userInfo" :editable="false" />
+
 
     <!-- 書いた記事一覧 -->
     <h2 class="my-8">全ての投稿</h2>
-    <UserArticlesTimeline :userInfo="userInfo" :articles="myArticles" :editable="true" />
+    <UserArticlesTimeline :userInfo="userInfo" :articles="myArticles" :editable="false" />
 
     <v-row>
       <v-col style="justify-content: center;">
@@ -26,6 +27,7 @@
 <script>
 import {axiosInstance as Api} from '~/myModules/api'
 import checkMyAddressRegistered from '~/myModules/checkMyAddress'
+import generateIconImagePath from '~/myModules/generateIconImagePath'
 
 import NotRegisteredAlert from '~/components/NotRegisteredAlert'
 import UserCard from '~/components/UserCard'
@@ -42,30 +44,23 @@ export default {
     }
   },
   async beforeMount() {
-    // check address registered
-    const isMyAddressRegistered = await checkMyAddressRegistered()
-    if (!isMyAddressRegistered['status']) {
-      this.dialog = true
-    }
-
-    const address = await window.mpurse.getAddress()
+    console.log(this.$route.query.user_id)
     const postObj = {
-      address: address
-    }
-    const myInfo = await Api.post('myInfo', postObj)
-    this.userInfo = myInfo['data']
-
-    const postObj2 = {
       page: this.$route.params.page == undefined ? 1 : Number(this.$route.params.page),
-      author_id: this.userInfo['id']
+      author_id: this.$route.query.user_id
     }
-    const myArticles = await Api.post('myArticles', postObj2)
+    console.log(postObj)
+
+    const myArticles = await Api.post('myArticles', postObj)
     this.myArticles = myArticles['data']['articles']
     const articlesCount = myArticles["data"]["articlesCount"]
     this.page = this.$route.params.page == undefined ? 1 : Number(this.$route.params.page)
     this.pageLength = Math.ceil(articlesCount / 10)
   },
   methods: {
+    iconImagePath(path) {
+      return generateIconImagePath(path)
+    },
     gotoPageN(page) {
       this.$router.push(`/mypage/${page}`)
     }

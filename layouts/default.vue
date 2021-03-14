@@ -61,7 +61,7 @@
 
     </v-app-bar>
     <v-main>
-      <v-container fluid class="pa-0 ma-0">
+      <v-container fluid class="pa-0 mb-12">
         <nuxt />
       </v-container>
     </v-main>
@@ -84,9 +84,56 @@
     </v-navigation-drawer>
     <v-footer
       :absolute="!fixed"
+      color="#3e3e3e"
+      class="white--text mt-5"
       app
     >
-      <span>&copy; {{ new Date().getFullYear() }}</span>
+      <v-row>
+        <v-col cols="3">
+          <div class="pa-10">
+            <h1>モナレッジ</h1>
+            <p class="mt-3">開発・運営 : 変態物理(らいう)</p>
+            <v-row>
+              <v-col cols="3">
+                <v-btn
+                  class="mx-2"
+                  fab
+                  dark
+                  small
+                  color="blue"
+                  href="https://twitter.com/Mr_1484"
+                >
+                  <v-icon dark>
+                    mdi-twitter
+                  </v-icon>
+                </v-btn>
+              </v-col>
+              <v-col cols="3">
+                <v-btn
+                  class="mx-2"
+                  fab
+                  dark
+                  small
+                  color="black"
+                  href="https://twitter.com/Mr_1484"
+                >
+                  <v-icon dark>
+                    mdi-github
+                  </v-icon>
+                </v-btn>
+              </v-col>
+            </v-row>
+          </div>
+        </v-col>
+
+        <v-spacer></v-spacer>
+        <!-- links -->
+        <v-col>
+          <div class="pa-10">
+            <NuxtLink class="links" to="/terms"><p class="mt-3 ml-8">利用規約</p></NuxtLink>
+          </div>
+        </v-col>
+      </v-row>
     </v-footer>
   </v-app>
 </template>
@@ -137,5 +184,10 @@ export default {
 <style scoped>
 .v-application {
   background-color: #f5f5f5;
+}
+
+.links {
+  text-decoration: none;
+  color: #f5f5f5;
 }
 </style>

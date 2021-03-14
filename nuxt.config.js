@@ -28,7 +28,7 @@ export default {
       // meta info
       // { hid: 'description', name: 'description', content: '記事を書いてMONAがもらえる！気に入った記事にMONAが送れる！' },
       { hid: 'og:title', property: 'og:title', content: 'モナレッジ' },
-      { hid: 'og:image', property: 'og:image', content: 'https://monaledge.com/default.png' },
+      { hid: 'og:image', property: 'og:image', content: 'https://monaledge.com/monaledge.jpeg' },
       { hid: 'og:description', property: 'og:description', content: '記事を書いてMONAがもらえる！気に入った記事にMONAが送れる！' },
       { hid: 'og:url', property: 'og:url', content: 'https://monaledge.com' },
       { hid: 'og:type', property: 'og:type', content: 'article' },
@@ -39,7 +39,7 @@ export default {
       { hid: 'twitter:site', name: 'twitter:site', content: '@Mr_1484' },
       { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' },
       { hid: 'twitter:title', name: 'twitter:title', content: 'モナレッジ' },
-      { hid: 'twitter:image', name: 'twitter:image', content: 'https://monaledge.com/default.png'},
+      { hid: 'twitter:image', name: 'twitter:image', content: 'https://monaledge.com/monaledge.jpeg'},
       { hid: 'twitter:description', name: 'twitter:description', content: '記事を書いてMONAがもらえる！気に入った記事にMONAが送れる！'},
     ],
     link: [
@@ -87,8 +87,12 @@ export default {
 
   // markdown-it
   markdownit: {
-    injected: true,   // $mdを使ってどこからでも使えるようになる
-    breaks: true      // 改行を<br>に変換してくれる
+    runtime: true,
+    injected: true,
+    breaks: true,
+    html: true,
+    linkify: true,
+    typography: true,
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
