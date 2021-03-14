@@ -3,7 +3,6 @@
     <!-- ユーザのカード -->
     <UserCard :userInfo="userInfo" :editable="true" />
 
-
     <!-- 書いた記事一覧 -->
     <h2 class="my-8">全ての投稿</h2>
     <UserArticlesTimeline :userInfo="userInfo" :articles="myArticles" :editable="true" />
@@ -27,7 +26,6 @@
 <script>
 import {axiosInstance as Api} from '~/myModules/api'
 import checkMyAddressRegistered from '~/myModules/checkMyAddress'
-import generateIconImagePath from '~/myModules/generateIconImagePath'
 
 import NotRegisteredAlert from '~/components/NotRegisteredAlert'
 import UserCard from '~/components/UserCard'
@@ -68,9 +66,6 @@ export default {
     this.pageLength = Math.ceil(articlesCount / 10)
   },
   methods: {
-    iconImagePath(path) {
-      return generateIconImagePath(path)
-    },
     gotoPageN(page) {
       this.$router.push(`/mypage/${page}`)
     }
