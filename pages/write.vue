@@ -48,7 +48,7 @@
       投稿する
     </v-btn>
 
-    <ShareDialog v-if="dialog" />
+    <ShareDialog v-if="dialog" :title="title" />
   </v-container>
 </template>
 

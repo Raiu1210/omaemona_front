@@ -345,11 +345,11 @@ export default {
     },
     share(articleId, sns) {
         const shareUrl = `https://monaledge.com/article/${articleId}`
-        const hashTag = "%20%23モナレッジ %20%23モナコイン %20%23MONACOIN"
+        const text = `%E3%80%90${this.title}%E3%80%91%0a%0a%20%23モナレッジ %20%23モナコイン %20%23MONACOIN`
         let href = ""
         switch( sns ) {
           case 'twitter':
-              href = `https://twitter.com/intent/tweet?url=${shareUrl}&text=${hashTag}`
+              href = `https://twitter.com/intent/tweet?url=${shareUrl}&text=${text}`
               break
           case 'facebook':
               href = `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`
