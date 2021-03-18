@@ -38,7 +38,6 @@
     </v-navigation-drawer>
     <v-app-bar
       :clipped-left="clipped"
-      fixed
       color="primary"
       app
     >
@@ -83,14 +82,14 @@
       </v-list>
     </v-navigation-drawer>
     <v-footer
-      :absolute="!fixed"
+      absolute=false
       color="#3e3e3e"
       class="white--text mt-5"
       app
     >
       <v-row>
         <v-col cols="6">
-          <div class="pa-10">
+          <div class="ma-10">
             <h1>モナレッジ</h1>
             <p class="mt-3">開発・運営 : 変態物理(らいう)</p>
             <v-row>
@@ -125,7 +124,7 @@
         <v-spacer></v-spacer>
         <!-- links -->
         <v-col cols="6">
-          <div class="pa-10">
+          <div class="ma-10">
             <NuxtLink class="links" to="/terms"><p class="mt-3 ml-8">利用規約</p></NuxtLink>
           </div>
         </v-col>
