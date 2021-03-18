@@ -17,13 +17,13 @@
 
       <v-col
         cols="12"
-        sm="9"
+        sm="8"
       >
         <v-sheet
           class="pa-10"
           min-height="70vh"
           rounded="lg"
-          max-width="800px"
+          max-width="900px"
         >
           <!-- コンテンツ表示 -->
           <!-- {{article}} -->
@@ -142,7 +142,8 @@
           rounded="lg"
           min-height="268"
         >
-
+          <div v-html="adCode1"></div>
+          <div v-html="adCode2"></div>
         </v-sheet>
       </v-col>
     </v-row>
@@ -238,7 +239,9 @@ export default {
       tooltip: false,
       sendAmount: 0,
       inputComment: '',
-      addressRegistered: false
+      addressRegistered: false,
+      adCode1: '<a href="https://px.a8.net/svt/ejp?a8mat=3H7UZP+CR186Q+348+1C6TPD" rel="nofollow"><img border="0" width="300" height="250" alt="" src="https://www23.a8.net/svt/bgt?aid=210318757771&wid=001&eno=01&mid=s00000000404008094000&mc=1"></a><img border="0" width="1" height="1" src="https://www10.a8.net/0.gif?a8mat=3H7UZP+CR186Q+348+1C6TPD" alt="">',
+      adCode2: '<a href="https://px.a8.net/svt/ejp?a8mat=3H7UZP+BKRG8I+50+4YTR9D" rel="nofollow"><img border="0" width="300" height="250" alt="" src="https://www26.a8.net/svt/bgt?aid=210318757700&wid=001&eno=01&mid=s00000000018030036000&mc=1"></a><img border="0" width="1" height="1" src="https://www12.a8.net/0.gif?a8mat=3H7UZP+BKRG8I+50+4YTR9D" alt="">'
     }
   },
   async asyncData({ params, $http }) {
