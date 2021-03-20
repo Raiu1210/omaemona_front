@@ -47,6 +47,23 @@
         <v-toolbar-title class="white--text" v-text="title" />
       </nuxt-link>
 
+      <div class="search">
+        <v-text-field
+          solo
+          class="ml-8 mt-8 pa-3"
+          background-color="white"
+          height="38px"
+          v-model="searchQuery"
+          label="Search"
+          prepend-inner-icon="mdi-magnify"
+          type="text"
+          @keydown.enter="search"
+        >
+        </v-text-field>
+      </div>
+
+
+
       <v-spacer />
 
       <!-- @todo : 公開鍵からユーザを特定して表示したい -->
@@ -82,7 +99,7 @@
       </v-list>
     </v-navigation-drawer>
     <v-footer
-      absolute=false
+      :absolute="true"
       color="#3e3e3e"
       class="white--text mt-5"
       app
@@ -163,7 +180,8 @@ export default {
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'モナレッジ'
+      title: 'モナレッジ',
+      searchQuery: ''
     }
   },
   async beforeMount() {
@@ -172,6 +190,16 @@ export default {
       this.$store.commit('setVerified', checkResult['userInfo']['address'])
     }
   },
+  methods: {
+    search() {
+      this.$router.push({
+        path: '/search',
+        query: {
+          q: this.searchQuery
+        }
+      })
+    }
+  }
 }
 </script>
 
@@ -184,5 +212,9 @@ export default {
 .links {
   text-decoration: none;
   color: #f5f5f5;
+}
+
+.search {
+  width: 500px;
 }
 </style>

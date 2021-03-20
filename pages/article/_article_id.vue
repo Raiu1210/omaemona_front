@@ -27,13 +27,14 @@
         >
           <!-- コンテンツ表示 -->
           <!-- {{article}} -->
-          <v-list-item-avatar color="grey darken-3">
-            <v-img
-              class="elevation-6"
-              alt=""
-              :src="iconImagePath(authorIconImagePath)"
-            ></v-img>
-          </v-list-item-avatar>
+          <NuxtLink :to="`/user/${authorAddress}`">
+            <v-list-item-avatar color="grey darken-3">
+              <v-img
+                class="pa-0 elevation-6"
+                :src="iconImagePath(authorIconImagePath)"
+              ></v-img>
+            </v-list-item-avatar>
+          </NuxtLink>
           <span class="author_name">{{authorName}} &ensp;&ensp;&ensp;</span>
           <span class="updated_time">{{updated}}に更新</span>&ensp;&ensp;&ensp;&ensp;
           <v-icon class="mr-1">
@@ -252,7 +253,6 @@ export default {
     })
     const updatedObj = new Date(res['data']['updatedAt'])
 
-
     return {
       article: res['data'],
       title: res['data']['title'],
@@ -287,6 +287,7 @@ export default {
   },
   async mounted() {
     Prism.highlightAll()
+
   },
   methods: {
     async sendMona() {
@@ -347,22 +348,25 @@ export default {
       }
     },
     share(articleId, sns) {
-        const shareUrl = `https://monaledge.com/article/${articleId}`
-        const text = `%E3%80%90${this.title}%E3%80%91%0a%0a%20%23モナレッジ %20%23モナコイン %20%23MONACOIN`
-        let href = ""
-        switch( sns ) {
-          case 'twitter':
-              href = `https://twitter.com/intent/tweet?url=${shareUrl}&text=${text}`
-              break
-          case 'facebook':
-              href = `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`
-              break
-          case 'line':
-              href = `https://social-plugins.line.me/lineit/share?url=${shareUrl}`
-              break
-        }
-        window.open(href, '_blank') // 新規タブでSNSのシェアページを開く
+      const shareUrl = `https://monaledge.com/article/${articleId}`
+      const text = `%E3%80%90${this.title}%E3%80%91%0a%0a%20%23モナレッジ %20%23モナコイン %20%23MONACOIN`
+      let href = ""
+      switch( sns ) {
+        case 'twitter':
+            href = `https://twitter.com/intent/tweet?url=${shareUrl}&text=${text}`
+            break
+        case 'facebook':
+            href = `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`
+            break
+        case 'line':
+            href = `https://social-plugins.line.me/lineit/share?url=${shareUrl}`
+            break
       }
+      window.open(href, '_blank') // 新規タブでSNSのシェアページを開く
+    },
+    gotoUserPage() {
+      console.log(this.article['author_id'])
+    }
   }
 }
 </script>

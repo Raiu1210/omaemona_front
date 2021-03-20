@@ -117,10 +117,9 @@ export default {
     }
   },
   async created() {
-    this.setDestination()
-
-    const res = await Api.get(this.destination, {
+    const res = await Api.get('searchArticle', {
       params: {
+        q: this.$route.query.q,
         page: this.$route.params.page == undefined ? 1 : this.$route.params.page
       }
     })
@@ -129,26 +128,17 @@ export default {
     this.pageLength = Math.ceil(articlesCount / 10)
   },
   methods: {
-    setDestination() {
-      if (this.$route.path.match(/popular/)) {
-        this.destination = '/popular'
-      } else if (this.$route.path.match(/tipped/)) {
-        this.destination = '/tipped'
-      } else {
-        this.destination = '/'
-      }
-      this.page = this.$route.params.page == undefined ? 1 : Number(this.$route.params.page)
-    },
     covertUpdateTime(timeData) {
       const timeObj = new Date(timeData)
       return timeObj.getFullYear() + '年' + (Number(timeObj.getMonth()) + 1) + '月' + timeObj.getDate() + '日'
     },
     gotoPageN(page) {
-      if (this.destination == '/') {
-        this.$router.push({ path: `${this.destination.slice(1)}/${page}` })
-      } else {
-        this.$router.push({ path: `${this.destination}/${page}` })
-      }
+      this.$router.push({ path: '/search',
+        query: {
+          q: this.$route.query.q,
+          page: page
+        }
+      })
     },
     iconImagePath(iconImagePath) {
       const env = process.env.NODE_ENV || 'development'
@@ -163,6 +153,22 @@ export default {
         return iconImagePath
       }
     }
+  },
+  async watchQuery(newQuery, oldQuery) {
+    const res = await Api.get('searchArticle', {
+      params: {
+        q: newQuery.q,
+        page: newQuery.page == undefined ? 1 : newQuery.page
+      }
+    })
+    console.log(res)
+    this.articles = res["data"]["articles"]
+    const articlesCount = res["data"]["articlesCount"]
+    this.pageLength = Math.ceil(articlesCount / 10)
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    })
   },
 }
 </script>

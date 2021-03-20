@@ -43,18 +43,23 @@ export default {
       dialog: false,
     }
   },
-  async beforeMount() {
-    console.log(this.$route.query.user_id)
+  async created() {
+    const address = this.$route.params.address
     const postObj = {
-      page: this.$route.params.page == undefined ? 1 : Number(this.$route.params.page),
-      author_id: this.$route.query.user_id
+      address: address
     }
-    console.log(postObj)
+    const myInfo = await Api.post('myInfo', postObj)
+    this.userInfo = myInfo['data']
 
-    const myArticles = await Api.post('myArticles', postObj)
+    const postObj2 = {
+      page: this.$route.query.page == undefined ? 1 : Number(this.$route.query.page),
+      author_id: this.userInfo['id']
+    }
+
+    const myArticles = await Api.post('myArticles', postObj2)
     this.myArticles = myArticles['data']['articles']
     const articlesCount = myArticles["data"]["articlesCount"]
-    this.page = this.$route.params.page == undefined ? 1 : Number(this.$route.params.page)
+    this.page = this.$route.query.page == undefined ? 1 : Number(this.$route.query.page)
     this.pageLength = Math.ceil(articlesCount / 10)
   },
   methods: {
@@ -62,8 +67,30 @@ export default {
       return generateIconImagePath(path)
     },
     gotoPageN(page) {
-      this.$router.push(`/mypage/${page}`)
+      this.$router.push({
+        path: `/user/${this.$route.params.address}`,
+        query: {page: page}
+      })
     }
+  },
+  async watchQuery(newQuery, oldQuery) {
+    const address = this.$route.params.address
+    const postObj = {
+      address: address
+    }
+    const myInfo = await Api.post('myInfo', postObj)
+    this.userInfo = myInfo['data']
+
+    const postObj2 = {
+      page: this.$route.query.page == undefined ? 1 : Number(this.$route.query.page),
+      author_id: this.userInfo['id']
+    }
+
+    const myArticles = await Api.post('myArticles', postObj2)
+    this.myArticles = myArticles['data']['articles']
+    const articlesCount = myArticles["data"]["articlesCount"]
+    this.page = this.$route.query.page == undefined ? 1 : Number(newQuery['page'])
+    this.pageLength = Math.ceil(articlesCount / 10)
   },
   components: {
     NotRegisteredAlert,
