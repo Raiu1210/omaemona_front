@@ -124,7 +124,6 @@ export default {
         page: this.$route.params.page == undefined ? 1 : this.$route.params.page
       }
     })
-    console.log(res["data"])
     this.articles = res["data"]["articles"]
     const articlesCount = res["data"]["articlesCount"]
     this.pageLength = Math.ceil(articlesCount / 10)

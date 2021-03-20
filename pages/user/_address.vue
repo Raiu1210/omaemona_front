@@ -50,13 +50,11 @@ export default {
     }
     const myInfo = await Api.post('myInfo', postObj)
     this.userInfo = myInfo['data']
-    console.log(this.userInfo)
 
     const postObj2 = {
       page: this.$route.query.page == undefined ? 1 : Number(this.$route.query.page),
       author_id: this.userInfo['id']
     }
-    console.log(postObj2)
 
     const myArticles = await Api.post('myArticles', postObj2)
     this.myArticles = myArticles['data']['articles']
@@ -69,7 +67,6 @@ export default {
       return generateIconImagePath(path)
     },
     gotoPageN(page) {
-      console.log("aaa")
       this.$router.push({
         path: `/user/${this.$route.params.address}`,
         query: {page: page}
@@ -83,13 +80,11 @@ export default {
     }
     const myInfo = await Api.post('myInfo', postObj)
     this.userInfo = myInfo['data']
-    console.log(this.userInfo)
 
     const postObj2 = {
       page: this.$route.query.page == undefined ? 1 : Number(this.$route.query.page),
       author_id: this.userInfo['id']
     }
-    console.log(postObj2)
 
     const myArticles = await Api.post('myArticles', postObj2)
     this.myArticles = myArticles['data']['articles']
