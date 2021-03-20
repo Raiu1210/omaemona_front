@@ -77,13 +77,13 @@ export default {
         debug: true
       }
     ],
-    [
-      '@nuxtjs/google-adsense', {
-        id: "ca-pub-9410270200655875",
-        pageLevelAds: true
-      }
-    ]
+    ['@nuxtjs/google-adsense']
   ],
+
+  'google-adsense': {
+    id: "ca-pub-9410270200655875",
+    pageLevelAds: true
+  },
 
   // markdown-it
   markdownit: {
