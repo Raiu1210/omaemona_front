@@ -106,26 +106,27 @@ import {axiosInstance as Api} from '~/myModules/api'
 export default {
   data() {
     return {
-      articles: [],
       updated: '',
       page: 1,
-      pageLength: 0,
       tabIndex: 0,
       destination: '',
       adCode1: '<a href="https://px.a8.net/svt/ejp?a8mat=3H7UZP+CR186Q+348+1C6TPD" rel="nofollow"><img border="0" width="300" height="250" alt="" src="https://www23.a8.net/svt/bgt?aid=210318757771&wid=001&eno=01&mid=s00000000404008094000&mc=1"></a><img border="0" width="1" height="1" src="https://www10.a8.net/0.gif?a8mat=3H7UZP+CR186Q+348+1C6TPD" alt="">',
       adCode2: '<a href="https://px.a8.net/svt/ejp?a8mat=3H7UZP+BKRG8I+50+4YTR9D" rel="nofollow"><img border="0" width="300" height="250" alt="" src="https://www26.a8.net/svt/bgt?aid=210318757700&wid=001&eno=01&mid=s00000000018030036000&mc=1"></a><img border="0" width="1" height="1" src="https://www12.a8.net/0.gif?a8mat=3H7UZP+BKRG8I+50+4YTR9D" alt="">'
     }
   },
-  async created() {
+  async asyncData({ params, query, $http }) {
     const res = await Api.get('searchArticle', {
       params: {
-        q: this.$route.query.q,
-        page: this.$route.params.page == undefined ? 1 : this.$route.params.page
+        q: query.q,
+        page: query.page == undefined ? 1 : query.page
       }
     })
-    this.articles = res["data"]["articles"]
     const articlesCount = res["data"]["articlesCount"]
-    this.pageLength = Math.ceil(articlesCount / 10)
+
+    return {
+      articles: res["data"]["articles"],
+      pageLength:  Math.ceil(articlesCount / 10)
+    }
   },
   methods: {
     covertUpdateTime(timeData) {

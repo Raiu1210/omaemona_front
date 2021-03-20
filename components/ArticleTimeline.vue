@@ -116,7 +116,7 @@ export default {
       adCode2: '<a href="https://px.a8.net/svt/ejp?a8mat=3H7UZP+BKRG8I+50+4YTR9D" rel="nofollow"><img border="0" width="300" height="250" alt="" src="https://www26.a8.net/svt/bgt?aid=210318757700&wid=001&eno=01&mid=s00000000018030036000&mc=1"></a><img border="0" width="1" height="1" src="https://www12.a8.net/0.gif?a8mat=3H7UZP+BKRG8I+50+4YTR9D" alt="">'
     }
   },
-  async created() {
+  async fetch() {
     this.setDestination()
 
     const res = await Api.get(this.destination, {
