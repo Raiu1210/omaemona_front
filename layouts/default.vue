@@ -67,6 +67,19 @@
       <v-spacer />
 
       <!-- @todo : 公開鍵からユーザを特定して表示したい -->
+      <NuxtLink to="/notification">
+        <v-badge
+          overlap
+          class="mr-4"
+          color="red"
+          :content="notificationCount"
+          :value="notificationCount"
+        >
+          <v-icon dark>
+            mdi-bell
+          </v-icon>
+        </v-badge>
+      </NuxtLink>
       <NuxtLink to="/mypage">
         <v-avatar color="">
           <v-icon dark>
@@ -152,6 +165,7 @@
 
 
 <script>
+import {axiosInstance as Api} from '~/myModules/api'
 import checkMyAddress from '~/myModules/checkMyAddress'
 
 export default {
@@ -181,7 +195,8 @@ export default {
       right: true,
       rightDrawer: false,
       title: 'モナレッジ',
-      searchQuery: ''
+      searchQuery: '',
+      notificationCount: 0
     }
   },
   async beforeMount() {
@@ -189,6 +204,14 @@ export default {
     if(checkResult['status']) {
       this.$store.commit('setVerified', checkResult['userInfo']['address'])
     }
+
+    const address = await window.mpurse.getAddress()
+    const res = await Api.get('getNotificationsCount', {
+      params: {
+        address: address
+      }
+    })
+    this.notificationCount = res['data']['notificationsCount']
   },
   methods: {
     search() {
