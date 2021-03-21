@@ -162,7 +162,7 @@ export default {
         page: newQuery.page == undefined ? 1 : newQuery.page
       }
     })
-    console.log(res)
+    this.page = Number(newQuery.page)
     this.articles = res["data"]["articles"]
     const articlesCount = res["data"]["articlesCount"]
     this.pageLength = Math.ceil(articlesCount / 10)

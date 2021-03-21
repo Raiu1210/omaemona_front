@@ -276,7 +276,6 @@ export default {
         { hid: 'twitter:title', name: 'twitter:title', content: this.title },
         { hid: 'twitter:description', name: 'twitter:description', content: this.content },
       ],
-      link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
     }
   },
   async beforeMount() {
@@ -292,6 +291,7 @@ export default {
   methods: {
     async sendMona() {
       this.dialog = false
+      const address = await window.mpurse.getAddress()
       const txHash = await window.mpurse.sendAsset(
         this.authorAddress,
         'MONA',
@@ -300,8 +300,11 @@ export default {
         'LGTM'
       )
       const postObj = {
+        from: address,
         article_id: this.$route.params.article_id,
-        amount: this.sendAmount
+        amount: this.sendAmount,
+        txHash: txHash,
+        authorId: this.article['author_id']
       }
 
       const sendResult = await Api.post('/sendMonaToArticle', postObj)
@@ -321,11 +324,12 @@ export default {
 
       // @todo: need validation
       const postObj = {
-        "address": address,
-        "message": message,
-        "signature": signature,
-        "article_id": article_id,
-        "comment": this.inputComment
+        address: address,
+        message: message,
+        signature: signature,
+        article_id: article_id,
+        comment: this.inputComment,
+        authorId: this.article['author_id']
       }
 
       const result = await Api.post('/addComment', postObj)
