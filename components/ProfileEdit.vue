@@ -138,7 +138,6 @@ export default {
         name: this.name,
         iconImagePath: icon_image_path
       }
-      console.log(postObj)
       await Api.post('updateProfile', postObj)
       location.reload()
     }
