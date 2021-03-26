@@ -90,7 +90,6 @@ export default {
         page: this.$route.params.page == undefined ? 1 : this.$route.params.page
       }
     })
-    console.log(res['data'])
     const notificationsCount = res["data"]["notificationsCount"]
 
     this.notifications = res["data"]["notifications"]

@@ -365,9 +365,6 @@ export default {
       }
       window.open(href, '_blank') // 新規タブでSNSのシェアページを開く
     },
-    gotoUserPage() {
-      console.log(this.article['author_id'])
-    }
   }
 }
 </script>

@@ -63,7 +63,6 @@ export default {
       }
     })
 
-    console.log(res)
     this.article = res['data']
     this.title = res['data']['title']
     this.content = res['data']['content']
