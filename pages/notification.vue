@@ -29,14 +29,11 @@
               :to="{path : '/article/' + notification.article_id}"
             >
               <v-card-subtitle class="pb-0 mb-0">
-                {{covertUpdateTime(notification.updatedAt)}}
+                {{covertUpdateTime(notification.createdAt)}}
               </v-card-subtitle>
 
-              <v-card-title v-if="notification['type'] == 'tip'" class="pl-4 mt-2">
-                あなたの記事に投げ銭だ！！！
-              </v-card-title>
-              <v-card-title v-if="notification['type'] == 'comment'" class="pl-4 mt-2">
-                あなたの記事にコメントがついたよ！
+              <v-card-title>
+                {{notificationMessage(notification)}}
               </v-card-title>
             </v-card>
             </v-col>
@@ -64,8 +61,6 @@
           rounded="lg"
           min-height="600px"
         >
-          <div v-html="adCode1"></div>
-          <div v-html="adCode2"></div>
         </v-sheet>
       </v-col>
     </v-row>
@@ -85,8 +80,6 @@ export default {
       tabIndex: 0,
       destination: '',
       pageLength: 1,
-      adCode1: '<a href="https://px.a8.net/svt/ejp?a8mat=3H7UZP+CR186Q+348+1C6TPD" rel="nofollow"><img border="0" width="300" height="250" alt="" src="https://www23.a8.net/svt/bgt?aid=210318757771&wid=001&eno=01&mid=s00000000404008094000&mc=1"></a><img border="0" width="1" height="1" src="https://www10.a8.net/0.gif?a8mat=3H7UZP+CR186Q+348+1C6TPD" alt="">',
-      adCode2: '<a href="https://px.a8.net/svt/ejp?a8mat=3H7UZP+BKRG8I+50+4YTR9D" rel="nofollow"><img border="0" width="300" height="250" alt="" src="https://www26.a8.net/svt/bgt?aid=210318757700&wid=001&eno=01&mid=s00000000018030036000&mc=1"></a><img border="0" width="1" height="1" src="https://www12.a8.net/0.gif?a8mat=3H7UZP+BKRG8I+50+4YTR9D" alt="">'
     }
   },
   async beforeMount() {
@@ -97,6 +90,7 @@ export default {
         page: this.$route.params.page == undefined ? 1 : this.$route.params.page
       }
     })
+    console.log(res['data'])
     const notificationsCount = res["data"]["notificationsCount"]
 
     this.notifications = res["data"]["notifications"]
@@ -114,6 +108,13 @@ export default {
           page: page
         }
       })
+    },
+    notificationMessage(notificationObj) {
+      if(notificationObj['type'] == 'comment') {
+        return `あなたの記事に${notificationObj['from_address']}からコメントが付いたよ!`
+      } else if(notificationObj['type'] == 'tip') {
+        return `あなたの記事に${notificationObj['from_address']}から${notificationObj['sent_mona']}MONA投げ銭が来たよ！`
+      }
     },
   },
   async watchQuery(newQuery, oldQuery) {
