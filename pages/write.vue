@@ -134,9 +134,10 @@ export default {
 
       // post OGP image
       await svg2imageData(this.$refs.svgCard, async (data) => {
-        let formdata = new FormData()
-        formdata.append('image', data)
-        const res = await Api.post('/postOGP', formdata)
+        const imageObj = {
+          imageData: data
+        }
+        const res = await Api.post('/postOGP', imageObj)
 
         // @todo: need validation
         const postObj = {
