@@ -168,7 +168,6 @@ export default {
         }
 
         if(lineLength > 14) {
-          console.log(`splitted from ${lastClipped} ${i}`)
           titleLines.push(this.title.substring(lastClipped, i))
           lastClipped = i
           lineLength = 0

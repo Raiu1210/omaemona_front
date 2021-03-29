@@ -248,7 +248,6 @@ export default {
       }
     })
     const updatedObj = new Date(res['data']['updatedAt'])
-    console.log(res['data']['ogp_path'] == null)
 
     return {
       article: res['data'],
