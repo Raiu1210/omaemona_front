@@ -143,6 +143,11 @@
           rounded="lg"
           min-height="268"
         >
+          <adsbygoogle
+            ad-slot="article-ad1"
+            ad-format=""
+            :ad-style="gadStyle"
+          />
         </v-sheet>
       </v-col>
     </v-row>
@@ -239,6 +244,11 @@ export default {
       sendAmount: 0,
       inputComment: '',
       addressRegistered: false,
+      gadStyle: {
+        display:'inline-block',
+        width:'300px',
+        height:'250px'
+      }
     }
   },
   async asyncData({ params, $http }) {
@@ -258,7 +268,8 @@ export default {
       authorAddress: res['data']['user']['address'],
       authorIconImagePath: res['data']['user']['icon_image_path'],
       comments: res['data']['comments'],
-      updated: updatedObj.getFullYear() + '年' + (Number(updatedObj.getMonth()) + 1) + '月' + updatedObj.getDate() + '日'
+      updated: updatedObj.getFullYear() + '年' + (Number(updatedObj.getMonth()) + 1) + '月' + updatedObj.getDate() + '日',
+      ogpPath: res['data']['ogp_path'] == null ? 'https://monaledge.com/monaledge.jpeg' : res['data']['ogp_path']
     }
   },
   head(){
@@ -271,6 +282,8 @@ export default {
         { hid: 'og:description', property: 'og:description', content: this.content },
         { hid: 'twitter:title', name: 'twitter:title', content: this.title },
         { hid: 'twitter:description', name: 'twitter:description', content: this.content },
+        { hid: 'og:image', property: 'og:image', content: this.ogpPath },
+        { hid: 'twitter:image', name: 'twitter:image', content: this.ogpPath }
       ],
     }
   },

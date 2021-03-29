@@ -91,6 +91,11 @@
           rounded="lg"
           min-height="600px"
         >
+          <adsbygoogle
+            ad-slot="timeline-ad1"
+            ad-format=""
+            :ad-style="gadStyle"
+          />
         </v-sheet>
       </v-col>
     </v-row>
@@ -110,6 +115,11 @@ export default {
       pageLength: 0,
       tabIndex: 0,
       destination: '',
+      gadStyle: {
+        display:'inline-block',
+        width:'300px',
+        height:'250px'
+      }
     }
   },
   async fetch() {
