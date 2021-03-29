@@ -29,6 +29,23 @@
       </v-col>
     </v-row>
 
+    <svg v-show="false" ref="svgCard" viewBox="0 0 200 100">
+      <rect x="0" y="0" width="200" height="100" fill="#fff" stroke="#ffffff" stroke-width="15"></rect>
+      <!-- <path d="M-50 0 L0 0 L0 50 L50 0 Z" style="fill:#ff9800"/> -->
+      <rect x="0" y="0" width="200" height="100" fill="#fff" stroke="#ff9800" stroke-width="15"></rect>
+      <text x="50%" y="20%" font-size="6px" text-anchor="middle">MONALEDGE</text>
+      <text x="55%" y="25%" font-size="3px" text-anchor="middle">モナレッジ</text>
+
+      <text
+        v-for="(title_part, index) in getTitlePart()"
+        :key="index"
+        x="50%" :y="lineHeight(index)" font-size="10px" text-anchor="middle"
+      >
+        {{title_part}}
+      </text>
+      <!-- <path d="M200 50 L150 100 L200 250 L250 200 Z" style="fill:#ff9800"/> -->
+    </svg>
+
     <!-- editor : no-ssr -->
     <v-row>
       <v-col>
@@ -59,6 +76,24 @@ import checkMyAddressRegistered from '~/myModules/checkMyAddress'
 import mdEditor from '~/components/mdEditor'
 import ShareDialog from '~/components/ShareDialog'
 
+const svg2imageData = (svgElement, successCallback, errorCallback) => {
+  const canvas = document.createElement('canvas')
+  canvas.width = 1200
+  canvas.height = 630
+  const ctx = canvas.getContext('2d')
+  const image = new Image()
+  image.onload = () => {
+    ctx.drawImage(image, 0, 0, 1200, 630)
+    successCallback(canvas.toDataURL())
+  }
+  image.onerror = (e) => {
+    errorCallback(e)
+  }
+  const svgData = new XMLSerializer().serializeToString(svgElement)
+  image.src = 'data:image/svg+xml;charset=utf-8;base64,' + btoa(unescape(encodeURIComponent(svgData)))
+}
+
+
 export default {
   data() {
     return {
@@ -87,7 +122,6 @@ export default {
         return
       }
       // アドレスの確認
-
       const date = new Date()
       const now = date.getTime()
 
@@ -96,21 +130,59 @@ export default {
       const message = "I will post this article : " + now
       const signature = await window.mpurse.signMessage(message)
 
-      // @todo: need validation
-      const postObj = {
-        "title": this.title,
-        "content": this.content,
-        "address": address,
-        "message": message,
-        "signature": signature
+      var ogpRes = ''
+
+      // post OGP image
+      await svg2imageData(this.$refs.svgCard, async (data) => {
+        let formdata = new FormData()
+        formdata.append('image', data)
+        const res = await Api.post('/postOGP', formdata)
+
+        // @todo: need validation
+        const postObj = {
+          "title": this.title,
+          "content": this.content,
+          "address": address,
+          "message": message,
+          "signature": signature,
+          "ogpPath": res['data']['ogpPath']
+        }
+
+        const result = await Api.post('/write', postObj)
+        if (result["status"] == 201) {
+          this.articleId = result["data"]["result"]["id"]
+          this.$store.commit('setMyArticleId', result["data"]["result"]["id"])
+          this.dialog = true
+        }
+      })
+    },
+    getTitlePart() {
+      let lastClipped = 0
+      let titleLines = []
+      let lineLength = 0
+      for (let i = 0; i < this.title.length; i++) {
+        if(this.title[i].match(/[ -~]/)) {
+          lineLength += 0.5
+        } else {
+          lineLength += 1
+        }
+
+        if(lineLength > 14) {
+          console.log(`splitted from ${lastClipped} ${i}`)
+          titleLines.push(this.title.substring(lastClipped, i))
+          lastClipped = i
+          lineLength = 0
+        }
       }
 
-      const result = await Api.post('/write', postObj)
-      if (result["status"] == 201) {
-        this.articleId = result["data"]["result"]["id"]
-        this.$store.commit('setMyArticleId', result["data"]["result"]["id"])
-        this.dialog = true
+      if(lineLength > 0) {
+        titleLines.push(this.title.substring(lastClipped, this.title.length))
       }
+
+      return titleLines
+    },
+    lineHeight(index) {
+      return String(45 + 10 * index) + "%"
     }
   },
   components: {
