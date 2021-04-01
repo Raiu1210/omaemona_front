@@ -48,21 +48,25 @@
       </nuxt-link>
 
       <div class="search">
-        <v-text-field
+        <!-- <v-text-field
           solo
-          class="ml-8 mt-8 pa-3"
+          class="ml-8 mt-8 pa-0"
           background-color="white"
-          height="38px"
           v-model="searchQuery"
           label="Search"
           prepend-inner-icon="mdi-magnify"
           type="text"
           @keydown.enter="search"
         >
-        </v-text-field>
+        </v-text-field> -->
+        <input
+          type="text"
+          class="search_form"
+          placeholder="記事を検索"
+          v-model="searchQuery"
+          @keydown.enter="search"
+        >
       </div>
-
-
 
       <v-spacer />
 
@@ -237,7 +241,41 @@ export default {
   color: #f5f5f5;
 }
 
-.search {
-  width: 500px;
+@media (max-width: 600px) {
+  .search {
+    width: 100px;
+    margin:0 auto;
+    background-color: white;
+    border-radius:15px;
+    -moz-border-radius:15px;
+    -webkit-border-radius:15px;
+    padding:6px 5px 6px 10px;
+    margin-left: 10px;
+  }
+
+  .search_form {
+    width: 100px;
+    outline: none;
+  }
 }
+@media (min-width: 600px) {
+  .search {
+    width: 400px;
+    height: 38px;
+    margin:0 auto;
+    background-color: white;
+    border-radius:10px;
+    -moz-border-radius:10px;
+    -webkit-border-radius:10px;
+    padding:6px 5px 6px 20px;
+    margin-left: 10px;
+  }
+
+  .search_form {
+    width: 400px;
+    outline: none;
+  }
+}
+
+
 </style>
