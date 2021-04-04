@@ -29,7 +29,8 @@
               :to="{path : '/article/' + article.id}"
             >
               <v-card-subtitle class="pb-0 mb-0">
-                {{covertUpdateTime(article.updatedAt)}}
+                <span>{{covertUpdateTime(article.updatedAt)}}</span>
+                <span class="ml-5">{{article.access}} views</span>
               </v-card-subtitle>
 
               <v-card-title class="pa-0 mt-2">
@@ -131,6 +132,7 @@ export default {
       }
     })
     this.articles = res["data"]["articles"]
+    console.log(res["data"]["articles"])
     const articlesCount = res["data"]["articlesCount"]
     this.pageLength = Math.ceil(articlesCount / 10)
   },

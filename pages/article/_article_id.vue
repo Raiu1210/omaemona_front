@@ -35,8 +35,9 @@
               ></v-img>
             </v-list-item-avatar>
           </NuxtLink>
-          <span class="author_name">{{authorName}} &ensp;&ensp;&ensp;</span>
-          <span class="updated_time">{{updated}}に更新</span>&ensp;&ensp;&ensp;&ensp;
+          <span class="author_name">{{authorName}} &ensp;&ensp;&ensp;</span><br />
+          <span class="updated_time">{{updated}}に更新</span>&ensp;&ensp;&ensp;&ensp;<br />
+          <span class="updated_time">{{article.access}} views</span><br /><br />
           <v-icon class="mr-1">
             mdi-alpha-m-circle-outline
           </v-icon>
