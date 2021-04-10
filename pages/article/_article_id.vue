@@ -296,9 +296,17 @@ export default {
   },
   async mounted() {
     Prism.highlightAll()
-
   },
   methods: {
+    async updateView() {
+      const res = await Api.get('article', {
+        params: {
+          id: this.$route.params.article_id
+        }
+      })
+      this.sentMona = res['data']['sent_mona']
+      this.comments = res['data']['comments']
+    },
     async sendMona() {
       this.dialog = false
       const address = await window.mpurse.getAddress()
@@ -318,7 +326,7 @@ export default {
       }
 
       const sendResult = await Api.post('/sendMonaToArticle', postObj)
-      location.reload()
+      this.updateView()
     },
     async postComment(article_id) {
       if(this.inputComment == '') {
@@ -346,7 +354,7 @@ export default {
       const result = await Api.post('/addComment', postObj)
       if (result["status"] == 201) {
         alert("コメントを投稿したよ！")
-        location.reload()
+        this.updateView()
       }
     },
     iconImagePath(iconImagePath) {

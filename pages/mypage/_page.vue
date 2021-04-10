@@ -1,11 +1,20 @@
 <template>
   <v-container>
     <!-- ユーザのカード -->
-    <UserCard :userInfo="userInfo" :editable="true" />
+    <UserCard
+      :userInfo="userInfo"
+      :editable="true"
+      @initView="initView"
+    />
 
     <!-- 書いた記事一覧 -->
     <h2 class="my-8">全ての投稿</h2>
-    <UserArticlesTimeline :userInfo="userInfo" :articles="myArticles" :editable="true" />
+    <UserArticlesTimeline
+      :userInfo="userInfo"
+      :articles="myArticles"
+      :editable="true"
+      @initView="initView"
+    />
 
     <v-row>
       <v-col style="justify-content: center;">
@@ -48,24 +57,27 @@ export default {
       this.dialog = true
     }
 
-    const address = await window.mpurse.getAddress()
-    const postObj = {
-      address: address
-    }
-    const myInfo = await Api.post('myInfo', postObj)
-    this.userInfo = myInfo['data']
-
-    const postObj2 = {
-      page: this.$route.params.page == undefined ? 1 : Number(this.$route.params.page),
-      author_id: this.userInfo['id']
-    }
-    const myArticles = await Api.post('myArticles', postObj2)
-    this.myArticles = myArticles['data']['articles']
-    const articlesCount = myArticles["data"]["articlesCount"]
-    this.page = this.$route.params.page == undefined ? 1 : Number(this.$route.params.page)
-    this.pageLength = Math.ceil(articlesCount / 10)
+    this.initView()
   },
   methods: {
+    async initView() {
+      const address = await window.mpurse.getAddress()
+      const postObj = {
+        address: address
+      }
+      const myInfo = await Api.post('myInfo', postObj)
+      this.userInfo = myInfo['data']
+
+      const postObj2 = {
+        page: this.$route.params.page == undefined ? 1 : Number(this.$route.params.page),
+        author_id: this.userInfo['id']
+      }
+      const myArticles = await Api.post('myArticles', postObj2)
+      this.myArticles = myArticles['data']['articles']
+      const articlesCount = myArticles["data"]["articlesCount"]
+      this.page = this.$route.params.page == undefined ? 1 : Number(this.$route.params.page)
+      this.pageLength = Math.ceil(articlesCount / 10)
+    },
     gotoPageN(page) {
       this.$router.push(`/mypage/${page}`)
     }
