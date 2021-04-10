@@ -94,8 +94,9 @@
         >
           <adsbygoogle
             ad-slot="timeline-ad1"
-            ad-format=""
-            :ad-style="gadStyle"
+          />
+          <adsbygoogle
+            ad-slot="timeline-ad2"
           />
         </v-sheet>
       </v-col>

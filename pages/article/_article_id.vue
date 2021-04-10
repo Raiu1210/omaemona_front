@@ -144,11 +144,9 @@
           rounded="lg"
           min-height="268"
         >
-          <!-- <adsbygoogle
+          <adsbygoogle
             ad-slot="article-ad1"
-            ad-format=""
-            :ad-style="gadStyle"
-          /> -->
+          />
         </v-sheet>
       </v-col>
     </v-row>
