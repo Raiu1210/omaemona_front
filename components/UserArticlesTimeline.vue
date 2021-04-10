@@ -129,7 +129,7 @@ export default {
       const response = await Api.post('deleteArticle', postObj)
       if(response['data']['status'] == 0) {
         alert("記事を削除しました")
-        location.reload()
+        this.$emit('initView')
       }
     },
   }

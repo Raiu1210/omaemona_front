@@ -139,7 +139,8 @@ export default {
         iconImagePath: icon_image_path
       }
       await Api.post('updateProfile', postObj)
-      location.reload()
+      this.dialog = false
+      this.$emit('initView')
     }
   },
   components: {
