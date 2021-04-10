@@ -57,10 +57,7 @@ export default {
       }
 
       var formdata = new FormData();
-      console.log($file)
       formdata.append('image', $file)
-
-      console.log(formdata)
 
       const res = await imageUploader.post('/addImage', formdata)
       const path = res.data.path

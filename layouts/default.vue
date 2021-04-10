@@ -48,17 +48,6 @@
       </nuxt-link>
 
       <div class="search">
-        <!-- <v-text-field
-          solo
-          class="ml-8 mt-8 pa-0"
-          background-color="white"
-          v-model="searchQuery"
-          label="Search"
-          prepend-inner-icon="mdi-magnify"
-          type="text"
-          @keydown.enter="search"
-        >
-        </v-text-field> -->
         <input
           type="text"
           class="search_form"
@@ -71,26 +60,34 @@
       <v-spacer />
 
       <!-- @todo : 公開鍵からユーザを特定して表示したい -->
-      <NuxtLink to="/notification">
+      <NuxtLink to="/notification"  v-if="this.$store.state.verified">
         <v-badge
           overlap
           class="mr-4"
           color="red"
           :content="notificationCount"
           :value="notificationCount"
+          @click.native="checkedNotification"
         >
           <v-icon dark>
             mdi-bell
           </v-icon>
         </v-badge>
       </NuxtLink>
-      <NuxtLink to="/mypage">
+      <NuxtLink to="/mypage" v-if="this.$store.state.verified">
         <v-avatar color="">
           <v-icon dark>
             mdi-account-circle
           </v-icon>
         </v-avatar>
       </NuxtLink>
+      <v-btn
+        depressed
+        v-if="!this.$store.state.verified"
+        @click="login"
+      >
+        ログイン
+      </v-btn>
 
     </v-app-bar>
     <v-main>
@@ -203,20 +200,6 @@ export default {
       notificationCount: 0
     }
   },
-  async beforeMount() {
-    const checkResult = await checkMyAddress()
-    if(checkResult['status']) {
-      this.$store.commit('setVerified', checkResult['userInfo']['address'])
-    }
-
-    const address = await window.mpurse.getAddress()
-    const res = await Api.get('getNotificationsCount', {
-      params: {
-        address: address
-      }
-    })
-    this.notificationCount = res['data']['notificationsCount']
-  },
   methods: {
     search() {
       this.$router.push({
@@ -225,6 +208,22 @@ export default {
           q: this.searchQuery
         }
       })
+    },
+    async login() {
+      const checkResult = await checkMyAddress()
+      if(checkResult['status']) {
+        this.$store.commit('setVerified', checkResult['userInfo']['address'])
+        const address = await window.mpurse.getAddress()
+        const res = await Api.get('getNotificationsCount', {
+          params: {
+            address: address
+          }
+        })
+        this.notificationCount = res['data']['notificationsCount']
+      }
+    },
+    checkedNotification() {
+      this.notificationCount = 0
     }
   }
 }

@@ -47,6 +47,7 @@
       :name="userInfo['name']"
       :icon_image_path="iconImagePath(userInfo['icon_image_path'])"
       @closeEditView="closeEditView"
+      @initView="initView"
       v-if="editMode" />
   </v-row>
 </template>
@@ -76,6 +77,9 @@ export default {
     closeEditView() {
       this.editMode = false
     },
+    initView() {
+      this.$emit('initView')
+    }
   },
   components: {
     ProfileEdit
