@@ -327,6 +327,7 @@ export default {
 
       const sendResult = await Api.post('/sendMonaToArticle', postObj)
       this.updateView()
+      alert("この記事の作者に投げ銭したよ！")
     },
     async postComment(article_id) {
       if(this.inputComment == '') {
