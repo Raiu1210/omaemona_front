@@ -223,7 +223,6 @@ export default {
       }
     },
     checkedNotification() {
-      console.log("aaa")
       this.notificationCount = 0
     }
   }
