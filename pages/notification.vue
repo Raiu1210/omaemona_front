@@ -94,6 +94,7 @@ export default {
 
     this.notifications = res["data"]["notifications"]
     this.pageLength = Math.ceil(notificationsCount / 10)
+    this.$emit('checkedNotification')
   },
   methods: {
     covertUpdateTime(timeData) {
