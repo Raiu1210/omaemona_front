@@ -92,11 +92,11 @@
           rounded="lg"
           min-height="600px"
         >
-          <adsbygoogle
+          <!-- <adsbygoogle
             ad-slot="timeline-ad1"
             ad-format=""
             :ad-style="gadStyle"
-          />
+          /> -->
         </v-sheet>
       </v-col>
     </v-row>
