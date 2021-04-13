@@ -144,11 +144,12 @@
           rounded="lg"
           min-height="268"
         >
-          <!-- <adsbygoogle
-            ad-slot="article-ad1"
-            ad-format=""
-            :ad-style="gadStyle"
-          /> -->
+          <adsbygoogle
+            ad-slot="7292031388"
+          />
+          <adsbygoogle
+            ad-slot="9668775101"
+          />
         </v-sheet>
       </v-col>
     </v-row>
@@ -225,6 +226,19 @@
             </v-card>
           </v-timeline-item>
         </v-timeline>
+      </v-col>
+    </v-row>
+
+    <v-row>
+      <v-col cols="6">
+        <adsbygoogle
+          ad-slot="3100331471"
+        />
+      </v-col>
+      <v-col cols="6">
+        <adsbygoogle
+          ad-slot="9474168139"
+        />
       </v-col>
     </v-row>
   </v-container>

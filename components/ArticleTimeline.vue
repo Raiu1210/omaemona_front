@@ -80,6 +80,19 @@
             ></v-pagination>
             </v-col>
           </v-row>
+
+          <v-row>
+            <v-col cols="6">
+              <adsbygoogle
+                ad-slot="1820228768"
+              />
+            </v-col>
+            <v-col cols="6">
+              <adsbygoogle
+                ad-slot="9315575403"
+              />
+            </v-col>
+          </v-row>
         </v-sheet>
       </v-col>
 
@@ -92,11 +105,12 @@
           rounded="lg"
           min-height="600px"
         >
-          <!-- <adsbygoogle
-            ad-slot="timeline-ad1"
-            ad-format=""
-            :ad-style="gadStyle"
-          /> -->
+          <adsbygoogle
+            ad-slot="7670670870"
+          />
+          <adsbygoogle
+            ad-slot="9918194729"
+          />
         </v-sheet>
       </v-col>
     </v-row>
