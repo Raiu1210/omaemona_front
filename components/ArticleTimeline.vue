@@ -82,12 +82,16 @@
           </v-row>
 
           <v-row>
-            <adsbygoogle
-              ad-slot="1820228768"
-            />
-            <adsbygoogle
-              ad-slot="9315575403"
-            />
+            <v-col cols="6">
+              <adsbygoogle
+                ad-slot="1820228768"
+              />
+            </v-col>
+            <v-col cols="6">
+              <adsbygoogle
+                ad-slot="9315575403"
+              />
+            </v-col>
           </v-row>
         </v-sheet>
       </v-col>
