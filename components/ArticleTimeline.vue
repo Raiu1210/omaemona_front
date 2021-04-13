@@ -93,10 +93,10 @@
           min-height="600px"
         >
           <adsbygoogle
-            ad-slot="timeline-ad1"
+            ad-slot="7670670870"
           />
           <adsbygoogle
-            ad-slot="timeline-ad2"
+            ad-slot="9918194729"
           />
         </v-sheet>
       </v-col>

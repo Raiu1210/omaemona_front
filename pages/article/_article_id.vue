@@ -145,7 +145,7 @@
           min-height="268"
         >
           <adsbygoogle
-            ad-slot="article-ad1"
+            ad-slot="7292031388"
           />
         </v-sheet>
       </v-col>
