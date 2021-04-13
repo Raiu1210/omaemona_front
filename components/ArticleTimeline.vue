@@ -80,6 +80,15 @@
             ></v-pagination>
             </v-col>
           </v-row>
+
+          <v-row>
+            <adsbygoogle
+              ad-slot="1820228768"
+            />
+            <adsbygoogle
+              ad-slot="9315575403"
+            />
+          </v-row>
         </v-sheet>
       </v-col>
 
