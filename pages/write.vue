@@ -49,9 +49,9 @@
     <!-- editor : no-ssr -->
     <v-row>
       <v-col>
-        <no-ssr>
+        <client-only>
           <mdEditor v-model="content" />
-        </no-ssr>
+        </client-only>
       </v-col>
     </v-row>
 
