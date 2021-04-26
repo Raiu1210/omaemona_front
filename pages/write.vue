@@ -29,7 +29,7 @@
       </v-col>
     </v-row>
 
-    <svg v-show="true" ref="svgCard" viewBox="0 0 200 100">
+    <svg v-show="false" ref="svgCard" viewBox="0 0 200 100">
       <rect x="0" y="0" width="200" height="100" fill="#fff" stroke="#ffffff" stroke-width="15"></rect>
       <!-- <path d="M-50 0 L0 0 L0 50 L50 0 Z" style="fill:#ff9800"/> -->
       <rect x="0" y="0" width="200" height="100" fill="#fff" stroke="#ff9800" stroke-width="15"></rect>
