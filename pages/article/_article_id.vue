@@ -320,6 +320,7 @@ export default {
       })
       this.sentMona = res['data']['sent_mona']
       this.comments = res['data']['comments']
+      this.inputComment = ''
     },
     async sendMona() {
       this.dialog = false
