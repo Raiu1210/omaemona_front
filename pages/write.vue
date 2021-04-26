@@ -29,7 +29,7 @@
       </v-col>
     </v-row>
 
-    <svg v-show="false" ref="svgCard" viewBox="0 0 200 100">
+    <svg v-show="true" ref="svgCard" viewBox="0 0 200 100">
       <rect x="0" y="0" width="200" height="100" fill="#fff" stroke="#ffffff" stroke-width="15"></rect>
       <!-- <path d="M-50 0 L0 0 L0 50 L50 0 Z" style="fill:#ff9800"/> -->
       <rect x="0" y="0" width="200" height="100" fill="#fff" stroke="#ff9800" stroke-width="15"></rect>
@@ -44,6 +44,9 @@
         {{title_part}}
       </text>
       <!-- <path d="M200 50 L150 100 L200 250 L250 200 Z" style="fill:#ff9800"/> -->
+      <text x="90%" y="85%" font-size="6px" text-anchor="end">
+        @{{authorName}}
+      </text>
     </svg>
 
     <!-- editor : no-ssr -->
@@ -100,6 +103,7 @@ export default {
       title: '',
       address: '',
       articleId: '',
+      authorName: '',
       content: "# Markdownで記事を書く！",
       dialog: false
     };
@@ -110,6 +114,7 @@ export default {
       alert("記事を投稿するにはモナコインアドレスを登録する必要があります")
       this.$router.push('/signup')
     }
+    this.authorName = isMyAddressRegistered['userInfo']['name']
   },
   methods: {
     async postContent() {
