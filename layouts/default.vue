@@ -113,9 +113,10 @@
       </v-list>
     </v-navigation-drawer>
     <v-footer
-      :absolute="true"
+      absolute
+      inset
       color="#3e3e3e"
-      class="white--text mt-5"
+      class="white--text mt-5 footer"
       app
     >
       <v-row>
@@ -142,7 +143,7 @@
                 dark
                 small
                 color="black"
-                href="https://twitter.com/Mr_1484"
+                href="https://github.com/Raiu1210"
               >
                 <v-icon dark>
                   mdi-github
@@ -238,6 +239,10 @@ export default {
 .links {
   text-decoration: none;
   color: #f5f5f5;
+}
+
+.footer {
+  z-index: 2;
 }
 
 @media (max-width: 600px) {
