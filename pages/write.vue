@@ -44,14 +44,17 @@
         {{title_part}}
       </text>
       <!-- <path d="M200 50 L150 100 L200 250 L250 200 Z" style="fill:#ff9800"/> -->
+      <text x="90%" y="85%" font-size="6px" text-anchor="end">
+        @{{authorName}}
+      </text>
     </svg>
 
     <!-- editor : no-ssr -->
     <v-row>
       <v-col>
-        <no-ssr>
+        <client-only>
           <mdEditor v-model="content" />
-        </no-ssr>
+        </client-only>
       </v-col>
     </v-row>
 
@@ -100,6 +103,7 @@ export default {
       title: '',
       address: '',
       articleId: '',
+      authorName: '',
       content: "# Markdownで記事を書く！",
       dialog: false
     };
@@ -110,6 +114,7 @@ export default {
       alert("記事を投稿するにはモナコインアドレスを登録する必要があります")
       this.$router.push('/signup')
     }
+    this.authorName = isMyAddressRegistered['userInfo']['name']
   },
   methods: {
     async postContent() {

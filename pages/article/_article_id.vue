@@ -37,15 +37,16 @@
           </NuxtLink>
           <span class="author_name">{{authorName}} &ensp;&ensp;&ensp;</span><br />
           <span class="updated_time">{{updated}}に更新</span>&ensp;&ensp;&ensp;&ensp;<br />
-          <span class="updated_time">{{article.access}} views</span><br /><br />
+          <span class="updated_time">{{article.access}} views</span><br />
+
+          <h1>{{title}}</h1>
           <v-icon class="mr-1">
             mdi-alpha-m-circle-outline
           </v-icon>
-          <span class="subheading mr-2">received {{sentMona.toFixed(8)}} MONA</span><br /><br />
+          <span class="subheading mr-2">received {{sentMona.toFixed(8)}} MONA</span><br />
           <span class="subheading mr-2">この記事の投稿者のアドレス : {{authorAddress}}</span><br /><br />
+          <br /><br />
 
-
-          <h1>{{title}}</h1><br /><br />
           <div class="post-content line-numbers contents" v-html="$md.render(content)"></div>
         </v-sheet>
 
@@ -320,6 +321,7 @@ export default {
       })
       this.sentMona = res['data']['sent_mona']
       this.comments = res['data']['comments']
+      this.inputComment = ''
     },
     async sendMona() {
       this.dialog = false

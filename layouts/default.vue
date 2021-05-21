@@ -221,6 +221,8 @@ export default {
           }
         })
         this.notificationCount = res['data']['notificationsCount']
+      } else {
+        this.$router.push('/signup')
       }
     },
     checkedNotification() {
