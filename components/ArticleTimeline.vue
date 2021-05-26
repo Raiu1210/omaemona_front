@@ -29,7 +29,7 @@
               :to="{path : '/article/' + article.id}"
             >
               <v-card-subtitle class="pb-0 mb-0">
-                <span>{{covertUpdateTime(article.updatedAt)}}</span>
+                <span>{{covertUpdateTime(article.createdAt)}}</span>
                 <span class="ml-5">{{article.access}} views</span>
               </v-card-subtitle>
 
