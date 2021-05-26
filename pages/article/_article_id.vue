@@ -36,7 +36,7 @@
             </v-list-item-avatar>
           </NuxtLink>
           <span class="author_name">{{authorName}} &ensp;&ensp;&ensp;</span><br />
-          <span class="updated_time">{{updated}}に更新</span>&ensp;&ensp;&ensp;&ensp;<br />
+          <span class="updated_time">{{covertTime(article.createdAt)}}に公開</span>&ensp;&ensp;&ensp;&ensp;<br />
           <span class="updated_time">{{article.access}} views</span><br />
 
           <h1>{{title}}</h1>
@@ -373,6 +373,10 @@ export default {
         alert("コメントを投稿したよ！")
         this.updateView()
       }
+    },
+    covertTime(timeData) {
+      const timeObj = new Date(timeData)
+      return timeObj.getFullYear() + '年' + (Number(timeObj.getMonth()) + 1) + '月' + timeObj.getDate() + '日'
     },
     iconImagePath(iconImagePath) {
       const env = process.env.NODE_ENV || 'development'
