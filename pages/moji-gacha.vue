@@ -134,15 +134,16 @@ export default {
     }
   },
   created() {
-    const r1 = Math.floor( Math.random() * 47 )
-    const r2 = Math.floor( Math.random() * 47 )
-    const r3 = Math.floor( Math.random() * 47 )
-    const r4 = Math.floor( Math.random() * 47 )
+    const r1 = Math.floor( Math.random() * 46 )
+    const r2 = Math.floor( Math.random() * 46 )
+    const r3 = Math.floor( Math.random() * 46 )
+    const r4 = Math.floor( Math.random() * 46 )
 
     this.c1 = this.kana.slice(r1, r1+1)
     this.c2 = this.kana.slice(r2, r2+1)
     this.c3 = this.kana.slice(r3, r3+1)
     this.c4 = this.kana.slice(r4, r4+1)
+
   },
   methods: {
     freeGacha() {
