@@ -28,7 +28,7 @@
     <v-row justify="center" class="mb-8">
       <v-col align="center" cols="6">
         <v-btn
-          height="100px"
+          height="130px"
           color="primary"
           elevation="3"
           x-large
@@ -38,12 +38,12 @@
 
       <v-col align="center" cols="6">
         <v-btn
-          height="100px"
+          height="130px"
           color="error"
           elevation="3"
           x-large
           @click="chargedGacha()"
-        >有料ガチャを回す<br>(0.01MONA)<br>「ち」と「ん」の出る確率が10倍！</v-btn>
+        >有料ガチャ<br>(0.01MONA)<br>「ち」と「ん」の<br>出る確率が10倍！</v-btn>
       </v-col>
     </v-row>
 
