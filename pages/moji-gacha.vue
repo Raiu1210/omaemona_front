@@ -144,7 +144,6 @@ export default {
     this.c3 = this.kana.slice(r3, r3+1)
     this.c4 = this.kana.slice(r4, r4+1)
 
-    console.log({r1, r2, r3, r4})
   },
   methods: {
     freeGacha() {
