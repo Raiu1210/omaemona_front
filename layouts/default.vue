@@ -191,6 +191,11 @@ export default {
           icon: 'mdi-account-plus',
           title: 'サインアップ',
           to: '/signup'
+        },
+        {
+          icon: 'mdi-slot-machine',
+          title: 'もじガチャ',
+          to: '/moji-gacha'
         }
       ],
       miniVariant: false,
