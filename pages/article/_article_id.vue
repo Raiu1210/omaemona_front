@@ -414,6 +414,14 @@ export default {
 
 
 <style scoped lang="scss">
+::v-deep table, ::v-deep td, ::v-deep th {
+  border: 2px #808080 solid;
+}
+
+::v-deep td, ::v-deep th {
+  padding: 5px 10px;
+}
+
 .contents ::v-deep img {
   max-width: 500px;
   width: 100%;
