@@ -422,6 +422,11 @@ export default {
   padding: 5px 10px;
 }
 
+::v-deep h1, ::v-deep h2, ::v-deep h3, ::v-deep h4 {
+  margin-top: 50px;
+  margin-bottom: 20px;
+}
+
 .contents ::v-deep img {
   max-width: 500px;
   width: 100%;
