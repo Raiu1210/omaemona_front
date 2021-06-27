@@ -137,7 +137,7 @@
 
       <v-col
         cols="12"
-        sm="2"
+        sm="3"
       >
         <v-sheet
           class="right_bar"
@@ -152,6 +152,8 @@
             ad-slot="9668775101"
           />
         </v-sheet>
+
+        <RandomRecommend />
       </v-col>
     </v-row>
 
@@ -250,6 +252,7 @@
 import Prism from '~/plugins/prism'
 import {axiosInstance as Api} from '~/myModules/api'
 import checkMyAddressRegistered from '~/myModules/checkMyAddress'
+import RandomRecommend from '~/components/RandomRecommend'
 
 export default {
   data(){
@@ -408,6 +411,9 @@ export default {
       }
       window.open(href, '_blank') // 新規タブでSNSのシェアページを開く
     },
+    components: {
+      RandomRecommend
+    }
   }
 }
 </script>
