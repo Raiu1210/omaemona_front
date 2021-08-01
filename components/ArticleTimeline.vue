@@ -39,8 +39,6 @@
                 </v-chip>
               </v-card-subtitle>
 
-
-
               <v-card-title class="pa-0 mt-2">
                 <span class="title font-weight-light"></span>
               </v-card-title>
