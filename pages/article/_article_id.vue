@@ -256,7 +256,7 @@ import Prism from '~/plugins/prism'
 import {axiosInstance as Api} from '~/myModules/api'
 import checkMyAddressRegistered from '~/myModules/checkMyAddress'
 import RandomRecommend from '~/components/RandomRecommend'
-import translateNumberToCategory from '~/myModules/translateNumberToCategory'
+import categoryUtils from '~/myModules/categoryUtils'
 
 
 export default {
@@ -417,7 +417,7 @@ export default {
       window.open(href, '_blank') // 新規タブでSNSのシェアページを開く
     },
     getCategory(number) {
-      return translateNumberToCategory(number)
+      return categoryUtils.translateNumberToCategory(number)
     }
   },
   components: {
