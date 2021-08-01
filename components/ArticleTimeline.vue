@@ -31,7 +31,15 @@
               <v-card-subtitle class="pb-0 mb-0">
                 <span>{{covertUpdateTime(article.createdAt)}}</span>
                 <span class="ml-5">{{article.access}} views</span>
+                <v-chip v-if="isWithinWeek(article.createdAt)" class="float-right mx-2" color="primary" x-small>
+                  new
+                </v-chip>
+                <v-chip class="float-right mt-0" color="success" x-small>
+                  {{translateNumberToCategory(article.category)}}
+                </v-chip>
               </v-card-subtitle>
+
+
 
               <v-card-title class="pa-0 mt-2">
                 <span class="title font-weight-light"></span>
@@ -148,6 +156,8 @@ export default {
     this.articles = res["data"]["articles"]
     const articlesCount = res["data"]["articlesCount"]
     this.pageLength = Math.ceil(articlesCount / 10)
+
+    console.log(res["data"]["articles"])
   },
   methods: {
     setDestination() {
@@ -182,6 +192,37 @@ export default {
         return url + '/profileImages/Monacoin.png'
       } else {
         return iconImagePath
+      }
+    },
+    isWithinWeek(timeData) {
+      const now = new Date()
+      const createdAt = new Date(timeData)
+
+      if(((now - createdAt) / 86400000) < 7) {
+        return true
+      }
+
+      return false
+    },
+    translateNumberToCategory(number) {
+      if(number == 0) {
+        return '未分類'
+      } else if(number == 1) {
+        return 'その他'
+      } else if(number == 2) {
+        return '仮想・暗号通貨'
+      } else if(number == 3) {
+        return 'モナコイン'
+      } else if(number == 4) {
+        return '温泉'
+      } else if(number == 5) {
+        return '神社・お寺'
+      } else if(number == 6) {
+        return '趣味'
+      } else if(number == 7) {
+        return '日記'
+      } else if(number == 8) {
+        return 'IT技術'
       }
     }
   },
