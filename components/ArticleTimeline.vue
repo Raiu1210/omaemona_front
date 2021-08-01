@@ -157,8 +157,6 @@ export default {
     this.articles = res["data"]["articles"]
     const articlesCount = res["data"]["articlesCount"]
     this.pageLength = Math.ceil(articlesCount / 10)
-
-    console.log(res["data"]["articles"])
   },
   methods: {
     setDestination() {
