@@ -210,7 +210,7 @@ export default {
       } else if(number == 1) {
         return 'その他'
       } else if(number == 2) {
-        return '仮想・暗号通貨'
+        return '暗号通貨'
       } else if(number == 3) {
         return 'モナコイン'
       } else if(number == 4) {
@@ -223,6 +223,8 @@ export default {
         return '日記'
       } else if(number == 8) {
         return 'IT技術'
+      } else if(number == 9) {
+        return 'ガジェット'
       }
     }
   },
