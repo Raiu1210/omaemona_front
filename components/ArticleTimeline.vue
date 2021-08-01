@@ -31,10 +31,10 @@
               <v-card-subtitle class="pb-0 mb-0">
                 <span>{{covertUpdateTime(article.createdAt)}}</span>
                 <span class="ml-5">{{article.access}} views</span>
-                <v-chip v-if="isWithinWeek(article.createdAt)" class="float-right mx-2" color="primary" x-small>
+                <v-chip v-if="isWithinWeek(article.createdAt)" class="float-right mx-2" color="primary" small>
                   new
                 </v-chip>
-                <v-chip class="float-right mt-0" color="success" x-small>
+                <v-chip class="float-right mt-0" color="success" small>
                   {{translateNumberToCategory(article.category)}}
                 </v-chip>
               </v-card-subtitle>
