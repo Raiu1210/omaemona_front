@@ -12,6 +12,10 @@
           <nuxt-link style="text-decoration: none; color: inherit;" :to="`/article/${article.id}`">
             <v-card-subtitle class="pb-0 mb-0">
               {{covertUpdateTime(article.updatedAt)}}
+
+              <v-chip class="float-right mt-0" color="success" small>
+                {{getCategory(article.category)}}
+              </v-chip>
             </v-card-subtitle>
 
             <v-card-title class="headline font-weight-bold mb-0 pb-0">
@@ -90,6 +94,7 @@
 <script>
 import {axiosInstance as Api} from '~/myModules/api'
 import generateIconImagePath from '~/myModules/generateIconImagePath'
+import translateNumberToCategory from '~/myModules/translateNumberToCategory'
 
 export default {
   props: {
@@ -132,6 +137,10 @@ export default {
         this.$emit('initView')
       }
     },
+    getCategory(number) {
+      console.log(translateNumberToCategory(number))
+      return translateNumberToCategory(number)
+    }
   }
 }
 </script>

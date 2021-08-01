@@ -17,7 +17,7 @@
 
     <!-- title field -->
     <v-row>
-      <v-col cols="12">
+      <v-col cols="9">
         <v-text-field
           class="title_field"
           v-model="title"
@@ -26,6 +26,19 @@
           outlined
           dense
         ></v-text-field>
+      </v-col>
+
+      <v-col
+        cols="3"
+      >
+        <v-select
+          label="モナコイン"
+          :items="categories"
+          item-text="name"
+          item-value="id"
+          v-model="selectedCategoryId"
+          solo
+        ></v-select>
       </v-col>
     </v-row>
 
@@ -105,7 +118,19 @@ export default {
       articleId: '',
       authorName: '',
       content: "# Markdownで記事を書く！",
-      dialog: false
+      dialog: false,
+      categories: [
+        { id: 2, name:'暗号通貨' },
+        { id: 3, name:'モナコイン' },
+        { id: 4, name:'温泉' },
+        { id: 5, name:'神社・お寺' },
+        { id: 6, name:'趣味' },
+        { id: 7, name:'日記' },
+        { id: 8, name:'IT技術' },
+        { id: 9, name:'ガジェット' },
+        { id: 1, name:'その他' },
+      ],
+      selectedCategoryId: 3   // モナコイン
     };
   },
   async beforeMount() {
@@ -143,15 +168,14 @@ export default {
           imageData: data
         }
         const res = await Api.post('/postOGP', imageObj)
-
-        // @todo: need validation
         const postObj = {
           "title": this.title,
           "content": this.content,
           "address": address,
           "message": message,
           "signature": signature,
-          "ogpPath": res['data']['ogpPath']
+          "ogpPath": res['data']['ogpPath'],
+          "category": this.selectedCategoryId
         }
 
         const result = await Api.post('/write', postObj)
@@ -188,6 +212,9 @@ export default {
     },
     lineHeight(index) {
       return String(45 + 10 * index) + "%"
+    },
+    fetchCategory (categoryText) {
+      this.selectedCategoryId = this.categories[categoryText]
     }
   },
   components: {

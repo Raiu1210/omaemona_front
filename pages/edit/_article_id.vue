@@ -1,8 +1,8 @@
 <template>
-  <v-container class="editorView">
+  <v-container class="editorView mt-5">
     <!-- title field -->
     <v-row>
-      <v-col cols="12">
+      <v-col cols="9">
         <v-text-field
           class="title_field"
           v-model="title"
@@ -11,6 +11,18 @@
           outlined
           dense
         ></v-text-field>
+      </v-col>
+
+      <v-col
+        cols="3"
+      >
+        <v-select
+          :items="categories"
+          item-text="name"
+          item-value="id"
+          v-model="selectedCategoryId"
+          solo
+        ></v-select>
       </v-col>
     </v-row>
 
@@ -30,7 +42,7 @@
       color="success"
       @click="postContent"
     >
-      投稿する
+      更新する
     </v-btn>
   </v-container>
 </template>
@@ -54,6 +66,18 @@ export default {
       dialog: false,
       tooltip: false,
       sendAmount: 0,
+      categories: [
+        { id: 2, name:'暗号通貨' },
+        { id: 3, name:'モナコイン' },
+        { id: 4, name:'温泉' },
+        { id: 5, name:'神社・お寺' },
+        { id: 6, name:'趣味' },
+        { id: 7, name:'日記' },
+        { id: 8, name:'IT技術' },
+        { id: 9, name:'ガジェット' },
+        { id: 1, name:'その他' },
+      ],
+      selectedCategoryId: 0
     };
   },
   async created() {
@@ -63,13 +87,12 @@ export default {
       }
     })
 
-    this.article = res['data']
     this.title = res['data']['title']
     this.content = res['data']['content']
     this.sentMona = res['data']['sent_mona']
     this.authorName = res['data']['user']['name']
     this.authorAddress = res['data']['user']['address']
-
+    this.selectedCategoryId = res['data']['category']
     const updatedObj = new Date(res['data']['updatedAt'])
     this.updated = updatedObj.getFullYear() + '年' + updatedObj.getMonth() + '月' + updatedObj.getDate() + '日'
   },
@@ -92,7 +115,8 @@ export default {
         "content": this.content,
         "address": address,
         "message": message,
-        "signature": signature
+        "signature": signature,
+        "category": this.selectedCategoryId
       }
 
       const result = await Api.post('/updateArticle', postObj)

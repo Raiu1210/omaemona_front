@@ -31,6 +31,12 @@
               <v-card-subtitle class="pb-0 mb-0">
                 <span>{{covertUpdateTime(article.createdAt)}}</span>
                 <span class="ml-5">{{article.access}} views</span>
+                <v-chip v-if="isWithinWeek(article.createdAt)" class="float-right mx-2" color="primary" small>
+                  new
+                </v-chip>
+                <v-chip class="float-right mt-0" color="success" small>
+                  {{getCategory(article.category)}}
+                </v-chip>
               </v-card-subtitle>
 
               <v-card-title class="pa-0 mt-2">
@@ -120,6 +126,7 @@
 
 <script>
 import {axiosInstance as Api} from '~/myModules/api'
+import translateNumberToCategory from '~/myModules/translateNumberToCategory'
 
 export default {
   data() {
@@ -183,6 +190,19 @@ export default {
       } else {
         return iconImagePath
       }
+    },
+    isWithinWeek(timeData) {
+      const now = new Date()
+      const createdAt = new Date(timeData)
+
+      if(((now - createdAt) / 86400000) < 7) {
+        return true
+      }
+
+      return false
+    },
+    getCategory(number) {
+      return translateNumberToCategory(number)
     }
   },
 }
