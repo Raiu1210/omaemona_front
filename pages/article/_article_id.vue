@@ -35,7 +35,10 @@
               ></v-img>
             </v-list-item-avatar>
           </NuxtLink>
-          <span class="author_name">{{authorName}} &ensp;&ensp;&ensp;</span><br />
+          <span class="author_name">{{authorName}} &ensp;&ensp;&ensp;</span>
+          <v-chip class="float-right mt-0" color="success" small>
+            {{getCategory(article.category)}}
+          </v-chip><br />
           <span class="updated_time">{{covertTime(article.createdAt)}}に公開</span>&ensp;&ensp;&ensp;&ensp;<br />
           <span class="updated_time">{{article.access}} views</span><br />
 
@@ -253,6 +256,8 @@ import Prism from '~/plugins/prism'
 import {axiosInstance as Api} from '~/myModules/api'
 import checkMyAddressRegistered from '~/myModules/checkMyAddress'
 import RandomRecommend from '~/components/RandomRecommend'
+import translateNumberToCategory from '~/myModules/translateNumberToCategory'
+
 
 export default {
   data(){
@@ -411,6 +416,9 @@ export default {
       }
       window.open(href, '_blank') // 新規タブでSNSのシェアページを開く
     },
+    getCategory(number) {
+      return translateNumberToCategory(number)
+    }
   },
   components: {
     RandomRecommend
