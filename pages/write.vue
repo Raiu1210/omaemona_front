@@ -91,6 +91,8 @@ import {axiosInstance as Api} from '~/myModules/api'
 import checkMyAddressRegistered from '~/myModules/checkMyAddress'
 import mdEditor from '~/components/mdEditor'
 import ShareDialog from '~/components/ShareDialog'
+import categoryUtils from '~/myModules/categoryUtils'
+
 
 const svg2imageData = (svgElement, successCallback, errorCallback) => {
   const canvas = document.createElement('canvas')
@@ -119,17 +121,7 @@ export default {
       authorName: '',
       content: "# Markdownで記事を書く！",
       dialog: false,
-      categories: [
-        { id: 2, name:'暗号通貨' },
-        { id: 3, name:'モナコイン' },
-        { id: 4, name:'温泉' },
-        { id: 5, name:'神社・お寺' },
-        { id: 6, name:'趣味' },
-        { id: 7, name:'日記' },
-        { id: 8, name:'IT技術' },
-        { id: 9, name:'ガジェット' },
-        { id: 1, name:'その他' },
-      ],
+      categories: [],
       selectedCategoryId: 3   // モナコイン
     };
   },
@@ -140,6 +132,7 @@ export default {
       this.$router.push('/signup')
     }
     this.authorName = isMyAddressRegistered['userInfo']['name']
+    this.categories = categoryUtils.getCategoriesObj()
   },
   methods: {
     async postContent() {

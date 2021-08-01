@@ -126,7 +126,7 @@
 
 <script>
 import {axiosInstance as Api} from '~/myModules/api'
-import translateNumberToCategory from '~/myModules/translateNumberToCategory'
+import categoryUtils from '~/myModules/categoryUtils'
 
 export default {
   data() {
@@ -202,7 +202,7 @@ export default {
       return false
     },
     getCategory(number) {
-      return translateNumberToCategory(number)
+      return categoryUtils.translateNumberToCategory(number)
     }
   },
 }

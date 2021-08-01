@@ -52,6 +52,8 @@
 import {axiosInstance as Api} from '~/myModules/api'
 import checkMyAddressRegistered from '~/myModules/checkMyAddress'
 import mdEditor from '~/components/mdEditor'
+import categoryUtils from '~/myModules/categoryUtils'
+
 
 export default {
   data() {
@@ -66,17 +68,7 @@ export default {
       dialog: false,
       tooltip: false,
       sendAmount: 0,
-      categories: [
-        { id: 2, name:'暗号通貨' },
-        { id: 3, name:'モナコイン' },
-        { id: 4, name:'温泉' },
-        { id: 5, name:'神社・お寺' },
-        { id: 6, name:'趣味' },
-        { id: 7, name:'日記' },
-        { id: 8, name:'IT技術' },
-        { id: 9, name:'ガジェット' },
-        { id: 1, name:'その他' },
-      ],
+      categories: [],
       selectedCategoryId: 0
     };
   },
@@ -95,6 +87,7 @@ export default {
     this.selectedCategoryId = res['data']['category']
     const updatedObj = new Date(res['data']['updatedAt'])
     this.updated = updatedObj.getFullYear() + '年' + updatedObj.getMonth() + '月' + updatedObj.getDate() + '日'
+    this.categories = categoryUtils.getCategoriesObj()
   },
   methods: {
     async postContent() {
