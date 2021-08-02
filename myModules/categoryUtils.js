@@ -14,6 +14,9 @@ export default {
     ]
   },
   translateNumberToCategory(number) {
+    if(number == 0) {
+      return '未分類'
+    }
     let categories = this.getCategoriesObj()
     let return_name = ''
     categories.forEach(element => {
