@@ -112,6 +112,29 @@
           rounded="lg"
           min-height="600px"
         >
+          <v-card
+            class="mx-auto"
+          >
+            <v-toolbar
+              color="teal"
+              dark
+            >
+              <v-toolbar-title>カテゴリ一覧</v-toolbar-title>
+              <v-spacer></v-spacer>
+            </v-toolbar>
+
+            <v-list>
+              <v-list-item
+                v-for="item in items"
+                :key="item.id"
+                no-action
+              >
+                <v-list-item-content>
+                  <v-list-item-title v-text="item.name"></v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+          </v-card>
           <adsbygoogle
             ad-slot="7670670870"
           />
@@ -143,7 +166,8 @@ export default {
         display:'inline-block',
         width:'300px',
         height:'250px'
-      }
+      },
+      items: [],
     }
   },
   async fetch() {
@@ -157,6 +181,7 @@ export default {
     this.articles = res["data"]["articles"]
     const articlesCount = res["data"]["articlesCount"]
     this.pageLength = Math.ceil(articlesCount / 10)
+    this.items = categoryUtils.getAllCategoriesObj()
   },
   methods: {
     setDestination() {
