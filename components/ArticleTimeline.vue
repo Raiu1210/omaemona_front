@@ -116,7 +116,7 @@
             class="mx-auto"
           >
             <v-toolbar
-              color="teal"
+              color="success"
               dark
             >
               <v-toolbar-title>カテゴリ一覧</v-toolbar-title>
