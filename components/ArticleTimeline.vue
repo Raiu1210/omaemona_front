@@ -137,6 +137,7 @@ export default {
       pageLength: 0,
       tabIndex: 0,
       destination: '',
+      category: null,
       gadStyle: {
         display:'inline-block',
         width:'300px',
@@ -166,6 +167,7 @@ export default {
         this.destination = '/'
       }
       this.page = this.$route.params.page == undefined ? 1 : Number(this.$route.params.page)
+      this.category = this.$route.query.category == null
     },
     covertUpdateTime(timeData) {
       const timeObj = new Date(timeData)
@@ -173,9 +175,17 @@ export default {
     },
     gotoPageN(page) {
       if (this.destination == '/') {
-        this.$router.push({ path: `${this.destination.slice(1)}/${page}` })
+        if(this.query == null) {
+          this.$router.push({ path: `${this.destination.slice(1)}/${page}` })
+        } else {
+          this.$router.push({ path: `${this.destination.slice(1)}/${page}`, query: {category: this.query} })
+        }
       } else {
-        this.$router.push({ path: `${this.destination}/${page}` })
+        if(this.query == null) {
+          this.$router.push({ path: `${this.destination}/${page}` })
+        } else {
+          this.$router.push({ path: `${this.destination}/${page}`, query: {category: this.query} })
+        }
       }
     },
     iconImagePath(iconImagePath) {
