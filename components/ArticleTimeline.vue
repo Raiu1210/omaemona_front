@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    <p>{{category}}</p>
     <v-row>
       <v-col
         cols="12"
@@ -167,7 +168,7 @@ export default {
         this.destination = '/'
       }
       this.page = this.$route.params.page == undefined ? 1 : Number(this.$route.params.page)
-      this.category = this.$route.query.category == null
+      this.category = this.$route.query.category
     },
     covertUpdateTime(timeData) {
       const timeObj = new Date(timeData)
@@ -175,16 +176,19 @@ export default {
     },
     gotoPageN(page) {
       if (this.destination == '/') {
-        if(this.query == null) {
+        console.log(this.category == null)
+        console.log(this.category)
+        if(this.category == null) {
           this.$router.push({ path: `${this.destination.slice(1)}/${page}` })
         } else {
-          this.$router.push({ path: `${this.destination.slice(1)}/${page}`, query: {category: this.query} })
+          console.log(this.category)
+          this.$router.push({ path: `${this.destination.slice(1)}/${page}`, query: {category: this.category} })
         }
       } else {
-        if(this.query == null) {
+        if(this.category == null) {
           this.$router.push({ path: `${this.destination}/${page}` })
         } else {
-          this.$router.push({ path: `${this.destination}/${page}`, query: {category: this.query} })
+          this.$router.push({ path: `${this.destination}/${page}`, query: {category: this.category} })
         }
       }
     },
