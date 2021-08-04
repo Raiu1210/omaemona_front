@@ -130,11 +130,8 @@
                   :key="item.id"
                   no-action
                 >
-                  <v-list-item-content>
-                    <nuxt-link to='/' style="text-decoration: none; color: inherit;">
+                  <v-list-item-content @click="gotoCategory(item.id)">
                     <v-list-item-title v-text="item.name"></v-list-item-title>
-
-                    </nuxt-link>
                   </v-list-item-content>
                 </v-list-item>
               </v-list-item-group>
@@ -181,9 +178,11 @@ export default {
 
     const res = await Api.get(this.destination, {
       params: {
-        page: this.$route.params.page == undefined ? 1 : this.$route.params.page
+        page: this.$route.query.page == undefined ? 1 : this.$route.query.page,
+        category: this.category
       }
     })
+    console.log(res["data"])
     this.articles = res["data"]["articles"]
     const articlesCount = res["data"]["articlesCount"]
     this.pageLength = Math.ceil(articlesCount / 10)
@@ -198,8 +197,12 @@ export default {
       } else {
         this.destination = '/'
       }
-      this.page = this.$route.params.page == undefined ? 1 : Number(this.$route.params.page)
+      this.page = this.$route.query.page == undefined ? 1 : Number(this.$route.query.page)
       this.category = this.$route.query.category
+
+      if (this.category) {
+        this.destination = '/category'
+      }
     },
     covertUpdateTime(timeData) {
       const timeObj = new Date(timeData)
@@ -207,18 +210,16 @@ export default {
     },
     gotoPageN(page) {
       if (this.destination == '/') {
-        console.log(this.category == null)
-        console.log(this.category)
         if(this.category == null) {
           this.$router.push({ path: `${this.destination.slice(1)}/${page}` })
         } else {
-          console.log(this.category)
           this.$router.push({ path: `${this.destination.slice(1)}/${page}`, query: {category: this.category} })
         }
       } else {
         if(this.category == null) {
           this.$router.push({ path: `${this.destination}/${page}` })
         } else {
+          console.log(`${this.destination}/${page}`)
           this.$router.push({ path: `${this.destination}/${page}`, query: {category: this.category} })
         }
       }
@@ -248,6 +249,10 @@ export default {
     },
     getCategory(number) {
       return categoryUtils.translateNumberToCategory(number)
+    },
+    gotoCategory(category) {
+      this.category = category
+      this.gotoPageN(this.page)
     }
   },
 }
