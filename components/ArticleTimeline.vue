@@ -116,7 +116,7 @@
             class="mx-auto"
           >
             <v-toolbar
-              color="success"
+              color="blue-grey darken-1"
               dark
             >
               <v-toolbar-title>カテゴリ一覧</v-toolbar-title>
@@ -124,15 +124,20 @@
             </v-toolbar>
 
             <v-list>
-              <v-list-item
-                v-for="item in items"
-                :key="item.id"
-                no-action
-              >
-                <v-list-item-content>
-                  <v-list-item-title v-text="item.name"></v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
+              <v-list-item-group color="primary" v-model="selectedItem">
+                <v-list-item
+                  v-for="item in categories"
+                  :key="item.id"
+                  no-action
+                >
+                  <v-list-item-content>
+                    <nuxt-link to='/' style="text-decoration: none; color: inherit;">
+                    <v-list-item-title v-text="item.name"></v-list-item-title>
+
+                    </nuxt-link>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list-item-group>
             </v-list>
           </v-card>
           <adsbygoogle
@@ -162,12 +167,13 @@ export default {
       tabIndex: 0,
       destination: '',
       category: null,
+      selectedItem: 1,
       gadStyle: {
         display:'inline-block',
         width:'300px',
         height:'250px'
       },
-      items: [],
+      categories: [],
     }
   },
   async fetch() {
@@ -181,7 +187,7 @@ export default {
     this.articles = res["data"]["articles"]
     const articlesCount = res["data"]["articlesCount"]
     this.pageLength = Math.ceil(articlesCount / 10)
-    this.items = categoryUtils.getAllCategoriesObj()
+    this.categories = categoryUtils.getAllCategoriesObj()
   },
   methods: {
     setDestination() {
