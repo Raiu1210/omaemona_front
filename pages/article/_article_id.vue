@@ -35,10 +35,18 @@
               ></v-img>
             </v-list-item-avatar>
           </NuxtLink>
-          <span class="author_name">{{authorName}} &ensp;&ensp;&ensp;</span>
-          <v-chip class="float-right mt-0" color="success" small>
-            {{getCategory(article.category)}}
-          </v-chip><br />
+
+          <NuxtLink class="author_page_link" :to="`/user/${authorAddress}`">
+            <span class="author_name">{{authorName}} &ensp;&ensp;&ensp;</span>
+          </NuxtLink>
+
+          <NuxtLink :to="`/?category=${article.category}`">
+            <v-chip class="category_link float-right mt-0" color="success" small>
+              {{getCategory(article.category)}}
+            </v-chip>
+          </NuxtLink>
+
+          <br />
           <span class="updated_time">{{covertTime(article.createdAt)}}に公開</span>&ensp;&ensp;&ensp;&ensp;<br />
           <span class="updated_time">{{article.access}} views</span><br />
 
@@ -441,6 +449,7 @@ export default {
   margin-bottom: 20px;
 }
 
+
 .contents ::v-deep img {
   max-width: 500px;
   width: 100%;
@@ -454,6 +463,11 @@ export default {
 
 .mona_input {
   width: 200px;
+}
+
+.author_page_link {
+  text-decoration:none;
+  color: black
 }
 
 .author_name {
@@ -475,5 +489,9 @@ export default {
 
 .name_tag {
   text-align: right;
+}
+
+.category_link {
+  cursor: pointer;
 }
 </style>

@@ -111,6 +111,31 @@
           rounded="lg"
           min-height="600px"
         >
+          <v-card
+            class="mx-auto"
+          >
+            <v-toolbar
+              color="blue-grey darken-1"
+              dark
+            >
+              <v-toolbar-title>カテゴリ一覧</v-toolbar-title>
+              <v-spacer></v-spacer>
+            </v-toolbar>
+
+            <v-list>
+              <v-list-item-group color="primary" v-model="selectedCategoryId">
+                <v-list-item
+                  v-for="item in categories"
+                  :key="item.id"
+                  no-action
+                >
+                  <v-list-item-content @click="changeCategory(item.id)">
+                    <v-list-item-title v-text="item.name"></v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list-item-group>
+            </v-list>
+          </v-card>
           <adsbygoogle
             ad-slot="7670670870"
           />
@@ -137,11 +162,14 @@ export default {
       pageLength: 0,
       tabIndex: 0,
       destination: '',
+      category: null,
+      selectedCategoryId: null,
       gadStyle: {
         display:'inline-block',
         width:'300px',
         height:'250px'
-      }
+      },
+      categories: [],
     }
   },
   async fetch() {
@@ -149,12 +177,14 @@ export default {
 
     const res = await Api.get(this.destination, {
       params: {
-        page: this.$route.params.page == undefined ? 1 : this.$route.params.page
+        page: this.$route.params.page == undefined ? 1 : this.$route.params.page,
+        category: this.category
       }
     })
     this.articles = res["data"]["articles"]
     const articlesCount = res["data"]["articlesCount"]
     this.pageLength = Math.ceil(articlesCount / 10)
+    this.categories = categoryUtils.getAllCategoriesObj()
   },
   methods: {
     setDestination() {
@@ -166,17 +196,32 @@ export default {
         this.destination = '/'
       }
       this.page = this.$route.params.page == undefined ? 1 : Number(this.$route.params.page)
+      this.category = this.$route.query.category
+      this.selectedCategoryId = this.categories.findIndex(({id}) => id == this.category)
+
+      if (this.category) {
+        this.destination = '/category'
+      }
     },
     covertUpdateTime(timeData) {
       const timeObj = new Date(timeData)
       return timeObj.getFullYear() + '年' + (Number(timeObj.getMonth()) + 1) + '月' + timeObj.getDate() + '日'
     },
     gotoPageN(page) {
+      if(this.category) {
+        this.$router.push({ path: `/${page}`, query: {category: this.category} })
+        return
+      }
       if (this.destination == '/') {
         this.$router.push({ path: `${this.destination.slice(1)}/${page}` })
       } else {
         this.$router.push({ path: `${this.destination}/${page}` })
       }
+
+
+    },
+    changeCategory(categoryId) {
+      this.$router.push({ path: '/', query: {category: categoryId} })
     },
     iconImagePath(iconImagePath) {
       const env = process.env.NODE_ENV || 'development'
@@ -203,8 +248,19 @@ export default {
     },
     getCategory(number) {
       return categoryUtils.translateNumberToCategory(number)
+    },
+    gotoCategory(category) {
+      this.category = category
+      this.gotoPageN(this.page)
     }
   },
+  watch: {
+    $route(to, from) {
+      if(this.category !== this.$route.query.category) {
+        this.$fetch()
+      }
+    }
+  }
 }
 </script>
 
