@@ -1,6 +1,5 @@
 <template>
   <v-container>
-    <p>{{category}}</p>
     <v-row>
       <v-col
         cols="12"
@@ -130,7 +129,7 @@
                   :key="item.id"
                   no-action
                 >
-                  <v-list-item-content @click="gotoCategory(item.id)">
+                  <v-list-item-content @click="changeCategory(item.id)">
                     <v-list-item-title v-text="item.name"></v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
@@ -178,11 +177,10 @@ export default {
 
     const res = await Api.get(this.destination, {
       params: {
-        page: this.$route.query.page == undefined ? 1 : this.$route.query.page,
+        page: this.$route.params.page == undefined ? 1 : this.$route.params.page,
         category: this.category
       }
     })
-    console.log(res["data"])
     this.articles = res["data"]["articles"]
     const articlesCount = res["data"]["articlesCount"]
     this.pageLength = Math.ceil(articlesCount / 10)
@@ -197,7 +195,7 @@ export default {
       } else {
         this.destination = '/'
       }
-      this.page = this.$route.query.page == undefined ? 1 : Number(this.$route.query.page)
+      this.page = this.$route.params.page == undefined ? 1 : Number(this.$route.params.page)
       this.category = this.$route.query.category
 
       if (this.category) {
@@ -209,20 +207,20 @@ export default {
       return timeObj.getFullYear() + '年' + (Number(timeObj.getMonth()) + 1) + '月' + timeObj.getDate() + '日'
     },
     gotoPageN(page) {
-      if (this.destination == '/') {
-        if(this.category == null) {
-          this.$router.push({ path: `${this.destination.slice(1)}/${page}` })
-        } else {
-          this.$router.push({ path: `${this.destination.slice(1)}/${page}`, query: {category: this.category} })
-        }
-      } else {
-        if(this.category == null) {
-          this.$router.push({ path: `${this.destination}/${page}` })
-        } else {
-          console.log(`${this.destination}/${page}`)
-          this.$router.push({ path: `${this.destination}/${page}`, query: {category: this.category} })
-        }
+      if(this.category) {
+        this.$router.push({ path: `/${page}`, query: {category: this.category} })
+        return
       }
+      if (this.destination == '/') {
+        this.$router.push({ path: `${this.destination.slice(1)}/${page}` })
+      } else {
+        this.$router.push({ path: `${this.destination}/${page}` })
+      }
+
+
+    },
+    changeCategory(categoryId) {
+      this.$router.push({ path: '/', query: {category: categoryId} })
     },
     iconImagePath(iconImagePath) {
       const env = process.env.NODE_ENV || 'development'
@@ -255,6 +253,16 @@ export default {
       this.gotoPageN(this.page)
     }
   },
+  watch: {
+    $route(to, from) {
+      if(this.category !== this.$route.query.category) {
+        this.$fetch()
+      }
+
+      // console.log(this.category)
+      // console.log(this.$route.query.category)
+    }
+  }
 }
 </script>
 
