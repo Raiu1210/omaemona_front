@@ -123,7 +123,7 @@
             </v-toolbar>
 
             <v-list>
-              <v-list-item-group color="primary" v-model="selectedItem">
+              <v-list-item-group color="primary" v-model="selectedCategoryId">
                 <v-list-item
                   v-for="item in categories"
                   :key="item.id"
@@ -163,7 +163,7 @@ export default {
       tabIndex: 0,
       destination: '',
       category: null,
-      selectedItem: 1,
+      selectedCategoryId: null,
       gadStyle: {
         display:'inline-block',
         width:'300px',
@@ -197,6 +197,7 @@ export default {
       }
       this.page = this.$route.params.page == undefined ? 1 : Number(this.$route.params.page)
       this.category = this.$route.query.category
+      this.selectedCategoryId = this.categories.findIndex(({id}) => id == this.category)
 
       if (this.category) {
         this.destination = '/category'
@@ -258,9 +259,6 @@ export default {
       if(this.category !== this.$route.query.category) {
         this.$fetch()
       }
-
-      // console.log(this.category)
-      // console.log(this.$route.query.category)
     }
   }
 }
