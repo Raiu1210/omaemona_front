@@ -222,6 +222,10 @@ export default {
     },
     changeCategory(categoryId) {
       this.$router.push({ path: '/', query: {category: categoryId} })
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      })
     },
     iconImagePath(iconImagePath) {
       const env = process.env.NODE_ENV || 'development'
