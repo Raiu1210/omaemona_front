@@ -494,4 +494,103 @@ export default {
 .category_link {
   cursor: pointer;
 }
+
+
+
+
+// .post-content ::v-deep
+
+
+::v-deep .booklink-box, .kaerebalink-box{
+    padding:25px;
+    margin-bottom: 10px;
+    border:double #CCC;
+    overflow: hidden;
+    font-size:small;
+}
+::v-deep .booklink-image, .kaerebalink-image{
+    margin:0 15px 0 0;
+    float:left;
+    min-width: 160px;
+    text-align: center;
+}
+::v-deep .booklink-image img, .kaerebalink-image img{
+    margin:0 auto;
+    text-align:center;
+}
+::v-deep .booklink-info, .kaerebalink-info{
+    margin:0;
+    line-height:120%;
+    overflow: hidden;
+}
+::v-deep .booklink-name, .kaerebalink-name{
+    margin-bottom:24px;
+    line-height:1.5em;
+}
+::v-deep .booklink-powered-date, .kaerebalink-powered-date{
+     font-size:8px;
+     margin-top:10px;
+     font-family:verdana;
+     line-height:120%;
+}
+::v-deep .booklink-detail, .kaerebalink-detail{font-size: 12px;}
+::v-deep .booklink-powered-date, .kaerebalink-detail{margin-bottom:15px;}
+::v-deep .booklink-link2, .kaerebalink-link1{margin-top:10px;}
+::v-deep .booklink-link2 a,
+::v-deep .kaerebalink-link1 a{
+    width:30%;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    border-radius:5px;
+    display:inline-block;
+    margin:5px 2px 0 0;
+    padding:10px 1px;
+    text-align:center;
+    float:left;
+    text-decoration:none;
+    font-weight:800;
+    text-shadow:1px 1px 1px #dcdcdc;
+    font-size:12px;
+    color: #fff !important;
+}
+::v-deep .booklink-link2 a:hover,
+::v-deep .kaerebalink-link1 a:hover{opacity: 0.6;}
+::v-deep .booklink-link2 a:active
+::v-deep .kaerebalink-link1 a:active{
+    position:relative;
+    top:1px;
+}
+/*ボタンを変えるときはここから*/
+::v-deep .shoplinkamazon a{background-color:#FF9901 !important;}
+::v-deep .shoplinkrakuten a{background-color:#c20004 !important;}
+::v-deep .shoplinkkindle a{background-color:#007dcd !important;}
+::v-deep .shoplinkkakakucom a{background-color:#314995 !important;}
+::v-deep .shoplinkyahoo a{background-color:#7b0099 !important;}
+/*ここまでを変更*/
+::v-deep .shoplinkyahoo img{display:none;}
+::v-deep .shoplinkyahoo a{font-size:10px;}
+::v-deep .booklink-footer{display: none;}
+
+@media screen and (max-width: 680px) {
+  ::v-deep .booklink-box, .kaerebalink-box{padding:15px;}
+  ::v-deep .booklink-image, .kaerebalink-image{
+      width: 100px !important;
+      min-width: initial;
+  }
+  ::v-deep.booklink-name > a, .kaerebalink-name > a{
+      font-size: 15px;
+      font-weight: bold;
+  }
+  ::v-deep .booklink-name, .kaerebalink-name{margin-bottom:12px;}
+  ::v-deep .booklink-powered-date, .kaerebalink-powered-date{margin-top:5px;}
+  ::v-deep .booklink-link2 a,
+  ::v-deep .kaerebalink-link1 a{
+      width:calc(100% - 4px);
+      -moz-border-radius:5px;
+      -webkit-border-radius:5px;
+      border-radius:5px;
+      margin: 2px 0px;
+      padding:10px 0px;
+  }
+}
 </style>

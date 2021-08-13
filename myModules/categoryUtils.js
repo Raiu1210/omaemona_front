@@ -10,6 +10,7 @@ export default {
       { id: 7, name:'日記' },
       { id: 8, name:'IT技術' },
       { id: 9, name:'ガジェット' },
+      { id: 11, name:'本' },
       { id: 1, name:'その他' },
     ]
   },
@@ -24,6 +25,7 @@ export default {
       { id: 7, name:'日記' },
       { id: 8, name:'IT技術' },
       { id: 9, name:'ガジェット' },
+      { id: 11, name:'本' },
       { id: 1, name:'その他' },
       { id: 0, name:'未分類' },
     ]
