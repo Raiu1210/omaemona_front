@@ -21,6 +21,11 @@
           <v-btn color="info" href="https://chrome.google.com/webstore/detail/mpurse/ljkohnccmlcpleonoiabgfggnhpkihaa">Chromeにインストール</v-btn>
           <v-btn color="info" href="https://addons.mozilla.org/ja/firefox/addon/mpchain_mpurse/">FireFoxにインストール</v-btn>
         </v-card-actions>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="success" href="https://apps.apple.com/jp/app/mpurse/id1494156643">iphone用 mpurse</v-btn>
+          <v-btn color="success" href="https://play.google.com/store/apps/details?id=info.mpchain.mpurse&hl=en&gl=US">android用 mpurse</v-btn>
+        </v-card-actions>
       </v-card>
     </v-row>
 
