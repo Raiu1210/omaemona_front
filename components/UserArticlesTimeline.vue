@@ -11,7 +11,7 @@
         >
           <nuxt-link style="text-decoration: none; color: inherit;" :to="`/article/${article.id}`">
             <v-card-subtitle class="pb-0 mb-0">
-              {{covertUpdateTime(article.updatedAt)}}
+              {{covertUpdateTime(article.createdAt)}}
 
               <v-chip class="float-right mt-0" color="success" small>
                 {{getCategory(article.category)}}
