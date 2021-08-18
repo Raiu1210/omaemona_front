@@ -11,6 +11,7 @@ export default {
       { id: 8, name:'IT技術' },
       { id: 9, name:'ガジェット' },
       { id: 11, name:'本' },
+      { id: 12, name:'創作話' },
       { id: 1, name:'その他' },
     ]
   },
@@ -26,6 +27,7 @@ export default {
       { id: 8, name:'IT技術' },
       { id: 9, name:'ガジェット' },
       { id: 11, name:'本' },
+      { id: 12, name:'創作話' },
       { id: 1, name:'その他' },
       { id: 0, name:'未分類' },
     ]

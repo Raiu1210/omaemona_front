@@ -216,6 +216,10 @@ export default {
       })
     },
     async login() {
+      if(!window.mpurse) {
+        this.$router.push('/signup')
+      }
+
       const checkResult = await checkMyAddress()
       if(checkResult['status']) {
         this.$store.commit('setVerified', checkResult['userInfo']['address'])
