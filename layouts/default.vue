@@ -236,6 +236,7 @@ export default {
     window.addEventListener('message', (event) => {
         for (const id in id2messageListener) id2messageListener[id](event);
     });
+    window.monapaletteConnect.getAddress().then(() => window.mpurse = window.monapaletteConnect).catch(() => {})
   },
   methods: {
     search() {
