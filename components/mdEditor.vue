@@ -48,6 +48,9 @@ export default {
       },
     }
   },
+  mounted() {
+    twttr.widgets.load()
+  },
   methods: {
     async $imgAdd(pos, $file){
       const env = process.env.NODE_ENV || 'development'

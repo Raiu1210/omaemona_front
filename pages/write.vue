@@ -6,11 +6,13 @@
         <v-alert
           outlined
           type="success"
+          text
         >
           <div class="title">
             記事を書こう！
           </div>
           <div>良い記事を書いたらモナコインがもらえるかも！</div>
+          <div>※ 画像アップロードの際に日本語名だとエラーが出ることがあります。エラーの場合はお手数ですが、英数字のファイル名になっているか、スペースなどが入っていないかなどをご確認ください。</div>
         </v-alert>
       </v-col>
     </v-row>
@@ -124,6 +126,9 @@ export default {
       categories: [],
       selectedCategoryId: 3   // モナコイン
     };
+  },
+  mounted() {
+    twttr.widgets.load()
   },
   async beforeMount() {
     let isMyAddressRegistered = await checkMyAddressRegistered()
