@@ -127,6 +127,9 @@ export default {
       selectedCategoryId: 3   // モナコイン
     };
   },
+  mounted() {
+    twttr.widgets.load()
+  },
   async beforeMount() {
     let isMyAddressRegistered = await checkMyAddressRegistered()
     if (!isMyAddressRegistered['status']) {

@@ -44,7 +44,18 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/monacoin.ico' }
-    ]
+    ],
+    script: [
+      {
+        hid: 'twitter',
+        type: 'text/javascript',
+        src: '//platform.twitter.com/widgets.js',
+        async: true,
+        defer: true,
+        body: true
+      },
+      { src: 'https://platform.twitter.com/widgets.js' }
+    ],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
