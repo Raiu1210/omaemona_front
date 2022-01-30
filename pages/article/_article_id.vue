@@ -327,6 +327,7 @@ export default {
   },
   async mounted() {
     Prism.highlightAll()
+    twttr.widgets.load()
   },
   methods: {
     async updateView() {
