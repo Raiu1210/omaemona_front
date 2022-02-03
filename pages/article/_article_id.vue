@@ -169,29 +169,8 @@
     </v-row>
 
 
-    <v-row v-if="addressRegistered">
-      <!-- null space -->
-      <v-col cols="1"></v-col>
-
-      <!-- content -->
-      <v-col cols="9">
-        <v-alert text
-          border="top"
-          colored-border
-          type="info"
-          elevation="2"
-        >
-          コメントをするためにはmpurseをインストールしてサインアップする必要があります。<br />サインアップは
-          <nuxt-link to="/signup">
-            こちら
-          </nuxt-link>
-        </v-alert>
-      </v-col>
-    </v-row>
-
-
     <!-- add comment. if address is not registered, show sign up is needed -->
-    <v-row v-else>
+    <v-row>
       <!-- null space -->
       <v-col cols="1"></v-col>
 
@@ -275,7 +254,6 @@ export default {
       tooltip: false,
       sendAmount: 0,
       inputComment: '',
-      addressRegistered: false,
       gadStyle: {
         display:'inline-block',
         width:'300px',
@@ -319,12 +297,6 @@ export default {
       ],
     }
   },
-  async beforeMount() {
-    let isMyAddressRegistered = await checkMyAddressRegistered()
-    if (!isMyAddressRegistered['status']) {
-      this.addressRegistered = true
-    }
-  },
   async mounted() {
     Prism.highlightAll()
     twttr.widgets.load()
@@ -363,6 +335,12 @@ export default {
       alert("この記事の作者に投げ銭したよ！")
     },
     async postComment(article_id) {
+      let isMyAddressRegistered = await checkMyAddressRegistered()
+      if (!isMyAddressRegistered['status']) {
+        alert("コメントにはサインアップが必要だよ！")
+        return
+      }
+
       if(this.inputComment == '') {
         alert("空のコメントはうけつけられないよ！")
         return
