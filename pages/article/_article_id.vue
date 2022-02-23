@@ -58,6 +58,7 @@
           <span class="subheading mr-2">この記事の投稿者のアドレス : {{authorAddress}}</span><br /><br />
           <br /><br />
 
+          <!-- main content here -->
           <div class="post-content line-numbers contents" v-html="$md.render(content)"></div>
         </v-sheet>
 
@@ -415,13 +416,8 @@ export default {
 
 
 <style scoped lang="scss">
-::v-deep table, ::v-deep td, ::v-deep th {
-  border: 2px #808080 solid;
-}
+@import "~/styles/md-parse-style.css";
 
-::v-deep td, ::v-deep th {
-  padding: 5px 10px;
-}
 
 ::v-deep h1, ::v-deep h2, ::v-deep h3, ::v-deep h4 {
   margin-top: 50px;
