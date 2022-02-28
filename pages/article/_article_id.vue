@@ -419,6 +419,47 @@ export default {
 <style scoped lang="scss">
 @import "~/styles/md-parse-style.css";
 
+::v-deep pre[class*="language-"].line-numbers {
+	position: relative;
+	padding-left: 3.8em;
+	counter-reset: linenumber;
+}
+
+::v-deep pre[class*="language-"].line-numbers > code {
+	position: relative;
+	white-space: inherit;
+}
+
+::v-deep .line-numbers ::v-deep .line-numbers-rows {
+	position: absolute;
+	pointer-events: none;
+	top: 0;
+	font-size: 100%;
+	left: -3.8em;
+	width: 3em; /* works for line-numbers below 1000 lines */
+	letter-spacing: -1px;
+	border-right: 1px solid #999;
+
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+
+}
+
+	.line-numbers-rows > span {
+		display: block;
+		counter-increment: linenumber;
+	}
+
+		.line-numbers-rows > span:before {
+			content: counter(linenumber);
+			color: #999;
+			display: block;
+			padding-right: 0.8em;
+			text-align: right;
+		}
+
 
 ::v-deep h1, ::v-deep h2, ::v-deep h3, ::v-deep h4 {
   margin-top: 50px;
