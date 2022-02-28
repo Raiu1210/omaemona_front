@@ -47,16 +47,12 @@
           </NuxtLink>
 
           <br />
+          <span class="updated_time">{{sentMona.toFixed(8)}} MONA</span><br />
           <span class="updated_time">{{covertTime(article.createdAt)}}に公開</span>&ensp;&ensp;&ensp;&ensp;<br />
           <span class="updated_time">{{article.access}} views</span><br />
 
           <h1>{{title}}</h1>
-          <v-icon class="mr-1">
-            mdi-alpha-m-circle-outline
-          </v-icon>
-          <span class="subheading mr-2">received {{sentMona.toFixed(8)}} MONA</span><br />
-          <span class="subheading mr-2">この記事の投稿者のアドレス : {{authorAddress}}</span><br /><br />
-          <br /><br />
+          <br />
 
           <!-- main content here -->
           <div class="post-content line-numbers contents" v-html="$md.render(content)"></div>
@@ -316,24 +312,29 @@ export default {
     async sendMona() {
       this.dialog = false
       const address = await window.mpurse.getAddress()
-      const txHash = await window.mpurse.sendAsset(
-        this.authorAddress,
-        'MONA',
-        this.sendAmount,
-        'plain',
-        'LGTM'
-      )
-      const postObj = {
-        from: address,
-        article_id: this.$route.params.article_id,
-        amount: this.sendAmount,
-        txHash: txHash,
-        authorId: this.article['author_id']
-      }
 
-      const sendResult = await Api.post('/sendMonaToArticle', postObj)
-      this.updateView()
-      alert("この記事の作者に投げ銭したよ！")
+      try {
+        const txHash = await window.mpurse.sendAsset(
+          this.authorAddress,
+          'MONA',
+          this.sendAmount,
+          'plain',
+          'LGTM'
+        )
+        const postObj = {
+          from: address,
+          article_id: this.$route.params.article_id,
+          amount: this.sendAmount,
+          txHash: txHash,
+          authorId: this.article['author_id']
+        }
+
+        const sendResult = await Api.post('/sendMonaToArticle', postObj)
+        this.updateView()
+        alert("この記事の作者に投げ銭したよ！")
+      } catch (error) {
+        console.error(error);
+      }
     },
     async postComment(article_id) {
       let isMyAddressRegistered = await checkMyAddressRegistered()
@@ -417,6 +418,47 @@ export default {
 
 <style scoped lang="scss">
 @import "~/styles/md-parse-style.css";
+
+::v-deep pre[class*="language-"].line-numbers {
+	position: relative;
+	padding-left: 3.8em;
+	counter-reset: linenumber;
+}
+
+::v-deep pre[class*="language-"].line-numbers > code {
+	position: relative;
+	white-space: inherit;
+}
+
+::v-deep .line-numbers ::v-deep .line-numbers-rows {
+	position: absolute;
+	pointer-events: none;
+	top: 0;
+	font-size: 100%;
+	left: -3.8em;
+	width: 3em; /* works for line-numbers below 1000 lines */
+	letter-spacing: -1px;
+	border-right: 1px solid #999;
+
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+
+}
+
+	.line-numbers-rows > span {
+		display: block;
+		counter-increment: linenumber;
+	}
+
+		.line-numbers-rows > span:before {
+			content: counter(linenumber);
+			color: #999;
+			display: block;
+			padding-right: 0.8em;
+			text-align: right;
+		}
 
 
 ::v-deep h1, ::v-deep h2, ::v-deep h3, ::v-deep h4 {

@@ -43,7 +43,7 @@
           elevation="3"
           x-large
           @click="chargedGacha()"
-        >有料ガチャ<br>(0.01MONA)<br>「ち」と「ん」の<br>出る確率が10倍！</v-btn>
+        >有料ガチャ<br>(0.04545MONA)<br>「ち」と「ん」の<br>出る確率が10倍！</v-btn>
       </v-col>
     </v-row>
 
@@ -130,7 +130,8 @@ export default {
       c1: '',
       c2: '',
       c3: '',
-      c4: ''
+      c4: '',
+      cKana: "あいうえおかきくけこさしすせそたちちちちちちちちちちちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをんんんんんんんんんんん"
     }
   },
   created() {
@@ -147,20 +148,30 @@ export default {
   },
   methods: {
     freeGacha() {
-      // const r1 = Math.floor( Math.random() * 47 )
-      // const r2 = Math.floor( Math.random() * 47 )
-      // const r3 = Math.floor( Math.random() * 47 )
-      // const r4 = Math.floor( Math.random() * 47 )
-
-      // this.c1 = this.kana.slice(r1, r1+1)
-      // this.c2 = this.kana.slice(r2, r2+1)
-      // this.c3 = this.kana.slice(r3, r3+1)
-      // this.c4 = this.kana.slice(r4, r4+1)
       location.reload()
     },
-    chargedGacha() {
-      alert("coming soon")
+    async chargedGacha() {
+      try {
+        const txHash = await window.mpurse.sendAsset(
+          'M9hY5XcC7MSD54DfqcEojiKm9QMgXeQhGK',
+          'MONA',
+          0.04545,
+          'plain',
+          'LGTM'
+        )
+        console.log(txHash)
+        const r1 = Math.floor( Math.random() * 66 )
+        const r2 = Math.floor( Math.random() * 66 )
+        const r3 = Math.floor( Math.random() * 66 )
+        const r4 = Math.floor( Math.random() * 66 )
 
+        this.c1 = this.cKana.slice(r1, r1+1)
+        this.c2 = this.cKana.slice(r2, r2+1)
+        this.c3 = this.cKana.slice(r3, r3+1)
+        this.c4 = this.cKana.slice(r4, r4+1)
+      } catch (error) {
+        console.error(error);
+      }
     }
   }
 }
