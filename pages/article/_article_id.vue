@@ -312,24 +312,29 @@ export default {
     async sendMona() {
       this.dialog = false
       const address = await window.mpurse.getAddress()
-      const txHash = await window.mpurse.sendAsset(
-        this.authorAddress,
-        'MONA',
-        this.sendAmount,
-        'plain',
-        'LGTM'
-      )
-      const postObj = {
-        from: address,
-        article_id: this.$route.params.article_id,
-        amount: this.sendAmount,
-        txHash: txHash,
-        authorId: this.article['author_id']
-      }
 
-      const sendResult = await Api.post('/sendMonaToArticle', postObj)
-      this.updateView()
-      alert("この記事の作者に投げ銭したよ！")
+      try {
+        const txHash = await window.mpurse.sendAsset(
+          this.authorAddress,
+          'MONA',
+          this.sendAmount,
+          'plain',
+          'LGTM'
+        )
+        const postObj = {
+          from: address,
+          article_id: this.$route.params.article_id,
+          amount: this.sendAmount,
+          txHash: txHash,
+          authorId: this.article['author_id']
+        }
+
+        const sendResult = await Api.post('/sendMonaToArticle', postObj)
+        this.updateView()
+        alert("この記事の作者に投げ銭したよ！")
+      } catch (error) {
+        console.error(error);
+      }
     },
     async postComment(article_id) {
       let isMyAddressRegistered = await checkMyAddressRegistered()
