@@ -47,16 +47,12 @@
           </NuxtLink>
 
           <br />
+          <span class="updated_time">{{sentMona.toFixed(8)}} MONA</span><br />
           <span class="updated_time">{{covertTime(article.createdAt)}}に公開</span>&ensp;&ensp;&ensp;&ensp;<br />
           <span class="updated_time">{{article.access}} views</span><br />
 
           <h1>{{title}}</h1>
-          <v-icon class="mr-1">
-            mdi-alpha-m-circle-outline
-          </v-icon>
-          <span class="subheading mr-2">received {{sentMona.toFixed(8)}} MONA</span><br />
-          <span class="subheading mr-2">この記事の投稿者のアドレス : {{authorAddress}}</span><br /><br />
-          <br /><br />
+          <br />
 
           <!-- main content here -->
           <div class="post-content line-numbers contents" v-html="$md.render(content)"></div>
