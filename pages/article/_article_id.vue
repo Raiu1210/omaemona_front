@@ -463,7 +463,11 @@ export default {
 
 ::v-deep h1, ::v-deep h2, ::v-deep h3, ::v-deep h4 {
   margin-top: 50px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+}
+
+.post-content ::v-deep p {
+  margin-bottom: 30px;
 }
 
 
