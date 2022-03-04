@@ -467,6 +467,7 @@ export default {
 }
 
 .post-content ::v-deep p {
+  margin-top: 30px;
   margin-bottom: 30px;
 }
 
