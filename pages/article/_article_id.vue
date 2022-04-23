@@ -265,6 +265,9 @@ export default {
       }
     })
     const updatedObj = new Date(res['data']['updatedAt'])
+    const sortedComment = res['data']['comments'].sort(function(a, b) {
+      return (a.createdAt < b.createdAt) ? -1 : 1;
+    });
 
     return {
       article: res['data'],
@@ -274,7 +277,7 @@ export default {
       authorName: res['data']['user']['name'],
       authorAddress: res['data']['user']['address'],
       authorIconImagePath: res['data']['user']['icon_image_path'],
-      comments: res['data']['comments'],
+      comments: sortedComment,
       updated: updatedObj.getFullYear() + '年' + (Number(updatedObj.getMonth()) + 1) + '月' + updatedObj.getDate() + '日',
       ogpPath: res['data']['ogp_path'] == null ? 'https://monaledge.com/monaledge.jpeg' : res['data']['ogp_path']
     }
@@ -305,8 +308,12 @@ export default {
           id: this.$route.params.article_id
         }
       })
+
+      const sortedComment = res['data']['comments'].sort(function(a, b) {
+        return (a.createdAt < b.createdAt) ? -1 : 1;
+      });
       this.sentMona = res['data']['sent_mona']
-      this.comments = res['data']['comments']
+      this.comments = sortedComment
       this.inputComment = ''
     },
     async sendMona() {
