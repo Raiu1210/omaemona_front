@@ -269,7 +269,7 @@ export default {
       this.gotoPageN(this.page)
     },
     getImagePathInContent(content) {
-      const result = content.match(/https:\/\/monaledge.com:8443.*\.jpg/)
+      const result = content.match(/https:\/\/monaledge.com:8443.*[\.jpg|\.png]/)
 
       if(result) {
         return result[0]
