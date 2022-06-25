@@ -22,50 +22,63 @@
             v-for="article in articles"
             :key="article.id"
           >
-          <v-col>
-            <v-card
-              class="mx-auto"
-              color="#ffffff"
-              :to="{path : '/article/' + article.id}"
-            >
-              <v-card-subtitle class="pb-0 mb-0">
-                {{covertUpdateTime(article.updatedAt)}}
-              </v-card-subtitle>
+            <v-col>
+              <v-card
+                class="mx-auto"
+                color="#ffffff"
+                :to="{path : '/article/' + article.id}"
+              >
+                <v-img
+                  :src="getImagePathInContent(article['content'])"
+                  height="125px"
+                  class="pr-2 pt-2"
+                >
+                  <v-chip v-if="isWithinWeek(article.createdAt)" class="float-right mx-2" color="primary" small>
+                    new
+                  </v-chip>
+                  <v-chip class="float-right mt-0" color="success" small>
+                    {{getCategory(article.category)}}
+                  </v-chip>
+                </v-img>
 
-              <v-card-title class="pa-0 mt-2">
-                <span class="title font-weight-light"></span>
-              </v-card-title>
+                <v-card-title class="pa-0 mt-2">
+                  <span class="title font-weight-light"></span>
+                </v-card-title>
 
-              <v-card-text class="headline font-weight-bold mb-0 pb-0">
-                {{article.title}}
-              </v-card-text>
+                <v-card-text class="headline font-weight-bold mb-0 pb-0">
+                  {{article.title}}
+                </v-card-text>
 
-              <v-card-actions>
-                <v-list-item class="grow">
-                  <v-list-item-avatar color="grey darken-3">
-                    <v-img
-                      class="elevation-6"
-                      alt=""
-                      :src="iconImagePath(article.user.icon_image_path)"
-                    ></v-img>
-                  </v-list-item-avatar>
+                <v-card-actions>
+                  <v-list-item class="grow">
+                    <v-list-item-avatar color="grey darken-3">
+                      <v-img
+                        class="elevation-6"
+                        alt=""
+                        :src="iconImagePath(article.user.icon_image_path)"
+                      ></v-img>
+                    </v-list-item-avatar>
 
-                  <v-list-item-content>
-                    <v-list-item-title>{{article.user.name}}</v-list-item-title>
-                  </v-list-item-content>
+                    <v-list-item-content>
+                      <v-list-item-title>{{article.user.name}}</v-list-item-title>
+                    </v-list-item-content>
 
-                  <v-row
-                    align="center"
-                    justify="end"
-                  >
-                    <v-icon class="mr-1">
-                      mdi-alpha-m-circle-outline
-                    </v-icon>
-                    <span class="subheading mr-2">{{article.sent_mona.toFixed(8)}} MONA</span>
-                  </v-row>
-                </v-list-item>
-              </v-card-actions>
-            </v-card>
+                    <v-row
+                      align="center"
+                      justify="end"
+                    >
+                      <v-icon class="mr-1">
+                        mdi-message-outline
+                      </v-icon>
+                      <span class="subheading mr-2">({{article.comments.length}})</span>
+                      <v-icon class="mr-1">
+                        mdi-alpha-m-circle-outline
+                      </v-icon>
+                      <span class="subheading mr-2">{{article.sent_mona.toFixed(8)}} MONA</span>
+                    </v-row>
+                  </v-list-item>
+                </v-card-actions>
+              </v-card>
             </v-col>
           </v-row>
 
@@ -79,9 +92,21 @@
             ></v-pagination>
             </v-col>
           </v-row>
+
+          <v-row>
+            <v-col cols="6">
+              <adsbygoogle
+                ad-slot="1820228768"
+              />
+            </v-col>
+            <v-col cols="6">
+              <adsbygoogle
+                ad-slot="9315575403"
+              />
+            </v-col>
+          </v-row>
         </v-sheet>
       </v-col>
-
       <v-col
         cols="12"
         sm="3"
@@ -100,6 +125,7 @@
 
 <script>
 import {axiosInstance as Api} from '~/myModules/api'
+import categoryUtils from '~/myModules/categoryUtils'
 
 export default {
   data() {
@@ -148,6 +174,28 @@ export default {
         return url + '/profileImages/Monacoin.png'
       } else {
         return iconImagePath
+      }
+    },
+    isWithinWeek(timeData) {
+      const now = new Date()
+      const createdAt = new Date(timeData)
+
+      if(((now - createdAt) / 86400000) < 7) {
+        return true
+      }
+
+      return false
+    },
+    getCategory(number) {
+      return categoryUtils.translateNumberToCategory(number)
+    },
+    getImagePathInContent(content) {
+      const result = content.match(/https:\/\/monaledge.com:8443.*\.jpg/)
+
+      if(result) {
+        return result[0]
+      } else {
+        return "https://gahag.net/img/201512/30s/gahag-0041342245-1.jpg"
       }
     }
   },
