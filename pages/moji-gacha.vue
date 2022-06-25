@@ -159,7 +159,6 @@ export default {
           'plain',
           'LGTM'
         )
-        console.log(txHash)
         const r1 = Math.floor( Math.random() * 66 )
         const r2 = Math.floor( Math.random() * 66 )
         const r3 = Math.floor( Math.random() * 66 )
