@@ -30,7 +30,7 @@
             >
               <v-img
                 :src="getImagePathInContent(article['content'])"
-                height="150px"
+                height="125px"
                 class="pr-2 pt-2"
               >
                 <v-chip v-if="isWithinWeek(article.createdAt)" class="float-right mx-2" color="primary" small>
@@ -274,7 +274,7 @@ export default {
       if(result) {
         return result[0]
       } else {
-        return "https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
+        return "https://gahag.net/img/201512/30s/gahag-0041342245-1.jpg"
       }
     }
   },
