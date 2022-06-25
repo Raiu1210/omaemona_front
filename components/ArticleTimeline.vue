@@ -28,15 +28,22 @@
               color="#ffffff"
               :to="{path : '/article/' + article.id}"
             >
-              <v-card-subtitle class="pb-0 mb-0">
-                <span>{{covertUpdateTime(article.createdAt)}}</span>
-                <span class="ml-5">{{article.access}} views</span>
+              <v-img
+                :src="getImagePathInContent(article['content'])"
+                height="150px"
+                class="pr-2 pt-2"
+              >
                 <v-chip v-if="isWithinWeek(article.createdAt)" class="float-right mx-2" color="primary" small>
                   new
                 </v-chip>
                 <v-chip class="float-right mt-0" color="success" small>
                   {{getCategory(article.category)}}
                 </v-chip>
+              </v-img>
+
+              <v-card-subtitle class="pb-0 mb-0">
+                <span>{{covertUpdateTime(article.createdAt)}}</span>
+                <span class="ml-5">{{article.access}} views</span>
               </v-card-subtitle>
 
               <v-card-title class="pa-0 mt-2">
@@ -260,6 +267,15 @@ export default {
     gotoCategory(category) {
       this.category = category
       this.gotoPageN(this.page)
+    },
+    getImagePathInContent(content) {
+      const result = content.match(/https:\/\/monaledge.com:8443.*\.jpg/)
+
+      if(result) {
+        return result[0]
+      } else {
+        return "https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
+      }
     }
   },
   watch: {
