@@ -66,6 +66,10 @@
                     justify="end"
                   >
                     <v-icon class="mr-1">
+                      mdi-message-outline
+                    </v-icon>
+                    <span class="subheading mr-2">({{article.comments.length}})</span>
+                    <v-icon class="mr-1">
                       mdi-alpha-m-circle-outline
                     </v-icon>
                     <span class="subheading mr-2">{{article.sent_mona.toFixed(8)}} MONA</span>
